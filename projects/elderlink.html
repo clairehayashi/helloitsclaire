@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElderLink · Claire Lin</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       PROJECT PAGE — case study layout
+       Matches the centered article structure of the thesis page.
+       Universal rule: NO dog house in sidebar on project pages.
+    ═══════════════════════════════════════════════════════════ */
+
+    .main {
+      padding: 4rem 2rem 6rem;
+    }
+
+    .case {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .case-back {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: inline-block;
+      margin-bottom: 3rem;
+      transition: color 0.2s;
+    }
+    .case-back:hover { color: var(--text); }
+
+    .case-hero { margin-bottom: 3.4rem; }
+    .case-title {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+      white-space: nowrap;
+    }
+    .case-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #76746E;
+      letter-spacing: -0.005em;
+    }
+    .case-meta {
+      margin-top: 2rem;
+      padding-top: 1.4rem;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 2.2rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .case-meta b {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+    .case-meta span { color: var(--text); font-weight: 400; }
+
+    .case-section { margin: 3.6rem 0; }
+    .case-section-label {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+    .case-h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+    }
+    .case-p {
+      font-size: 1.02rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.3rem;
+    }
+    .case-p em { font-style: italic; color: var(--muted-strong); }
+
+    .case-callout {
+      background: var(--surface);
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--wood);
+      margin: 2.4rem 0 2.6rem;
+    }
+    .case-callout-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wood);
+      margin-bottom: 0.8rem;
+    }
+    .case-callout-text {
+      font-size: 1.14rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+
+    .case-figure { margin: 2.8rem 0; }
+    .case-figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 2px;
+      background: var(--thumb-bg);
+    }
+    .case-figcaption {
+      font-size: 0.82rem;
+      color: var(--muted-strong);
+      letter-spacing: 0.01em;
+      line-height: 1.55;
+      margin-top: 0.9rem;
+    }
+    .case-figcaption b { font-weight: 600; color: var(--text); margin-right: 0.3rem; }
+
+    .case-image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.1rem;
+      margin: 2.8rem 0;
+    }
+    .case-image-grid .case-figure { margin: 0; }
+
+    .case-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+      margin: 2.2rem 0 1.8rem;
+    }
+    .case-stat {
+      padding-top: 1.1rem;
+      border-top: 0.5px solid var(--line);
+    }
+    .case-stat-num {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .case-stat-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted-strong);
+      line-height: 1.5;
+    }
+
+    .case-principles {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      margin: 2rem 0;
+    }
+    .case-principle {
+      padding: 1.1rem 1.2rem;
+      border-top: 0.5px solid var(--line);
+      background: var(--surface);
+    }
+    .case-principle b {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .case-principle span {
+      display: block;
+      font-size: 0.86rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+    }
+
+    .case-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .case-credits {
+      margin-top: 4.4rem;
+      padding-top: 1.8rem;
+      border-top: 0.5px solid var(--line);
+      font-size: 0.84rem;
+      color: var(--muted-strong);
+      line-height: 1.9;
+    }
+    .case-credits dt {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .case-credits dt:first-child { margin-top: 0; }
+    .case-credits dd { color: var(--text); }
+    .case-credits dd em { font-style: normal; color: var(--muted-strong); }
+
+    @media (max-width: 700px) {
+      .case-title { font-size: 1.6rem; white-space: normal; }
+      .case-stats { grid-template-columns: 1fr; }
+      .case-image-grid { grid-template-columns: 1fr; }
+      .main { padding: 3rem 1.2rem 4rem; }
+    }
+
+    /* ── LOGO (matched to index.html) ───────────────────────── */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* ── SIDEBAR PERSONALITY LINE (matched to index.html) ───── */
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SIDEBAR LINKS, arrows removed (matched to index.html) ─ */
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+  </style>
+</head>
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="../index.html" aria-label="Claire Lin — Home">
+        <img class="sidebar-logo" src="../logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#gallery" class="active">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../resume.pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <!-- ══ MAIN — centered article column ═════════════════════ -->
+  <main class="main">
+    <article class="case">
+
+      <a href="../index.html#gallery" class="case-back">← Selected Work</a>
+
+      <header class="case-hero">
+        <h1 class="case-title">ElderLink</h1>
+        <p class="case-subtitle">
+          A privacy-preserving elder care concept that uses passive Wi‑Fi sensing to help caregivers understand whether an elderly family member is doing okay, without installing cameras at home.
+        </p>
+        <div class="case-meta">
+          <div><b>Year</b><span>2025</span></div>
+          <div><b>Type</b><span>Service Design · UX Prototype</span></div>
+          <div><b>Context</b><span>Keio KMD · Perception-Aware Computing</span></div>
+          <div><b>Role</b><span>UI Design · UX Research</span></div>
+        </div>
+      </header>
+
+      <figure class="case-figure">
+        <!-- Replace the file path if your page lives somewhere else. If this HTML is in /projects/, keep ../images/. -->
+        <img src="../elderlink-heroo.png" alt="ElderLink hero image showing a camera-free home sensing concept and caregiver dashboard" />
+        <figcaption class="case-figcaption">
+          <b>Figure 1.</b> ElderLink reframes elder care as quiet awareness rather than surveillance: a home remains visually private, while caregivers receive calm signals about routine, confidence, and possible risk.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Overview</p>
+        <p class="case-p">
+          ElderLink began from a simple tension: families want to know whether elderly loved ones are safe, but the most direct monitoring tools often feel invasive. Cameras can answer the question quickly, but they also turn domestic space into a watched space.
+        </p>
+        <p class="case-p">
+          The project explores a different model of care: using changes in Wi‑Fi signal patterns as an ambient sensing layer. Instead of showing what someone is doing, ElderLink communicates whether daily routines appear normal, whether there is a possible anomaly, and whether a caregiver should gently check in.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Problem</p>
+        <h2 class="case-h2">Most elder care tools choose between privacy and peace of mind.</h2>
+        <p class="case-p">
+          In long-distance care situations, uncertainty becomes emotional labor. A missed message, an unusual sleeping pattern, or a quiet morning can all trigger worry. Yet asking an older adult to use one more app, wear one more device, or accept a camera in the home can create the opposite feeling: being managed rather than cared for.
+        </p>
+        <div class="case-callout">
+          <p class="case-callout-label">Design question</p>
+          <p class="case-callout-text">
+            How might we help caregivers notice meaningful changes in an elderly person’s daily routine, while keeping the elderly person’s home private, camera-free, and low-effort?
+          </p>
+        </div>
+        <p class="case-p">
+          The key design challenge was not to maximize data. It was to decide what information is enough. ElderLink treats care as a spectrum: most days should produce quiet reassurance, only uncertain days should invite a check-in, and emergency states should remain rare but legible.
+        </p>
+      </section>
+
+      <figure class="case-figure">
+        <img src="../elderlink-sensing-privacy.png" alt="Illustration comparing camera surveillance with Wi-Fi movement sensing" />
+        <figcaption class="case-figcaption">
+          <b>Figure 2.</b> The privacy principle: remove visual capture from the system. ElderLink keeps movement rhythm and routine confidence while avoiding faces, rooms, clothing, and private scenes.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">System concept</p>
+        <h2 class="case-h2">A sensing pipeline designed for calm interpretation, not raw monitoring.</h2>
+        <p class="case-p">
+          The service concept has four layers. First, the existing home Wi‑Fi router becomes the sensing anchor. Second, a sensing model interprets passive signal changes as everyday movement patterns. Third, a care logic layer translates confidence and anomaly states into understandable language. Finally, the caregiver receives a dashboard that prioritizes clarity over technical detail.
+        </p>
+        <p class="case-p">
+          The interface intentionally avoids showing raw signal graphs as the primary view. For caregivers, the important question is not whether the signal fluctuated. It is whether today’s pattern resembles the person’s ordinary routine, whether something looks uncertain, and what action is appropriate.
+        </p>
+      </section>
+
+      <figure class="case-figure">
+        <img src="../elderlink-system-flow.png" alt="System flow from home Wi-Fi to sensing model to care logic to caregiver dashboard" />
+        <figcaption class="case-figcaption">
+          <b>Figure 3.</b> ElderLink converts household signal changes into care-oriented states: normal routine, low confidence, possible anomaly, and emergency risk.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Design principles</p>
+        <div class="case-principles">
+          <div class="case-principle">
+            <b>Presence without surveillance.</b>
+            <span>The system should make caregivers feel informed without making elderly users feel watched.</span>
+          </div>
+          <div class="case-principle">
+            <b>Confidence before conclusion.</b>
+            <span>When the signal is uncertain, the dashboard should communicate uncertainty instead of pretending to know exactly what happened.</span>
+          </div>
+          <div class="case-principle">
+            <b>Gentle by default, urgent only when necessary.</b>
+            <span>Most notifications should support a human check-in. Emergency language is reserved for high-risk patterns.</span>
+          </div>
+          <div class="case-principle">
+            <b>Lite deployment.</b>
+            <span>The experience should feel installable in a real home, ideally building on familiar Wi‑Fi infrastructure instead of adding visible sensors everywhere.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Interface direction</p>
+        <h2 class="case-h2">The dashboard tells caregivers what changed, how certain the system is, and what to do next.</h2>
+        <p class="case-p">
+          I designed the caregiver side around three types of information: routine status, confidence level, and action guidance. This creates a hierarchy that is easier to understand than a conventional monitoring dashboard. The caregiver does not need to read the home as data; they need to understand whether the situation is normal, uncertain, or urgent.
+        </p>
+      </section>
+
+      <figure class="case-figure">
+        <img src="../elderlink-dashboard.png" alt="ElderLink caregiver dashboard with routine, confidence, alerts, and deployment cards" />
+        <figcaption class="case-figcaption">
+          <b>Figure 4.</b> The caregiver dashboard concept. Each card is framed as a care decision: routine detected, confidence level, urgent alerts, and deployment status.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Process</p>
+        <h2 class="case-h2">From care anxiety to readable service states.</h2>
+        <p class="case-p">
+          The process moved from problem framing to interface prototyping. I mapped the emotional states of caregivers, identified where uncertainty appears in daily care, and translated those moments into dashboard states. The goal was to keep the system understandable even when the sensing result is probabilistic.
+        </p>
+        <p class="case-p">
+          Testing focused on whether people could interpret the dashboard without needing technical background. The most important feedback was tone-related: words like “alert” and “abnormal” can create panic too early, while phrases like “low confidence” and “gentle check-in” leave space for human judgment.
+        </p>
+      </section>
+
+      <figure class="case-figure">
+        <img src="../elderlink-research-process.png" alt="Research process board showing care anxiety mapping, signal prototyping, comprehension testing, and tone refinement" />
+        <figcaption class="case-figcaption">
+          <b>Figure 5.</b> Process overview. ElderLink’s design work centered on translation: from ambiguous sensing data into language that supports calm, timely care.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Outcome</p>
+        <h2 class="case-h2">A care concept that is less about watching and more about knowing when to reach out.</h2>
+        <p class="case-p">
+          ElderLink’s final direction is a lightweight caregiver dashboard paired with a passive home sensing layer. The concept does not try to replace family care, professional support, or emergency services. Instead, it helps bridge the quiet gap before a crisis: the everyday uncertainty of not knowing whether someone is okay.
+        </p>
+        <div class="case-stats">
+          <div class="case-stat">
+            <div class="case-stat-num">0<span style="font-size:1rem;font-weight:400;color:var(--muted-strong);"> cameras</span></div>
+            <div class="case-stat-label">The concept avoids visual surveillance as a core design constraint.</div>
+          </div>
+          <div class="case-stat">
+            <div class="case-stat-num">24/7</div>
+            <div class="case-stat-label">Passive sensing direction for continuous awareness without active check-ins.</div>
+          </div>
+          <div class="case-stat">
+            <div class="case-stat-num">Lite</div>
+            <div class="case-stat-label">Deployment direction based on familiar home infrastructure.</div>
+          </div>
+        </div>
+      </section>
+
+      <figure class="case-figure">
+        <img src="../elderlink-lite-deployment.png" alt="Lite deployment ecosystem with home Wi-Fi, caregiver, emergency risk escalation, and family circle" />
+        <figcaption class="case-figcaption">
+          <b>Figure 6.</b> Lite deployment ecosystem. The router becomes the quiet center of the service, connecting home activity confidence to caregiver awareness and family check-ins.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Reflection</p>
+        <h2 class="case-h2">Designing for care means designing the emotional consequence of information.</h2>
+        <p class="case-p">
+          This project taught me that privacy is not only a technical decision. It is also a relationship decision. A system can be accurate and still feel wrong if it makes the person being cared for feel exposed. ElderLink’s value comes from designing around what should not be collected as much as what should be shown.
+        </p>
+        <p class="case-p">
+          The next step would be to connect the UI prototype to actual Wi‑Fi sensing outputs, then test how caregivers interpret different confidence states over time. I would also want to include elderly participants more directly in the evaluation, especially around consent, daily comfort, and the wording of caregiver notifications.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Built with</p>
+        <div class="case-stack">
+          <span class="tag-pill">Figma</span>
+          <span class="tag-pill">Miro</span>
+          <span class="tag-pill">Service blueprint</span>
+          <span class="tag-pill">Caregiver dashboard</span>
+          <span class="tag-pill">Wi‑Fi sensing concept</span>
+          <span class="tag-pill">UX testing</span>
+          <span class="tag-pill">Privacy-first interaction</span>
+        </div>
+      </section>
+
+      <section class="case-credits">
+        <dl>
+          <dt>Course context</dt>
+          <dd>Perception-Aware Computing, Keio University Graduate School of Media Design</dd>
+
+          <dt>Project focus</dt>
+          <dd>Passive Wi‑Fi sensing for elderly care, caregiver dashboard, privacy-preserving service concept</dd>
+
+          <dt>My contribution</dt>
+          <dd>UI direction, care scenario framing, dashboard structure, visual communication, and prototype content</dd>
+        </dl>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      const sb  = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+      if (window.innerWidth <= 860 &&
+          !sb.contains(e.target) &&
+          !btn.contains(e.target)) {
+        sb.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>

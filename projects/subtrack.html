@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SubTrack · Claire Lin</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    .main { padding: 4rem 2rem 6rem; }
+    .case { max-width: 680px; margin: 0 auto; }
+
+    .case-back {
+      font-family: var(--font-caption);
+      font-size: 0.66rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); display: inline-block;
+      margin-bottom: 2.8rem; transition: color 0.2s;
+    }
+    .case-back:hover { color: var(--text); }
+
+    .case-hero { margin-bottom: 0; }
+    .case-title {
+      font-family: var(--font);
+      font-size: 2.8rem; font-weight: 300;
+      letter-spacing: -0.025em; color: var(--text);
+      line-height: 1; margin-bottom: 1rem;
+    }
+    .case-subtitle {
+      font-size: 1.08rem; font-weight: 300;
+      line-height: 1.55; color: var(--muted-strong);
+      letter-spacing: -0.005em; max-width: 36rem; margin-bottom: 1.2rem;
+    }
+    .case-meta-inline {
+      font-family: var(--font-caption);
+      font-size: 0.75rem; color: var(--muted);
+      letter-spacing: 0.06em;
+      padding-bottom: 1.6rem; border-bottom: 0.5px solid var(--line);
+      margin-bottom: 2.4rem;
+    }
+
+    /* Punctuation image */
+    .case-punctuation-img { width: 100%; margin-bottom: 0.9rem; }
+    .case-punctuation-img img { width: 100%; border-radius: 4px; display: block; }
+    .case-punctuation-cap {
+      font-family: var(--font-caption);
+      font-size: 0.78rem; color: var(--muted-strong);
+      line-height: 1.5; margin-bottom: 2.8rem;
+    }
+
+    /* Figures — img fills the frame, no grey box */
+    .case-figure { margin: 2.6rem 0; }
+    .case-figure img {
+      width: 100%; display: block;
+      border-radius: 3px;
+    }
+    /* Placeholder only shows when there is NO img — kept for future use */
+    .figure-placeholder {
+      width: 100%; aspect-ratio: 16/10;
+      background: var(--thumb-bg); border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.35rem;
+      color: var(--muted); font-family: var(--font-caption);
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .case-figcaption {
+      font-family: var(--font-caption);
+      font-size: 0.8rem; color: var(--muted-strong);
+      line-height: 1.5; margin-top: 0.8rem;
+    }
+
+    .case-section { margin: 3.4rem 0; }
+    .case-section-label {
+      font-family: var(--font-caption);
+      font-size: 0.66rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.2rem;
+    }
+    .case-h2 {
+      font-size: 1.4rem; font-weight: 400;
+      letter-spacing: -0.01em; color: var(--text);
+      margin-bottom: 1.2rem; line-height: 1.3;
+    }
+    .case-p {
+      font-size: 1rem; line-height: 1.75;
+      color: var(--text); margin-bottom: 1.2rem;
+    }
+    .case-p:last-child { margin-bottom: 0; }
+    .case-p em { font-style: italic; color: var(--muted-strong); }
+
+    .case-callout {
+      border-left: 2px solid var(--wood);
+      padding: 0.25rem 0 0.25rem 1.4rem; margin: 2rem 0;
+    }
+    .case-callout-label {
+      font-family: var(--font-caption);
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--wood); margin-bottom: 0.55rem;
+    }
+    .case-callout-text {
+      font-size: 1.05rem; line-height: 1.55;
+      color: var(--text); font-weight: 300;
+    }
+
+    .case-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem; padding: 1.8rem 0;
+      border-top: 0.5px solid var(--line);
+      border-bottom: 0.5px solid var(--line); margin: 2.2rem 0;
+    }
+    .case-stat-num {
+      font-size: 2.2rem; font-weight: 300;
+      letter-spacing: -0.02em; color: var(--text);
+      line-height: 1; margin-bottom: 0.4rem;
+    }
+    .case-stat-label {
+      font-family: var(--font-caption);
+      font-size: 0.72rem; color: var(--muted-strong); line-height: 1.45;
+    }
+
+    .case-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+
+    .case-credits { margin-top: 4rem; padding-top: 1.8rem; border-top: 0.5px solid var(--line); }
+    .case-credits dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.6rem 2rem; }
+    .case-credits dt {
+      font-family: var(--font-caption);
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); align-self: baseline; padding-top: 0.15rem;
+    }
+    .case-credits dd { font-size: 0.94rem; color: var(--text); margin: 0; line-height: 1.5; }
+
+    body { animation: page-in 0.35s ease both; }
+    @keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+    .page-out { animation: page-fade-out 0.22s ease forwards; }
+    @keyframes page-fade-out { to { opacity: 0; } }
+
+    @media (max-width: 640px) {
+      .case-title { font-size: 2rem; }
+      .case-stats { grid-template-columns: 1fr; }
+      .main { padding: 3rem 1.2rem 4rem; }
+    }
+
+    /* ── LOGO ────────────────────────────────────────────────── */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* ── SIDEBAR PERSONALITY LINE ───────────────────────────── */
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SIDEBAR LINKS (arrows removed) ─────────────────────── */
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+
+  </style>
+</head>
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="../index.html" aria-label="Claire Lin — Home">
+        <img class="sidebar-logo" src="../logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#gallery" class="active">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../resume.pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <main class="main">
+    <article class="case">
+
+      <a href="../index.html#gallery" class="case-back">&larr; Selected Work</a>
+
+      <header class="case-hero">
+        <h1 class="case-title">SubTrack</h1>
+        <p class="case-subtitle">
+          A subscription dashboard built around the question most trackers ignore: which account did I even use?
+        </p>
+        <p class="case-meta-inline">
+          Product Design &amp; Build &nbsp;&middot;&nbsp; Personal Project &nbsp;&middot;&nbsp; Solo Design &amp; Engineering &nbsp;&middot;&nbsp; 2025&ndash;present
+        </p>
+      </header>
+
+      <!-- Punctuation image -->
+      <div class="case-punctuation-img">
+        <img src="../Subtrack-dashboard.png" alt="SubTrack dashboard in light mode" />
+      </div>
+      <p class="case-punctuation-cap">
+        The SubTrack dashboard in light mode. Subscriptions grouped by the account they were signed up under, not just by service.
+      </p>
+
+      <!-- 01 Context -->
+      <section class="case-section">
+        <p class="case-section-label">01 / Context</p>
+        <h2 class="case-h2">The problem no tracker was solving</h2>
+        <p class="case-p">
+          I started SubTrack because I was the user. As an international student living between contexts, I had subscriptions scattered across three identities: personal email, school email, work email. Spotify on personal. Adobe through school. ChatGPT buried under a work account I barely used. Every month, charges appeared that took a second too long to recognize.
+        </p>
+        <p class="case-p">
+          The problem was not carelessness. It was that no tracker on the market matched how people actually live across multiple accounts. Existing subscription managers ask for two things: the service name and the price. What they miss is the layer underneath — <em>which login did I use, is this billed through the App Store or directly, did I already plan to cancel this?</em>
+        </p>
+        <div class="case-callout">
+          <p class="case-callout-label">Principle</p>
+          <p class="case-callout-text">
+            Account-first architecture. Subscriptions are not just line items — they belong to identities. The dashboard respects that from the first screen.
+          </p>
+        </div>
+        <figure class="case-figure">
+          <img src="../fig-2-mental-model.png" alt="Account-first mental model" />
+          <figcaption class="case-figcaption">
+            Account-first mental model. Three identity columns — Personal, Work, School — with subscriptions nested under each one.
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- 02 Process -->
+      <section class="case-section">
+        <p class="case-section-label">02 / Process</p>
+        <h2 class="case-h2">From sketch to structure</h2>
+        <p class="case-p">
+          The first sketches were ugly and useful. Three flows on paper: how someone onboards, how someone scans when a charge surprises them, and how someone decides to cancel. These exercises forced an early decision — onboarding had to collect account structure first, or every screen downstream would feel generic.
+        </p>
+        <p class="case-p">
+          Setup became a four-step flow that asks for your accounts and email addresses before anything else. The dashboard could then group, filter, and remind based on who you are, not just what you pay for.
+        </p>
+        <p class="case-p">
+          I also made an early call to avoid retention dark patterns. Most subscription apps use aggressive red for cancel states, mimicking the manipulative UX of the services people are trying to escape. SubTrack uses muted slate for cancelled states and dims the tile slightly. The decision to <em>not</em> alarm users became part of the brand.
+        </p>
+        <figure class="case-figure">
+          <img src="../fig-3-paper-sketches.png" alt="Paper sketches" />
+          <figcaption class="case-figcaption">
+            Original paper sketches. Onboarding flow, dashboard, and detail page in low fidelity.
+          </figcaption>
+        </figure>
+        <figure class="case-figure">
+          <img src="../fig-4-early-vs-final.png" alt="Early vs final" />
+          <figcaption class="case-figcaption">
+            Early HTML mockup (left) alongside the final React build (right).
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- 03 Research -->
+      <section class="case-section">
+        <p class="case-section-label">03 / Research</p>
+        <h2 class="case-h2">Testing with real users</h2>
+        <p class="case-p">
+          Once I had a working React prototype, I ran short usability sessions with five people: two students with multiple emails, one freelancer juggling client accounts, and two friends who described themselves as "bad with subscriptions." Each session was 20 to 30 minutes, screen-shared, with a light scenario prompt: <em>imagine you just got charged for something you don't recognize, find it.</em>
+        </p>
+        <p class="case-p">
+          Three findings shaped the final build. First, onboarding was originally five steps, four out of five testers stalled at the email-and-account screen because the labels felt clinical. I collapsed two steps into one and added a three-column Review screen. Drop-off disappeared in follow-up sessions.
+        </p>
+        <p class="case-p">
+          Second, testers expected to edit a subscription by clicking it, not by navigating to a separate form. I rebuilt the Add drawer to handle both add and edit modes through a single optional prop. Third, the trial date field confused people who did not have trials, so that row now hides entirely unless relevant.
+        </p>
+        <p class="case-p">
+          Smaller moments mattered too. Testers asked for the cost projection to disappear on Custom billing cycles. They asked for confirmation modals instead of browser dialogs for destructive actions. Both made it into the build.
+        </p>
+        <figure class="case-figure">
+          <img src="../fig-5-usability.png" alt="Usability session" />
+          <figcaption class="case-figcaption">
+            A usability session in progress. Annotated screen with observations captured during the run.
+          </figcaption>
+        </figure>
+        <div class="case-stats">
+          <div>
+            <div class="case-stat-num">5</div>
+            <div class="case-stat-label">Usability test participants</div>
+          </div>
+          <div>
+            <div class="case-stat-num">4</div>
+            <div class="case-stat-label">Setup steps, reduced from 5</div>
+          </div>
+          <div>
+            <div class="case-stat-num">3</div>
+            <div class="case-stat-label">Research findings shipped into the build</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 Build -->
+      <section class="case-section">
+        <p class="case-section-label">04 / Build</p>
+        <h2 class="case-h2">Execution</h2>
+        <p class="case-p">
+          The final app is a fully functional product, not a prototype. The frontend runs on React with Vite, Zustand for state, React Router v6, and CSS Modules. The backend is Express on Node talking to a Supabase PostgreSQL database with Row-Level Security and JWT auth. Every interaction including status changes, reminder toggles, notes, filters, account switching, updates live and persists per user.
+        </p>
+        <p class="case-p">
+          The visual language is grounded in a design token system. DM Sans throughout. Indigo as the brand color. A cool neutral background. Depth through layered soft shadows rather than borders. Light and dark modes share the same token tree. The landing page uses a motion loop that demonstrates the product in miniature: subscription rows animating in, a reminder toast, a price-change badge.
+        </p>
+        <figure class="case-figure">
+          <img src="../fig-6-final-screens.png" alt="Final screens" />
+          <figcaption class="case-figcaption">
+            Final screens. Home dashboard, account view, subscription detail, and timeline.
+          </figcaption>
+        </figure>
+        <figure class="case-figure">
+          <img src="../fig-7-landing-hero.png" alt="Landing hero" />
+          <figcaption class="case-figcaption">
+            The landing page hero captured mid-loop. Subscription rows animating in, a reminder toast, and a price-change badge.
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- 05 Reflection -->
+      <section class="case-section">
+        <p class="case-section-label">05 / Reflection</p>
+        <h2 class="case-h2">What I learned</h2>
+        <p class="case-p">
+          Designing for yourself is the fastest way to clarify a problem and the easiest way to lose perspective. The discipline of running real sessions, even with five people it was the difference between solving my problem and solving the problem.
+        </p>
+        <p class="case-p">
+          SubTrack is also the first project where I shipped from research through production code. The gap between a polished mockup and a working, responsive, edge-case-handled app is humbling, and that gap is where most of the learning lives.
+        </p>
+      </section>
+
+      <!-- Built with -->
+      <section class="case-section">
+        <p class="case-section-label">Built with</p>
+        <div class="case-stack">
+          <span class="tag-pill">React</span>
+          <span class="tag-pill">Vite</span>
+          <span class="tag-pill">Zustand</span>
+          <span class="tag-pill">React Router v6</span>
+          <span class="tag-pill">CSS Modules</span>
+          <span class="tag-pill">Express</span>
+          <span class="tag-pill">Node</span>
+          <span class="tag-pill">Supabase</span>
+          <span class="tag-pill">PostgreSQL</span>
+          <span class="tag-pill">Figma</span>
+        </div>
+      </section>
+
+      <!-- Credits -->
+      <section class="case-credits">
+        <dl>
+          <dt>Design</dt><dd>Claire Lin</dd>
+          <dt>Research</dt><dd>Claire Lin</dd>
+          <dt>Engineering</dt><dd>Claire Lin</dd>
+          <dt>Testing</dt><dd>Five anonymized participants, May 2026</dd>
+        </dl>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      const sb  = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+      if (window.innerWidth <= 860 &&
+          !sb.contains(e.target) &&
+          !btn.contains(e.target)) {
+        sb.classList.remove('open');
+      }
+    });
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('mailto') &&
+          !href.startsWith('http') && href !== '') {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          document.body.classList.add('page-out');
+          setTimeout(() => { window.location.href = href; }, 220);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

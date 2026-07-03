@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Cozzi Quest · Claire 林亮瑩</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       PROJECT PAGE - matched to Temporal Embodiment case style
+       Cozy/Cozzi Quest keeps its narrative modules, but shares the
+       same portfolio shell, typography rhythm, and article width.
+    ═══════════════════════════════════════════════════════════ */
+
+    .main {
+      padding: 4rem 2rem 6rem;
+    }
+
+    .case {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Back link */
+    .case-back {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: inline-block;
+      margin-bottom: 3rem;
+      transition: color 0.2s;
+    }
+
+    .case-back:hover {
+      color: var(--text);
+    }
+
+    /* Hero */
+    .case-hero {
+      margin-bottom: 3.4rem;
+    }
+
+    .case-title {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+      white-space: nowrap;
+    }
+
+    .case-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #76746E;
+      letter-spacing: -0.005em;
+    }
+
+    .case-meta {
+      margin-top: 2rem;
+      padding-top: 1.4rem;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 2.2rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .case-meta b {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .case-meta span {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* Sections */
+    .case-section {
+      margin: 3.6rem 0;
+    }
+
+    .case-section-label {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .case-h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+    }
+
+    .case-p {
+      font-size: 1.02rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.3rem;
+    }
+
+    .case-p em {
+      font-style: italic;
+      color: var(--muted-strong);
+    }
+
+    .case-p strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Figures */
+    .case-figure {
+      margin: 2.8rem 0;
+    }
+
+    .case-image {
+      width: 100%;
+      display: block;
+      border-radius: 2px;
+      background: var(--thumb-bg);
+    }
+
+    .figure-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--thumb-bg);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 1.2rem;
+    }
+
+    .figure-placeholder small {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--muted-strong);
+    }
+
+    .case-figcaption {
+      font-size: 0.82rem;
+      color: var(--muted-strong);
+      letter-spacing: 0.01em;
+      line-height: 1.55;
+      margin-top: 0.9rem;
+    }
+
+    .case-figcaption b {
+      font-weight: 600;
+      color: var(--text);
+      margin-right: 0.3rem;
+    }
+
+    /* Callout */
+    .case-callout {
+      background: var(--surface);
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--wood);
+      margin: 2.4rem 0 2.6rem;
+    }
+
+    .case-callout-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wood);
+      margin-bottom: 0.8rem;
+    }
+
+    .case-callout-text {
+      font-size: 1.14rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+
+    /* Constraint list */
+    .constraint-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 2rem 0 0.4rem;
+      border-top: 0.5px solid var(--line);
+    }
+
+    .constraint-item {
+      display: grid;
+      grid-template-columns: 8.5rem 1fr;
+      gap: 1.5rem;
+      padding: 1.05rem 0;
+      border-bottom: 0.5px solid var(--line);
+    }
+
+    .constraint-tag {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--wood);
+      line-height: 1.6;
+    }
+
+    .constraint-desc {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+    }
+
+    /* Sketch grid */
+    .sketch-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.65rem;
+      margin: 2rem 0 1rem;
+    }
+
+    .sketch-tile {
+      aspect-ratio: 1 / 1.12;
+      background: var(--surface);
+      border: 0.5px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 0.8rem 0.55rem;
+    }
+
+    .sketch-tile-num {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .sketch-tile-name {
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    .sketch-tile-tag {
+      font-size: 0.66rem;
+      color: var(--muted-strong);
+      line-height: 1.35;
+      margin-top: 0.3rem;
+    }
+
+    /* World structure stages */
+    .stage-list {
+      margin-top: 2rem;
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: 3.2rem 1fr;
+      gap: 1.2rem;
+      padding: 1.2rem 0;
+      border-top: 0.5px solid var(--line);
+    }
+
+    .stage:last-child {
+      border-bottom: 0.5px solid var(--line);
+    }
+
+    .stage-dot {
+      width: 2.65rem;
+      height: 2.65rem;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 0.5px solid var(--line);
+      color: var(--wood);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .stage-body h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.35;
+      margin-bottom: 0.45rem;
+    }
+
+    .stage-body p {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+      margin: 0;
+    }
+
+    /* Bridge panel */
+    .bridge-panel {
+      background: #2A2520;
+      color: #F4EEE5;
+      padding: 2.4rem 2rem;
+      margin: 3.2rem 0;
+    }
+
+    .bridge-panel .case-section-label {
+      color: #B9AA95;
+      margin-bottom: 1rem;
+    }
+
+    .bridge-panel .case-h2 {
+      color: #F4EEE5;
+      margin-bottom: 1rem;
+    }
+
+    .bridge-panel .case-p {
+      color: #CFC1AD;
+      font-size: 0.98rem;
+    }
+
+    .bridge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .bridge-card {
+      border: 0.5px solid rgba(244, 238, 229, 0.18);
+      background: rgba(244, 238, 229, 0.04);
+      padding: 1.4rem;
+    }
+
+    .bridge-card h4 {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: #F4EEE5;
+      margin-bottom: 0.4rem;
+    }
+
+    .bridge-card p {
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #B9AA95;
+      margin-bottom: 1rem;
+    }
+
+    .anim-stage {
+      width: 100%;
+      height: 180px;
+      background: #201C18;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .anim-caption {
+      font-size: 0.64rem;
+      color: #9F907D;
+      text-align: center;
+      margin-top: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Animation 1 */
+    .anim1-svg {
+      width: 140px;
+      height: 140px;
+    }
+
+    .sketch-path {
+      fill: none;
+      stroke: #F4EEE5;
+      stroke-width: 2;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: draw-sketch 3s ease-in-out infinite;
+    }
+
+    .mesh-path {
+      fill: none;
+      stroke: #A6B097;
+      stroke-width: 1;
+      opacity: 0;
+      animation: fade-mesh 3s ease-in-out infinite;
+    }
+
+    .mesh-node {
+      fill: #C9A46B;
+      opacity: 0;
+      animation: fade-mesh 3s ease-in-out infinite;
+    }
+
+    @keyframes draw-sketch {
+      0%, 8% {
+        stroke-dashoffset: 300;
+        opacity: 1;
+      }
+      42% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+      58%, 100% {
+        opacity: 0.16;
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes fade-mesh {
+      0%, 42% {
+        opacity: 0;
+      }
+      78%, 100% {
+        opacity: 1;
+      }
+    }
+
+    /* Animation 2 */
+    .flat-blob {
+      width: 86px;
+      height: 86px;
+      background: #9C5D3D;
+      border-radius: 50%;
+      position: absolute;
+      animation: flat-pulse 3.4s ease-in-out infinite;
+    }
+
+    .lit-sphere {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      position: absolute;
+      background: radial-gradient(circle at 32% 28%, #D79B6A 0%, #9C5D3D 48%, #4F2E21 100%);
+      box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.4),
+        inset -8px -8px 16px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      animation: lit-pulse 3.4s ease-in-out infinite;
+    }
+
+    .grid-floor {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      width: 140px;
+      height: 50px;
+      transform: translateX(-50%) perspective(120px) rotateX(55deg);
+      background-image:
+        linear-gradient(rgba(166, 176, 151, 0.28) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(166, 176, 151, 0.28) 1px, transparent 1px);
+      background-size: 14px 14px;
+      opacity: 0;
+      animation: fade-mesh 3.4s ease-in-out infinite;
+    }
+
+    @keyframes flat-pulse {
+      0%, 30% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50%, 100% {
+        opacity: 0;
+        transform: scale(0.94);
+      }
+    }
+
+    @keyframes lit-pulse {
+      0%, 30% {
+        opacity: 0;
+        transform: scale(0.94);
+      }
+      55%, 95% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+
+
+    .code-inline {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.78em;
+      background: var(--surface);
+      padding: 0.12rem 0.28rem;
+      border-radius: 2px;
+    }
+
+
+
+    /* Stats */
+    .case-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin: 2rem 0 0.4rem;
+    }
+
+    .case-stat {
+      background: var(--surface);
+      border: 0.5px solid var(--line);
+      padding: 1.15rem 1rem;
+    }
+
+    .case-stat-num {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+      letter-spacing: -0.01em;
+    }
+
+    .case-stat-label {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--muted-strong);
+    }
+
+    @media (max-width: 700px) {
+      .case-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Tool cards */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .tool-card {
+      background: var(--surface);
+      border: 0.5px solid var(--line);
+      padding: 1.3rem 1.4rem;
+    }
+
+    .tool-card h4 {
+      font-size: 0.96rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.55rem;
+    }
+
+    .tool-card p {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--muted-strong);
+      margin: 0;
+    }
+
+    /* Tech stack */
+    .case-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    /* Credits / status */
+    .case-credits {
+      margin-top: 4.4rem;
+      padding-top: 1.8rem;
+      border-top: 0.5px solid var(--line);
+      font-size: 0.84rem;
+      color: var(--muted-strong);
+      line-height: 1.9;
+    }
+
+    .case-credits dt {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .case-credits dt:first-child {
+      margin-top: 0;
+    }
+
+    .case-credits dd {
+      color: var(--text);
+    }
+
+    @media (max-width: 700px) {
+      .main {
+        padding: 3rem 1.2rem 4rem;
+      }
+
+      .case-title {
+        font-size: 1.6rem;
+        white-space: normal;
+      }
+
+      .constraint-item {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+      }
+
+      .sketch-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .bridge-grid,
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bridge-panel {
+        padding: 2rem 1.4rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sketch-path,
+      .mesh-path,
+      .mesh-node,
+      .flat-blob,
+      .lit-sphere,
+      .grid-floor {
+        animation: none !important;
+      }
+
+      .sketch-path {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+
+      .mesh-path,
+      .mesh-node,
+      .grid-floor,
+      .lit-sphere {
+        opacity: 1;
+      }
+
+      .flat-blob {
+        display: none;
+      }
+    }
+
+
+    /* LOGO (matched to index.html) */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* SIDEBAR PERSONALITY LINE (matched to index.html) */
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* SIDEBAR LINKS, arrows removed (matched to index.html) */
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <!-- ══ SIDEBAR ═════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="../index.html" aria-label="Claire Lin - Home">
+        <img class="sidebar-logo" src="../logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#gallery" class="active">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../resume.pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <!-- ══ MAIN ════════════════════════════════════════════════ -->
+  <main class="main">
+    <article class="case">
+
+      <a href="../index.html#gallery" class="case-back">&larr; Selected Work</a>
+
+      <header class="case-hero">
+        <h1 class="case-title">Cozzi Quest</h1>
+        <p class="case-subtitle">
+          A restoration platformer built from a playable HTML5 Meadow Grove slice into a Unity 2D production plan.
+        </p>
+
+        <div class="case-meta">
+          <div><b>Role</b><span>Solo game design and build</span></div>
+          <div><b>Playable slice</b><span>HTML5 World 01</span></div>
+          <div><b>Production target</b><span>Unity 2D · PC</span></div>
+          <div><b>Status</b><span>World 01 slice complete</span></div>
+        </div>
+      </header>
+
+      <section class="case-section">
+        <p class="case-section-label">Overview</p>
+        <h2 class="case-h2">A platformer about repair, not combat.</h2>
+        <p class="case-p">
+          Cozzi Quest follows Kibo, one of the last Cozzi. Kibo moves through a world that has lost the systems that once kept it alive. The core action is restoration. The first verbs are talk and listen. Later tasks add memory orbs and bell repair.
+        </p>
+        <p class="case-p">
+          The first build is World 01, Meadow Grove. It is a complete single-file HTML5 vertical slice. It has no dependencies and makes no network calls. Procedural drawing removes the need for image files. The slice proves the core loop before the project moves into the Unity 2D production build.
+        </p>
+      </section>
+
+      <figure class="case-figure">
+        <img class="case-image" src="../cozzi-quest-heroo.png" alt="Cozzi Quest Meadow Grove title screen showing Kibo and friends in a lush fantasy grove" loading="lazy" />
+        <figcaption class="case-figcaption">
+          <b>Figure 1.</b> Title-screen direction for Cozzi Quest. The image introduces Kibo, Pip, and the Meadow Grove world with a restoration-focused, non-combat tone.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Design constraints</p>
+        <h2 class="case-h2">The project needed a clear distance from genre defaults.</h2>
+        <p class="case-p">
+          Before building the first level, I set constraints to prevent the project from becoming a generic creature platformer. Each rule was tied to a design decision in the slice.
+        </p>
+
+        <div class="constraint-list">
+          <div class="constraint-item">
+            <div class="constraint-tag">No combat core</div>
+            <div class="constraint-desc">Progress starts with escorting Pip. Later, Listening reveals the path to memory orbs and the bell.</div>
+          </div>
+          <div class="constraint-item">
+            <div class="constraint-tag">Non-fatal failure</div>
+            <div class="constraint-desc">Falling into mist triggers a fade and returns Kibo to the last safe platform. There are no lives and no damage state in World 01.</div>
+          </div>
+          <div class="constraint-item">
+            <div class="constraint-tag">Tutorial through level shape</div>
+            <div class="constraint-desc">The 240 px gap to island 3 cannot be crossed by hop alone. It becomes possible only after Solei teaches float.</div>
+          </div>
+          <div class="constraint-item">
+            <div class="constraint-tag">Original cast</div>
+            <div class="constraint-desc">Kibo and Pip anchor the first slice. Solei and Lune introduce the wider Cozzi story. The build does not use third-party characters or assets.</div>
+          </div>
+          <div class="constraint-item">
+            <div class="constraint-tag">Visible consequence</div>
+            <div class="constraint-desc">Quest completion changes the state of the world, such as the bell ringing and the stair of light opening to The Hollow.</div>
+          </div>
+        </div>
+      </section>
+
+      <figure class="case-figure">
+        <img class="case-image" src="../cozzi-character-sheet.png" alt="Cozzi Quest character lineup for Kibo, Pip, Solei, Lune, and Moro" loading="lazy" />
+        <figcaption class="case-figcaption">
+          <b>Figure 2.</b> Character sheet for the Cozzi cast. Kibo and Pip anchor the first slice, while Solei, Lune, and Moro expand the emotional range of the world.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Playable slice</p>
+        <h2 class="case-h2">World 01 is a complete Meadow Grove demo.</h2>
+        <p class="case-p">
+          The HTML5 slice implements the first world from start to ending. The player learns the controls through three quests instead of reading a tutorial page.
+        </p>
+
+        <div class="stage-list">
+          <div class="stage">
+            <div class="stage-dot">Q1</div>
+            <div class="stage-body">
+              <h3>The walk to the bridge</h3>
+              <p>Kibo talks to Pip by a wilted flower. After the escort, Pip gives Kibo the river pebble.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-dot">Q2</div>
+            <div class="stage-body">
+              <h3>The missing platform</h3>
+              <p>The player reaches a gap that hop cannot cross. Listening at the scratched stone summons Solei, who unlocks float.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-dot">Q3</div>
+            <div class="stage-body">
+              <h3>The unmoving bell</h3>
+              <p>The player collects three memory orbs. One orb appears only after Listening at a flower patch. The bell opens the stair of light.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-callout">
+          <p class="case-callout-label">Controls</p>
+          <p class="case-callout-text">
+            Arrow keys or A/D to walk. Z or Space to hop. Hold jump in air to float after Solei teaches it. E interacts. Holding C activates Listening zones.
+          </p>
+        </div>
+      </section>
+
+      <figure class="case-figure">
+        <img class="case-image" src="../cozzi-meadow-grove-flow.png" alt="World 01 Meadow Grove flow diagram showing seven quest steps and core verbs" loading="lazy" />
+        <figcaption class="case-figcaption">
+          <b>Figure 3.</b> World 01 flow from meeting Pip to opening the stair of light. The diagram turns the slice into a clear sequence of Talk, Listen, Float, and Restore actions.
+        </figcaption>
+      </figure>
+
+      <figure class="case-figure">
+        <img class="case-image" src="../cozzi-meadow-grove-slice.png" alt="Cozzi Quest Meadow Grove gameplay-style screenshot with Listening stone, float unlock, bridge, and HUD" loading="lazy" />
+        <figcaption class="case-figcaption">
+          <b>Figure 4.</b> Meadow Grove playable slice. The scene shows Listening, float gating, collectible memory orbs, and the bridge environment in one gameplay-facing view.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Game feel</p>
+        <h2 class="case-h2">The first slice was tuned around forgiveness.</h2>
+        <p class="case-p">
+          The platforming feel is defined by numbers, not mood language. The hop reaches about 114 px. Every intended step stays under 100 px. The gated gap is set at 240 px so the float unlock has a clear purpose.
+        </p>
+        <p class="case-p">
+          Coyote time and jump buffering each last 7 frames. Releasing jump early clamps upward speed for variable hop height. Float caps falling speed at 0.85 px per frame and drains a small meter that refills on landing.
+        </p>
+
+        <div class="case-stats">
+          <div class="case-stat">
+            <div class="case-stat-num">114 px</div>
+            <div class="case-stat-label">Approximate hop height used to size tutorial steps.</div>
+          </div>
+          <div class="case-stat">
+            <div class="case-stat-num">7f</div>
+            <div class="case-stat-label">Coyote time and jump buffer window.</div>
+          </div>
+          <div class="case-stat">
+            <div class="case-stat-num">240 px</div>
+            <div class="case-stat-label">Float-gated gap between island 2 and island 3.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Build process</p>
+        <h2 class="case-h2">The slice uses one state machine for the player flow and HUD.</h2>
+        <p class="case-p">
+          The web build is organized as one HTML file. CSS handles the HUD and dialogue box. It also controls overlays and touch buttons. The fade layer is handled there too. JavaScript handles input and WebAudio. Separate systems handle world data and physics. Listening and dialogue stay modular. Rendering stays separate too.
+        </p>
+        <p class="case-p">
+          One story string named <span class="code-inline">S.phase</span> drives the quest state. The order is Pip meeting to escort. Then search leads to Solei and the orbs. The stairs open the end state. Each transition rewrites the quest HUD so the player always sees one current instruction.
+        </p>
+
+        <div class="tool-grid">
+          <div class="tool-card">
+            <h4>Procedural rendering</h4>
+            <p>Canvas draws the characters and core environment props. Orbs and clouds are procedural. Water and effects use the same approach. This keeps the slice small and image-free.</p>
+          </div>
+          <div class="tool-card">
+            <h4>Procedural audio</h4>
+            <p>WebAudio generates the title motif and bell tone. It also creates hop and land sounds. Float and orb chimes use the same synth.</p>
+          </div>
+        </div>
+      </section>
+
+      <figure class="case-figure">
+        <img class="case-image" src="../cozzi-concept-sketches.png" alt="Cozzi Quest concept sketch board with character studies, props, and world ideas" loading="lazy" />
+        <figcaption class="case-figcaption">
+          <b>Figure 5.</b> Concept sketch board for character language, props, and world details. This image shows how the soft visual tone was explored before production structure.
+        </figcaption>
+      </figure>
+
+      <section class="bridge-panel">
+        <p class="case-section-label">Design to system</p>
+        <h2 class="case-h2">The design process moved from world logic to playable proof.</h2>
+        <p class="case-p">
+          The first useful prototype was not a polished art pass. It was a playable test of restoration logic: Can Pip follow without getting stuck? Can the player discover Listening? Can the float unlock solve a problem that hop cannot solve?
+        </p>
+
+        <div class="bridge-grid">
+          <div class="bridge-card">
+            <h4>Quest idea to state flag</h4>
+            <p>Each quest became a condition and a completion flag. Interaction logic connects the two. This made the story testable.</p>
+            <div class="anim-stage">
+              <svg class="anim1-svg" viewBox="0 0 160 160" aria-hidden="true">
+                <path class="sketch-path" d="M30 80 C44 48 70 44 82 64 C96 44 124 52 130 84 C134 112 108 132 80 134 C52 132 28 110 30 80 Z" />
+                <path class="mesh-path" d="M30 80 L54 54 L82 64 L110 56 L130 84 L112 118 L80 134 L48 118 Z" />
+                <path class="mesh-path" d="M82 64 L80 134 M30 80 L130 84 M54 54 L112 118" />
+                <circle class="mesh-node" cx="30" cy="80" r="3" />
+                <circle class="mesh-node" cx="82" cy="64" r="3" />
+                <circle class="mesh-node" cx="130" cy="84" r="3" />
+                <circle class="mesh-node" cx="80" cy="134" r="3" />
+              </svg>
+            </div>
+            <div class="anim-caption">Quest sketch to state graph</div>
+          </div>
+
+          <div class="bridge-card">
+            <h4>Concept art to movement test</h4>
+            <p>Kibo's body language is tested through hop squash and landing squash. Float timing is tuned before final asset production.</p>
+            <div class="anim-stage">
+              <div class="grid-floor"></div>
+              <div class="flat-blob"></div>
+              <div class="lit-sphere"></div>
+            </div>
+            <div class="anim-caption">Character idea to feel prototype</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Testing</p>
+        <h2 class="case-h2">The slice was checked with a headless playthrough.</h2>
+        <p class="case-p">
+          Because the game logic is deterministic, I tested it in Node with a stubbed canvas. The test script drives frames directly and simulates key presses. It then checks whether important quest states can be reached.
+        </p>
+
+        <div class="constraint-list">
+          <div class="constraint-item">
+            <div class="constraint-tag">Traversal</div>
+            <div class="constraint-desc">Kibo lands on island 1 and reaches the expected hop height. The same test checks safe return after falling.</div>
+          </div>
+          <div class="constraint-item">
+            <div class="constraint-tag">Quest flow</div>
+            <div class="constraint-desc">Pip can be escorted home. Solei can be summoned by Listening. All three memory orbs can be collected.</div>
+          </div>
+          <div class="constraint-item">
+            <div class="constraint-tag">Soft-lock check</div>
+            <div class="constraint-desc">The island 2 to 3 gap fails without float and succeeds with float. The hidden ledge can be escaped by hop alone.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Unity production plan</p>
+        <h2 class="case-h2">The web slice becomes the feel reference for the full game.</h2>
+        <p class="case-p">
+          The Unity build uses the HTML5 slice as the reference for movement. It also preserves quest pacing and failure recovery. The planned project structure separates player control from interaction logic. Quests and dialogue sit under <span class="code-inline">Assets/_Game</span>. Audio and world data live there too.
+        </p>
+
+        <div class="tool-grid">
+          <div class="tool-card">
+            <h4>GameState</h4>
+            <p>Stores progress flags and completed worlds. It also records memory orbs and the two ending variables from World 5 and World 6.</p>
+          </div>
+          <div class="tool-card">
+            <h4>KiboController</h4>
+            <p>Ports hop and float into Rigidbody2D movement. It also keeps coyote time and jump buffering. Non-fatal falling stays as a design rule.</p>
+          </div>
+          <div class="tool-card">
+            <h4>QuestDef</h4>
+            <p>Turns each world's three quests into ScriptableObjects. Each one stores prerequisites and completion flags. HUD instructions are stored with the same asset.</p>
+          </div>
+          <div class="tool-card">
+            <h4>WorldDef</h4>
+            <p>Encodes world ID and scene name. It also stores tier and paired world. The palette key drives The Hollow gate system.</p>
+          </div>
+        </div>
+      </section>
+
+      <figure class="case-figure">
+        <img class="case-image" src="../cozzi-unity-architecture.png" alt="Cozzi Quest Unity architecture diagram with GameState, WorldRoot, systems, data, and scenes" loading="lazy" />
+        <figcaption class="case-figcaption">
+          <b>Figure 6.</b> Unity production architecture. The web slice informs movement and quest timing, while ScriptableObjects make the eight-world structure easier to maintain.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Eight-world roadmap</p>
+        <h2 class="case-h2">The full game expands from one verified world.</h2>
+        <p class="case-p">
+          The production roadmap moves from World 01 parity to The Hollow, then adds world pairs by tier. World 5 and World 6 record the ending variables, while World 8 resolves the four possible endings.
+        </p>
+
+        <div class="stage-list">
+          <div class="stage">
+            <div class="stage-dot">M1</div>
+            <div class="stage-body">
+              <h3>Unity port of World 01 and The Hollow</h3>
+              <p>Match the HTML5 slice and add save/load. Then prove gate logic in the hub.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-dot">M2</div>
+            <div class="stage-body">
+              <h3>World 02: Cloudy Peaks</h3>
+              <p>Add wind riding and cloud testing. Then add Solei companion behavior and the first Moro encounter.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-dot">M3</div>
+            <div class="stage-body">
+              <h3>Worlds 03 and 04</h3>
+              <p>Build the exploration tier and verify paired-world gate rules.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-dot">M4</div>
+            <div class="stage-body">
+              <h3>Worlds 05 and 06</h3>
+              <p>Record Drift children rescued and Ashfields repair state. Moro's final decision is the second ending variable.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-dot">M6</div>
+            <div class="stage-body">
+              <h3>World 08 and endings</h3>
+              <p>Reuse prior mechanics at lower intensity and call <span class="code-inline">ResolveEnding()</span> for four finales.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Reflection</p>
+        <h2 class="case-h2">The main design lesson was to test kindness as a system.</h2>
+        <p class="case-p">
+          Cozzi Quest is not only soft in subject matter. It is forgiving in its mechanics: late jumps still register and falls recover. The player is not punished for exploring the wrong ledge. That tone has to be engineered, not only illustrated.
+        </p>
+        <p class="case-p">
+          The next phase is the Unity parity pass for World 01. I would keep the headless test logic as a reference and add a Unity PlayMode test that completes the same quest chain with scripted input.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Built with</p>
+        <div class="case-stack">
+          <span class="tag-pill">HTML5 Canvas</span>
+          <span class="tag-pill">JavaScript</span>
+          <span class="tag-pill">WebAudio</span>
+          <span class="tag-pill">Node testing</span>
+          <span class="tag-pill">Unity 2D</span>
+          <span class="tag-pill">URP</span>
+          <span class="tag-pill">C#</span>
+          <span class="tag-pill">ScriptableObjects</span>
+          <span class="tag-pill">Blender</span>
+        </div>
+      </section>
+
+      <section class="case-credits">
+        <dl>
+          <dt>Design</dt>
+          <dd>Claire Lin</dd>
+
+          <dt>Writing</dt>
+          <dd>Claire Lin</dd>
+
+          <dt>Playable slice</dt>
+          <dd>World 01: Meadow Grove, built as a single-file HTML5 demo.</dd>
+
+          <dt>Production target</dt>
+          <dd>Unity 2D for PC, with WebGL as a later online build.</dd>
+
+          <dt>Status</dt>
+          <dd>World 01 slice complete. Next step is Unity parity for movement and quest flow.</dd>
+        </dl>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    document.addEventListener('click', e => {
+      const sb = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+
+      if (
+        window.innerWidth <= 860 &&
+        !sb.contains(e.target) &&
+        !btn.contains(e.target)
+      ) {
+        sb.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>

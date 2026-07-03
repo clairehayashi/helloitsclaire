@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unearthed: Tokyo Cultural Heritage Guidebook · Claire Lin</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       PROJECT PAGE - case study layout
+       Article column centered, project-page sidebar matched to home.
+    ═══════════════════════════════════════════════════════════ */
+
+    .main { padding: 4rem 2rem 6rem; }
+    .case { max-width: 680px; margin: 0 auto; }
+
+    .case-back {
+      font-family: var(--font-caption);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: inline-block;
+      margin-bottom: 3rem;
+      transition: color 0.2s;
+    }
+    .case-back:hover { color: var(--text); }
+
+    .case-hero { margin-bottom: 3.4rem; }
+    .case-title {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+      white-space: nowrap;
+    }
+    .case-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #76746E;
+      letter-spacing: -0.005em;
+    }
+    .case-meta {
+      margin-top: 2rem;
+      padding-top: 1.4rem;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 2.2rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .case-meta b {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+    .case-meta span { color: var(--text); font-weight: 400; }
+
+    .case-section { margin: 3.6rem 0; }
+    .case-section-label {
+      font-family: var(--font-caption);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+    .case-h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+    }
+    .case-p {
+      font-size: 1.02rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.3rem;
+    }
+    .case-p em { font-style: italic; color: var(--muted-strong); }
+    .case-p strong { font-weight: 600; color: var(--text); }
+
+    .case-callout {
+      background: var(--surface);
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--wood);
+      margin: 2.4rem 0 2.6rem;
+    }
+    .case-callout-label {
+      font-family: var(--font-caption);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wood);
+      margin-bottom: 0.8rem;
+    }
+    .case-callout-text {
+      font-size: 1.14rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+
+    .case-figure { margin: 2.8rem 0; }
+    .case-figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 3px;
+      background: transparent;
+      box-shadow: none;
+    }
+    .case-figure-page {
+      background: transparent;
+      padding: 0;
+    }
+    .case-figure-page img {
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: cover;
+      background: transparent;
+    }
+    .case-figcaption {
+      font-family: var(--font-caption);
+      font-size: 0.82rem;
+      color: var(--muted-strong);
+      letter-spacing: 0.01em;
+      line-height: 1.55;
+      margin-top: 0.9rem;
+    }
+    .case-figcaption b { font-weight: 600; color: var(--text); margin-right: 0.3rem; }
+
+    .case-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+      margin: 2.2rem 0 1.8rem;
+    }
+    .case-stat {
+      padding-top: 1.1rem;
+      border-top: 0.5px solid var(--line);
+    }
+    .case-stat-num {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .case-stat-label {
+      font-family: var(--font-caption);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted-strong);
+      line-height: 1.5;
+    }
+
+    .case-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .case-card {
+      background: var(--surface);
+      border-top: 0.5px solid var(--line);
+      padding: 1.25rem 1.35rem;
+    }
+    .case-card-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+    .case-card-p {
+      font-size: 0.86rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+      margin: 0;
+    }
+
+    .page-review {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 2rem 0 0;
+      border-top: 0.5px solid var(--line);
+    }
+    .page-review-item {
+      display: grid;
+      grid-template-columns: 6.5rem 1fr;
+      gap: 1.3rem;
+      padding: 1rem 0;
+      border-bottom: 0.5px solid var(--line);
+    }
+    .page-review-num {
+      font-family: var(--font-caption);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--wood);
+    }
+    .page-review-text {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+    }
+    .page-review-text strong { color: var(--text); font-weight: 600; }
+
+    .case-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .case-credits {
+      margin-top: 4.4rem;
+      padding-top: 1.8rem;
+      border-top: 0.5px solid var(--line);
+      font-size: 0.84rem;
+      color: var(--muted-strong);
+      line-height: 1.9;
+    }
+    .case-credits dt {
+      font-family: var(--font-caption);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .case-credits dt:first-child { margin-top: 0; }
+    .case-credits dd { color: var(--text); }
+    .case-credits dd em { font-style: normal; color: var(--muted-strong); }
+
+    body { animation: page-in 0.35s ease both; }
+    @keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+    .page-out { animation: page-fade-out 0.22s ease forwards; }
+    @keyframes page-fade-out { to { opacity: 0; } }
+
+    /* ── LOGO (matched to index.html) ───────────────────────── */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* ── SIDEBAR PERSONALITY LINE ───────────────────────────── */
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SIDEBAR LINKS (arrows removed) ─────────────────────── */
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+
+    @media (max-width: 700px) {
+      .case-title { font-size: 1.5rem; white-space: normal; }
+      .case-stats,
+      .case-two-col,
+      .page-review-item { grid-template-columns: 1fr; }
+      .page-review-item { gap: 0.3rem; }
+      .main { padding: 3rem 1.2rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <!-- ══ SIDEBAR ════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="../index.html" aria-label="Claire Lin - Home">
+        <img class="sidebar-logo" src="../logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#gallery" class="active">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../resume.pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <!-- ══ MAIN - centered article column ═══════════════════ -->
+  <main class="main">
+    <article class="case">
+
+      <a href="../index.html#gallery" class="case-back">← Selected Work</a>
+
+      <header class="case-hero">
+        <h1 class="case-title">Unearthed: Tokyo Cultural Heritage Guidebook</h1>
+        <p class="case-subtitle">
+          Cover design and presentation system for a Tokyo cultural heritage guidebook that brings Meiji and Taishō era sites into a contemporary student publication.
+        </p>
+        <div class="case-meta">
+          <div><b>Year</b><span>2025</span></div>
+          <div><b>Type</b><span>Cover Design · Editorial Presentation</span></div>
+          <div><b>Context</b><span>Tokyo City University · Urban Culture Laboratory</span></div>
+          <div><b>My role</b><span>Cover Page Design · Visual Direction</span></div>
+        </div>
+      </header>
+
+      <figure class="case-figure case-figure-page">
+        <img src="../unearthed-page-01-cover.png" alt="Unearthed guidebook cover showing a heritage building at dusk" />
+        <figcaption class="case-figcaption">
+          <b>Figure 1.</b> Final cover page. The visual direction places a lit heritage building inside a modern street scene, matching the guidebook theme of cultural memory beneath the surface of Tokyo.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Overview</p>
+        <h2 class="case-h2">A guidebook about visible buildings and hidden memory.</h2>
+        <p class="case-p">
+          Unearthed is a Tokyo cultural heritage guidebook made for the Urban Culture Laboratory at Tokyo City University. The guide introduces sites connected to the Meiji and Taishō periods, when Western architectural influence entered Japanese urban life and created hybrid buildings across Tokyo.
+        </p>
+        <p class="case-p">
+          My contribution focused on the cover page design and the visual framing of the guidebook as a cultural object. The cover needed to work as the first promise of the publication: this is not a generic travel pamphlet, but a guide to overlooked urban memory.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Design challenge</p>
+        <div class="case-callout">
+          <p class="case-callout-label">Question</p>
+          <p class="case-callout-text">
+            How can a student guidebook make cultural heritage feel discoverable without making the cover look like a formal museum brochure?
+          </p>
+        </div>
+        <p class="case-p">
+          The cover had to hold two messages at the same time. It needed academic credibility because the guidebook comes from a university lab. It also needed visual pull because the reader is invited to explore neighborhoods rather than read a textbook.
+        </p>
+        <p class="case-p">
+          I used a dusk scene, a large orange sun, and a heritage building lit from inside to create the feeling of looking into a city layer that is still alive. The oversized title creates a magazine-like entry point, while the issue stamp and lab mark keep the publication system visible.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Editorial frame</p>
+        <h2 class="case-h2">The guidebook is organized around eras, routes, and buildings.</h2>
+        <p class="case-p">
+          The strongest supporting pages are the Meiji and Taishō overview, the timeline, and the Tokyo map. Together, they define the guidebook’s structure before the reader reaches the site pages. This helps the project read as an editorial system rather than a set of disconnected destination entries.
+        </p>
+
+        <figure class="case-figure case-figure-page">
+          <img src="../unearthed-page-04-timeline.png" alt="Meiji and Taisho era overview page with timeline" />
+          <figcaption class="case-figcaption">
+            <b>Figure 2.</b> Timeline and era overview. This page is worth using because it shows the guidebook’s historical frame and gives the reader a reason to care about the selected sites.
+          </figcaption>
+        </figure>
+
+        <figure class="case-figure case-figure-page">
+          <img src="../unearthed-page-05-map.png" alt="Tokyo map showing guidebook locations in Ueno, Tokyo Station, Komaba Park, and Minato City" />
+          <figcaption class="case-figcaption">
+            <b>Figure 3.</b> Geographic overview. The map makes the guidebook usable as a walking and planning object, not only an article collection.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Interior pages</p>
+        <h2 class="case-h2">The strongest spreads connect architecture to public memory.</h2>
+        <p class="case-p">
+          Former Iwasaki House, Mitsubishi Ichigokan Museum, Komaba Park, Former Marquis Maeda Residence, and Minato City Local History Museum pages; they all give the case study enough evidence to show what the cover is introducing.
+        </p>
+
+        <figure class="case-figure case-figure-page">
+          <img src="../unearthed-page-08-iwasaki.png" alt="Former Iwasaki House guidebook page" />
+          <figcaption class="case-figcaption">
+            <b>Figure 4.</b> Former Iwasaki House page. This spread is useful because it links the site to Meiji-era status, Western architecture, and the remaining Japanese-style building.
+          </figcaption>
+        </figure>
+
+        <figure class="case-figure case-figure-page">
+          <img src="../unearthed-page-11-mitsubishi.png" alt="Mitsubishi Ichigokan Museum guidebook page" />
+          <figcaption class="case-figcaption">
+            <b>Figure 5.</b> Mitsubishi Ichigokan Museum page. The content shows how a reconstructed building can carry cultural heritage while serving a present-day museum function.
+          </figcaption>
+        </figure>
+
+        <figure class="case-figure case-figure-page">
+          <img src="../unearthed-page-14-komaba.png" alt="Komaba Park guidebook page" />
+          <figcaption class="case-figcaption">
+            <b>Figure 6.</b> Komaba Park page. This page works well because it uses a quiet park image to introduce former aristocratic land as public space.
+          </figcaption>
+        </figure>
+
+        <figure class="case-figure case-figure-page">
+          <img src="../unearthed-page-17-minato.png" alt="Minato City Local History Museum guidebook page" />
+          <figcaption class="case-figcaption">
+            <b>Figure 7.</b> Minato City Local History Museum page. This is a strong closing example because it connects architectural preservation to local history education.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Process</p>
+        <h2 class="case-h2">From publication theme to cover system.</h2>
+        <p class="case-p">
+          The working theme was cultural memory beneath the surface. I translated that into a cover that layers an old building, a city street, a large background sun, and publication information. The building is treated as the emotional anchor. The surrounding street keeps the image connected to Tokyo’s present.
+        </p>
+        <p class="case-p">
+          The title occupies more space than a traditional guidebook masthead. This choice makes the cover feel closer to an e-magazine and helps the project stand out as a student publication. The subtitle then clarifies the content: a guidebook about Japan’s cultural memory.
+        </p>
+
+        <div class="case-two-col">
+          <div class="case-card">
+            <p class="case-card-title">Visual anchor</p>
+            <p class="case-card-p">
+              The heritage building carries the guidebook’s main promise. It shows history as something embedded in the city rather than locked inside an archive.
+            </p>
+          </div>
+          <div class="case-card">
+            <p class="case-card-title">Publication identity</p>
+            <p class="case-card-p">
+              The cover balances the large Unearthed title with the university mark, UCL Lens E-Magazine label, and issue stamp.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Outcome</p>
+        <h2 class="case-h2">A cover that gives the guidebook a clear first impression.</h2>
+        <p class="case-p">
+          The final cover positions the guidebook as a cultural exploration of Tokyo rather than a checklist of famous places. It gives the publication a visual identity that can work as a PDF cover, portfolio thumbnail, and project opener.
+        </p>
+        <p class="case-p">
+          For the portfolio page, the most effective structure is to lead with the cover, then show the timeline and map, then show selected interior pages. This sequence makes the project easier to understand: first the visual identity, then the editorial system, then the content examples.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Built with</p>
+        <div class="case-stack">
+          <span class="tag-pill">Cover design</span>
+          <span class="tag-pill">Editorial presentation</span>
+          <span class="tag-pill">Cultural heritage communication</span>
+          <span class="tag-pill">Visual storytelling</span>
+          <span class="tag-pill">Tokyo guidebook</span>
+          <span class="tag-pill">Academic publication</span>
+        </div>
+      </section>
+
+      <section class="case-credits">
+        <dl>
+          <dt>Cover page design</dt>
+          <dd>Claire Lin</dd>
+
+          <dt>Guidebook author</dt>
+          <dd>Jodie Steiner</dd>
+
+          <dt>Institution</dt>
+          <dd>Urban Culture Laboratory, Faculty of Urban Life Studies, Tokyo City University</dd>
+
+          <dt>Publication</dt>
+          <dd>UCL Lens E-Magazine, 2025 edition</dd>
+
+          <dt>Portfolio image notes</dt>
+          <dd>Upload the selected PNG pages to your images folder using the filenames referenced in this HTML.</dd>
+        </dl>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      const sb  = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+      if (window.innerWidth <= 860 &&
+          !sb.contains(e.target) &&
+          !btn.contains(e.target)) {
+        sb.classList.remove('open');
+      }
+    });
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('mailto') &&
+          !href.startsWith('http') && href !== '') {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          document.body.classList.add('page-out');
+          setTimeout(() => { window.location.href = href; }, 220);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

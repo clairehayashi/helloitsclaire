@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claire · 林亮瑩 — UX Designer &amp; HCI Researcher</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── DOG INTERACTION ────────────────────────────────────── */
+
+    /* Intro section becomes a two-column flex — text left, dog right */
+    .intro-section {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+    .intro-text {
+      flex: 1 1 auto;
+      max-width: 36rem;
+      min-width: 0;
+    }
+
+    .dog-wrap {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+      width: 430px;
+      max-width: 42%;
+    }
+    .dog-zone {
+      position: relative; width: 100%;
+      background: transparent;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34' viewBox='0 0 34 34'%3E%3Cellipse cx='17' cy='17' rx='12' ry='9' fill='%23D4A574' stroke='%238B5A3C' stroke-width='1.5'/%3E%3Cellipse cx='12' cy='14' rx='2.2' ry='1.6' fill='%235C3820' opacity='0.55'/%3E%3Cellipse cx='21' cy='18' rx='2' ry='1.4' fill='%235C3820' opacity='0.55'/%3E%3Cellipse cx='18' cy='13' rx='1.4' ry='1' fill='%235C3820' opacity='0.45'/%3E%3C/svg%3E") 17 17, pointer;
+      user-select: none; -webkit-user-select: none;
+      transition: transform 0.25s ease;
+    }
+    .dog-zone:hover { transform: translateY(-2px); }
+    .dog-zone:active { transform: translateY(0) scale(0.985); }
+    .dog-img {
+      display: block;
+      width: 100%;
+      background: transparent;
+      mix-blend-mode: normal;
+      pointer-events: none;
+      transition: opacity 0.8s ease, filter 0.25s ease;
+    }
+    .dog-zone:hover .dog-img { filter: brightness(1.03); }
+    .dog-img-regular { position: absolute; top: 0; left: 0; opacity: 0; }
+    .dog-zone.fed .dog-img-legged { opacity: 0; }
+    .dog-zone.fed .dog-img-regular { opacity: 1; }
+
+    /* gentle idle bob while hungry, to invite interaction */
+    .dog-zone:not(.fed) .dog-img-legged { animation: dog-idle-bob 3.6s ease-in-out infinite; }
+    @keyframes dog-idle-bob {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-3px); }
+    }
+
+    /* soft glow pulse once fed, subtle celebration that settles */
+    .dog-zone.fed .dog-img-regular { animation: dog-fed-settle 0.7s ease; }
+    @keyframes dog-fed-settle {
+      0%   { transform: scale(0.97); }
+      55%  { transform: scale(1.015); }
+      100% { transform: scale(1); }
+    }
+
+    .dog-dots { display: flex; gap: 6px; justify-content: center; }
+    .dog-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line); transition: background 0.2s, transform 0.2s; }
+    .dog-dot.filled { background: var(--muted-strong); transform: scale(1.15); }
+
+    /* small countdown ring shown once fed, drains over the 5-minute cooldown */
+    .dog-cooldown {
+      display: none;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-caption);
+      font-size: 0.62rem;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .dog-cooldown.show { display: flex; opacity: 1; }
+    .dog-cooldown-ring {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 1.5px solid var(--line);
+      border-top-color: var(--wood);
+      animation: cooldown-spin 2s linear infinite;
+    }
+    @keyframes cooldown-spin { to { transform: rotate(360deg); } }
+
+    .ripple {
+      position: fixed; pointer-events: none; border-radius: 50%;
+      width: 18px; height: 18px; margin-left: -9px; margin-top: -9px;
+      background: rgba(160,109,69,0.35);
+      animation: ripple-out 0.5s ease forwards; z-index: 9999;
+    }
+    @keyframes ripple-out {
+      from { transform: scale(0.5); opacity: 1; }
+      to   { transform: scale(2.8); opacity: 0; }
+    }
+    #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
+
+    /* "Full!" tooltip — cute pop-up shown when clicking a fed dog */
+    .dog-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      margin-bottom: 0.6rem;
+      background: var(--wood);
+      color: #fff;
+      font-family: var(--font-caption);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 0.5rem 0.95rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 20;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      box-shadow: 0 6px 16px rgba(92, 56, 32, 0.28);
+    }
+    .dog-tooltip.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dog-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--wood);
+    }
+
+    /* Stack on narrow screens */
+    @media (max-width: 900px) {
+      .intro-section { flex-direction: column; align-items: stretch; gap: 1.5rem; }
+      .dog-wrap { width: 100%; max-width: 320px; }
+    }
+
+    /* ── LOGO ────────────────────────────────────────────────── */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* ── SIDEBAR PERSONALITY LINE ───────────────────────────── */
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SIDEBAR LINKS (arrows removed) ─────────────────────── */
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+
+    /* ── HOVER-REVEAL OVERLAY ON CARDS ──────────────────────── */
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 20, 18, 0.62);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1rem 1.1rem;
+      opacity: 0;
+      transition: opacity 0.28s ease;
+      border-radius: 8px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-title {
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: -0.005em;
+      line-height: 1.2;
+    }
+    .gallery-overlay-sub {
+      font-family: var(--font-caption);
+      font-size: 0.66rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.06em;
+      margin-top: 0.25rem;
+    }
+    .gallery-label { padding: 0.7rem 0 0; }
+    .gallery-label-title {
+      font-size: 0.88rem; font-weight: 500;
+      color: var(--text); letter-spacing: -0.005em;
+      transition: color 0.2s;
+    }
+    .gallery-item:hover .gallery-label-title { color: var(--muted-strong); }
+    .gallery-label-sub {
+      font-family: var(--font-caption);
+      font-size: 0.7rem; color: var(--muted);
+      letter-spacing: 0.04em; margin-top: 0.18rem;
+    }
+
+    /* subtle lift on gallery hover, on top of existing overlay reveal */
+    .gallery-thumb { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+    .gallery-item:hover .gallery-thumb {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(20,20,18,0.12);
+    }
+
+    /* ── MICRO-COPY UNDER INTRO ─────────────────────────────── */
+    .intro-micro {
+      margin-top: 1rem;
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted-strong);
+      line-height: 1.75;
+      letter-spacing: 0.01em;
+    }
+    .intro-micro em { font-style: normal; color: var(--muted); }
+
+    /* ── MARQUEE STRIP ───────────────────────────────────────── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 0.5px solid var(--line);
+      border-bottom: 0.5px solid var(--line);
+      padding: 0.7rem 0;
+      margin: 2.4rem 0 0;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      gap: 0;
+      animation: marquee-scroll 28s linear infinite;
+    }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      font-family: var(--font-caption);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 1.8rem;
+      transition: color 0.2s ease;
+    }
+    .marquee-item:hover { color: var(--muted-strong); }
+    .marquee-sep {
+      font-size: 0.5rem;
+      color: var(--line);
+      vertical-align: middle;
+    }
+
+    /* ── GRAIN TEXTURE ──────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9990;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ── PAGE TRANSITIONS ───────────────────────────────────── */
+    body { animation: page-in 0.35s ease both; }
+    @keyframes page-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .page-out { animation: page-fade-out 0.22s ease forwards; }
+    @keyframes page-fade-out {
+      to { opacity: 0; }
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    .site-footer {
+      margin-top: 5rem;
+      padding-top: 1.6rem;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .site-footer-copy {
+      font-family: var(--font-caption);
+      font-size: 0.66rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none; }
+      body { animation: none; }
+      .dog-zone:not(.fed) .dog-img-legged { animation: none; }
+      .dog-zone.fed .dog-img-regular { animation: none; }
+      .dog-cooldown-ring { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="confetti-canvas"></canvas>
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="index.html" aria-label="Claire Lin — Home">
+        <img class="sidebar-logo" src="logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="#gallery">Work</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="Resume_ClaireLin(LiangYingLin).pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <!-- ══ MAIN ════════════════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- Intro + micro-copy + dog on the right -->
+    <section class="intro-section">
+      <div class="intro-text">
+        <p class="intro-line" id="intro-line">
+          UX designer &amp; HCI researcher working at the seams between <em>people and technology.</em>
+        </p>
+        <p class="intro-micro">
+          Currently Tokyo. Previously Taiwan and the US.<br/>
+          Building toward full-stack with a <em>creative workaholic</em> mind.
+        </p>
+      </div>
+
+      <div class="dog-wrap">
+        <div class="dog-zone" id="dog-zone" onclick="feedDog(event)" aria-label="Feed the dog">
+          <div class="dog-tooltip" id="dog-tooltip">Full! Feed me after five minutes.</div>
+          <img class="dog-img dog-img-legged"  src="dog-legged.png"  alt="Girl and dog" />
+          <img class="dog-img dog-img-regular" src="dog-regular.png" alt="Girl and satisfied dog" />
+        </div>
+        <div class="dog-dots">
+          <div class="dog-dot" id="dot-0"></div>
+          <div class="dog-dot" id="dot-1"></div>
+          <div class="dog-dot" id="dot-2"></div>
+          <div class="dog-dot" id="dot-3"></div>
+          <div class="dog-dot" id="dot-4"></div>
+        </div>
+        <div class="dog-cooldown" id="dog-cooldown">
+          <span class="dog-cooldown-ring"></span>
+          <span id="dog-cooldown-text">Hungry again in 5:00</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee strip -->
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item">UX Design</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">HCI Research</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Embodied Interaction</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Affective Computing</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Product Design</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Tokyo</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Open to work</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Full-stack in progress</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">UX Design</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">HCI Research</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Embodied Interaction</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Affective Computing</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Product Design</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Tokyo</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Open to work</span><span class="marquee-sep">·</span>
+        <span class="marquee-item">Full-stack in progress</span><span class="marquee-sep">·</span>
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <section id="gallery">
+      <p class="section-label">Selected Work</p>
+
+      <div class="gallery-grid">
+
+        <a class="gallery-item" href="projects/temporal-embodiment.html">
+          <div class="gallery-thumb">
+            <img src="Thesis-hero.png" alt="Temporal Embodiment Thresholds" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">Temporal Embodiment Thresholds</div>
+              <div class="gallery-overlay-sub">HCI Research · Master Thesis · 2026</div>
+            </div>
+          </div>
+          <div class="gallery-label">
+            <div class="gallery-label-title">Temporal Embodiment Thresholds</div>
+            <div class="gallery-label-sub">HCI Research · Master Thesis · 2026</div>
+          </div>
+        </a>
+
+        <a class="gallery-item" href="projects/subtrack.html">
+          <div class="gallery-thumb">
+            <img src="Subtrack-hero.png" alt="SubTrack" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">SubTrack</div>
+              <div class="gallery-overlay-sub">Product Design · 2026</div>
+            </div>
+          </div>
+          <div class="gallery-label">
+            <div class="gallery-label-title">SubTrack</div>
+            <div class="gallery-label-sub">Product Design · 2026</div>
+          </div>
+        </a>
+
+        <a class="gallery-item" href="projects/hibana.html">
+          <div class="gallery-thumb">
+            <img src="Hibana-hero.png" alt="Hibana" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">Hibana: From Whispers to Bloom</div>
+              <div class="gallery-overlay-sub">Embodied Interaction · 2025</div>
+            </div>
+          </div>
+          <div class="gallery-label">
+            <div class="gallery-label-title">Hibana: From Whispers to Bloom</div>
+            <div class="gallery-label-sub">Embodied Interaction · 2025</div>
+          </div>
+        </a>
+
+        <a class="gallery-item" href="projects/designmate.html">
+          <div class="gallery-thumb">
+            <img src="DesignMate-hero.png" alt="Design Mate" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">Design Mate</div>
+              <div class="gallery-overlay-sub">AI Tool · 2025</div>
+            </div>
+          </div>
+          <div class="gallery-label">
+            <div class="gallery-label-title">Design Mate</div>
+            <div class="gallery-label-sub">AI Tool · 2025</div>
+          </div>
+        </a>
+
+        <a class="gallery-item" href="projects/coveriq.html">
+          <div class="gallery-thumb">
+            <img src="CoverIQ-hero.png" alt="CoverIQ" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">CoverIQ</div>
+              <div class="gallery-overlay-sub">UX Design · 2025</div>
+            </div>
+          </div>
+          <div class="gallery-label">
+            <div class="gallery-label-title">CoverIQ</div>
+            <div class="gallery-label-sub">UX Design · 2025</div>
+          </div>
+        </a>
+
+        <a class="gallery-item" href="projects/cozyquest.html">
+          <div class="gallery-thumb">
+            <img src="CozyQuest-hero.png" alt="Cozy Quest" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">Cozzi Quest</div>
+              <div class="gallery-overlay-sub">Game Design · Sensory UX · 2026 - present</div>
+            </div>
+          </div>
+          <div class="gallery-label">
+            <div class="gallery-label-title">Cozzi Quest</div>
+            <div class="gallery-label-sub">Game Design · Sensory UX · 2026 - present</div>
+          </div>
+        </a>
+
+        <a class="gallery-item" href="projects/pebble.html">
+          <div class="gallery-thumb">
+            <img src="Pebble-hero.png" alt="Pebble" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">Pebble</div>
+              <div class="gallery-overlay-sub">Interaction Design · 2026 - present</div>
+            </div>
+          </div>
+          <div class="gallery-label">
+            <div class="gallery-label-title">Pebble</div>
+            <div class="gallery-label-sub">Interaction Design · 2026 - present</div>
+          </div>
+        </a>
+
+        <a class="gallery-item" href="projects/elderlink.html">
+          <div class="gallery-thumb">
+            <img src="Elderlink-hero.png" alt="ElderLink" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">ElderLink</div>
+              <div class="gallery-overlay-sub">UX · Business Model · AI implementation · 2025</div>
+            </div>
+          </div>
+          <div class="gallery-label">
+            <div class="gallery-label-title">ElderLink</div>
+            <div class="gallery-label-sub">UX · Business Model · AI implementation · 2025</div>
+          </div>
+        </a>
+
+        <a class="gallery-item" href="projects/mosaic.html">
+          <div class="gallery-thumb">
+            <img src="Mosaic-hero.png" alt="Mosaic" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">Mosaic: Connecting Food, People</div>
+              <div class="gallery-overlay-sub">Interaction Design · 2024</div>
+            </div>
+          </div>
+          <div class="gallery-label">
+            <div class="gallery-label-title">Mosaic: Connecting Food, People</div>
+            <div class="gallery-label-sub">Interaction Design · 2024</div>
+          </div>
+        </a>
+
+        <a class="gallery-item" href="projects/unearthed.html">
+          <div class="gallery-thumb">
+            <img src="Unearthed-hero.png" alt="Unearthed: Tokyo Cultural Heritage Guidebook" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">Unearthed</div>
+              <div class="gallery-overlay-sub">Editorial · Tokyo Cultural Heritage Guidebook · 2025</div>
+            </div>
+          </div>
+          <div class="gallery-label">
+            <div class="gallery-label-title">Unearthed: Tokyo Cultural Heritage Guidebook</div>
+            <div class="gallery-label-sub">Editorial Design · 2025</div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <span class="site-footer-copy">© Claire Lin 2026</span>
+    </footer>
+
+  </main>
+
+  <script>
+    // ── Mobile sidebar toggle ──────────────────────────────────
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      const sb  = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+      if (window.innerWidth <= 860 &&
+          !sb.contains(e.target) &&
+          !btn.contains(e.target)) {
+        sb.classList.remove('open');
+      }
+    });
+
+    // ── Intro word-by-word reveal ──────────────────────────────
+    function wrapWords(el) {
+      const nodes = Array.from(el.childNodes);
+      el.innerHTML = '';
+      nodes.forEach(node => {
+        if (node.nodeType === 3) {
+          node.textContent.split(/(\s+)/).forEach(part => {
+            if (part.trim()) {
+              const span = document.createElement('span');
+              span.className = 'intro-word';
+              span.textContent = part;
+              el.appendChild(span);
+              el.appendChild(document.createTextNode(' '));
+            }
+          });
+        } else if (node.nodeName === 'EM') {
+          const span = document.createElement('span');
+          span.className = 'intro-word';
+          span.appendChild(node);
+          el.appendChild(span);
+        }
+      });
+    }
+    const introLine = document.getElementById('intro-line');
+    wrapWords(introLine);
+    introLine.querySelectorAll('.intro-word').forEach((w, i) => {
+      setTimeout(() => w.classList.add('visible'), 120 + i * 70);
+    });
+
+    // ── Staggered gallery entrance ─────────────────────────────
+    document.querySelectorAll('.gallery-item').forEach((card, i) => {
+      setTimeout(() => card.classList.add('entered'), 500 + i * 60);
+    });
+
+    // ── Page transition on outbound links ─────────────────────
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href.startsWith('#') && !href.startsWith('mailto') &&
+          !href.startsWith('http') && href !== '' && href !== 'index.html') {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          document.body.classList.add('page-out');
+          setTimeout(() => { window.location.href = href; }, 220);
+        });
+      }
+    });
+
+    // ── Dog feeding ───────────────────────────────────────────
+    const TOTAL = 5;
+    const COOLDOWN_MS = 5 * 60 * 1000; // 5 minutes
+    let clicks = 0, done = false;
+    let tooltipTimer, cooldownInterval, cooldownEndsAt;
+
+    function showFullTooltip() {
+      const tip = document.getElementById('dog-tooltip');
+      tip.classList.add('show');
+      clearTimeout(tooltipTimer);
+      tooltipTimer = setTimeout(() => tip.classList.remove('show'), 1800);
+    }
+
+    function formatTime(ms) {
+      const totalSec = Math.max(0, Math.ceil(ms / 1000));
+      const m = Math.floor(totalSec / 60);
+      const s = totalSec % 60;
+      return m + ':' + String(s).padStart(2, '0');
+    }
+
+    function startCooldown() {
+      cooldownEndsAt = Date.now() + COOLDOWN_MS;
+      const cooldownEl = document.getElementById('dog-cooldown');
+      const textEl = document.getElementById('dog-cooldown-text');
+      cooldownEl.classList.add('show');
+
+      clearInterval(cooldownInterval);
+      cooldownInterval = setInterval(() => {
+        const remaining = cooldownEndsAt - Date.now();
+        if (remaining <= 0) {
+          clearInterval(cooldownInterval);
+          resetDog();
+          return;
+        }
+        textEl.textContent = 'Hungry again in ' + formatTime(remaining);
+      }, 1000);
+      textEl.textContent = 'Hungry again in ' + formatTime(COOLDOWN_MS);
+    }
+
+    function resetDog() {
+      done = false;
+      clicks = 0;
+      document.getElementById('dog-zone').classList.remove('fed');
+      document.getElementById('dog-cooldown').classList.remove('show');
+      for (let i = 0; i < TOTAL; i++) {
+        const d = document.getElementById('dot-' + i);
+        if (d) d.classList.remove('filled');
+      }
+    }
+
+    function feedDog(e) {
+      e.stopPropagation();
+      if (done) {
+        showFullTooltip();
+        return;
+      }
+      const r = document.createElement('div');
+      r.className = 'ripple';
+      r.style.left = e.clientX + 'px';
+      r.style.top  = e.clientY + 'px';
+      document.body.appendChild(r);
+      r.addEventListener('animationend', () => r.remove());
+      clicks++;
+      const d = document.getElementById('dot-' + (clicks - 1));
+      if (d) d.classList.add('filled');
+      if (clicks >= TOTAL) {
+        done = true;
+        document.getElementById('dog-zone').classList.add('fed');
+        setTimeout(launchConfetti, 300);
+        startCooldown();
+        /* cursor stays as the cookie biscuit — no override to default */
+      }
+    }
+
+    // ── Confetti ──────────────────────────────────────────────
+    function launchConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx    = canvas.getContext('2d');
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const colors  = ['#D4A574','#5C3820','#A06D45','#C8D8B8','#E8C896','#f0a0b0'];
+      const pieces  = Array.from({ length: 90 }, () => ({
+        x: Math.random() * canvas.width, y: Math.random() * -canvas.height,
+        w: 6 + Math.random() * 6, h: 10 + Math.random() * 8,
+        r: Math.random() * Math.PI * 2, dr: (Math.random() - 0.5) * 0.12,
+        vy: 2.5 + Math.random() * 3, vx: (Math.random() - 0.5) * 1.5,
+        col: colors[Math.floor(Math.random() * colors.length)],
+      }));
+      let frame;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+        pieces.forEach(p => {
+          p.y += p.vy; p.x += p.vx; p.r += p.dr;
+          if (p.y < canvas.height + 20) alive = true;
+          ctx.save();
+          ctx.translate(p.x, p.y); ctx.rotate(p.r);
+          ctx.globalAlpha = Math.max(0, 1 - p.y / canvas.height);
+          ctx.fillStyle = p.col;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+        if (alive) { frame = requestAnimationFrame(draw); }
+        else { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+      }
+      draw();
+      setTimeout(() => { cancelAnimationFrame(frame); ctx.clearRect(0, 0, canvas.width, canvas.height); }, 4000);
+    }
+  </script>
+
+</body>
+</html>

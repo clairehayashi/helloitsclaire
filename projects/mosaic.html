@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mosaic · Claire Lin</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    /* Project page layout */
+    .main { padding: 4rem 2rem 6rem; }
+    .case { max-width: 680px; margin: 0 auto; }
+
+    .case-back {
+      font-family: var(--font-caption);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: inline-block;
+      margin-bottom: 2.8rem;
+      transition: color 0.2s;
+    }
+    .case-back:hover { color: var(--text); }
+
+    .case-hero { margin-bottom: 3.4rem; }
+    .case-title {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+      white-space: nowrap;
+    }
+    .case-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #76746E;
+      letter-spacing: -0.005em;
+    }
+    .case-meta {
+      margin-top: 2rem;
+      padding-top: 1.4rem;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 2.2rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .case-meta b {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+    .case-meta span { color: var(--text); font-weight: 400; }
+
+    .case-section { margin: 3.6rem 0; }
+    .case-section-label {
+      font-family: var(--font-caption);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+    .case-h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+    }
+    .case-h3 {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      margin: 1.6rem 0 0.5rem;
+    }
+    .case-p {
+      font-size: 1.02rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.3rem;
+    }
+    .case-p em { font-style: italic; color: var(--muted-strong); }
+    .case-p strong { font-weight: 600; color: var(--text); }
+
+    .case-callout {
+      background: var(--surface);
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--wood);
+      margin: 2.4rem 0 2.6rem;
+    }
+    .case-callout-label {
+      font-family: var(--font-caption);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wood);
+      margin-bottom: 0.8rem;
+    }
+    .case-callout-text {
+      font-size: 1.14rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+    .case-video-wrap {
+      width: 100%;
+      border-radius: 3px;
+      overflow: hidden;
+      background: var(--thumb-bg);
+    }
+
+.case-video {
+  width: 100%;
+  display: block;
+  border-radius: 3px;
+  background: var(--thumb-bg);
+}
+    .case-figure { margin: 2.8rem 0; }
+    .case-figure img {
+      width: 100%;
+      display: block;
+      border-radius: 3px;
+      background: var(--thumb-bg);
+    }
+    .case-figcaption {
+      font-family: var(--font-caption);
+      font-size: 0.82rem;
+      color: var(--muted-strong);
+      letter-spacing: 0.01em;
+      line-height: 1.55;
+      margin-top: 0.9rem;
+    }
+    .case-figcaption b { font-weight: 600; color: var(--text); margin-right: 0.3rem; }
+
+    .mosaic-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+      margin: 2.2rem 0;
+      padding: 1.8rem 0;
+      border-top: 0.5px solid var(--line);
+      border-bottom: 0.5px solid var(--line);
+    }
+    .mosaic-stat-num {
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .mosaic-stat-label {
+      font-family: var(--font-caption);
+      font-size: 0.72rem;
+      color: var(--muted-strong);
+      line-height: 1.45;
+    }
+
+    .mosaic-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .mosaic-card {
+      background: var(--surface);
+      border-top: 0.5px solid var(--line);
+      padding: 1.35rem 1.4rem;
+      border-radius: 2px;
+    }
+    .mosaic-card-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.55rem;
+    }
+    .mosaic-card-text {
+      font-size: 0.86rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+      margin: 0;
+    }
+
+    .flow-list {
+      margin: 2rem 0;
+      border-top: 0.5px solid var(--line);
+    }
+    .flow-item {
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 1.2rem;
+      padding: 1.2rem 0;
+      border-bottom: 0.5px solid var(--line);
+    }
+    .flow-num {
+      font-family: var(--font-caption);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--wood);
+      padding-top: 0.2rem;
+    }
+    .flow-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .flow-text {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+      margin: 0;
+    }
+
+    .case-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .case-credits {
+      margin-top: 4.4rem;
+      padding-top: 1.8rem;
+      border-top: 0.5px solid var(--line);
+      font-size: 0.84rem;
+      color: var(--muted-strong);
+      line-height: 1.9;
+    }
+    .case-credits dt {
+      font-family: var(--font-caption);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .case-credits dt:first-child { margin-top: 0; }
+    .case-credits dd { color: var(--text); }
+
+    /* Sidebar matched to index.html */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover { transform: translateX(2px); }
+
+    body { animation: page-in 0.35s ease both; }
+    @keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+    .page-out { animation: page-fade-out 0.22s ease forwards; }
+    @keyframes page-fade-out { to { opacity: 0; } }
+
+    @media (max-width: 700px) {
+      .case-title { font-size: 1.6rem; white-space: normal; }
+      .mosaic-stats,
+      .mosaic-card-grid { grid-template-columns: 1fr; }
+      .flow-item { grid-template-columns: 1fr; gap: 0.35rem; }
+      .main { padding: 3rem 1.2rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="../index.html" aria-label="Claire Lin Home">
+        <img class="sidebar-logo" src="../logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#gallery" class="active">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../resume.pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <main class="main">
+    <article class="case">
+
+      <a href="../index.html#gallery" class="case-back">&larr; Selected Work</a>
+
+      <header class="case-hero">
+        <h1 class="case-title">Mosaic</h1>
+        <p class="case-subtitle">
+          A school project exploring how vertical farming can turn unused urban surfaces into food infrastructure, then connect harvests to packaged products people can buy and trust.
+        </p>
+        <div class="case-meta">
+          <div><b>Type</b><span>Service Design</span></div>
+          <div><b>Theme</b><span>Urban Farming</span></div>
+          <div><b>Output</b><span>Food System Concept</span></div>
+          <div><b>Role</b><span>UX Research · Web Design · Marketing Framing</span></div>
+        </div>
+      </header>
+
+      <figure class="case-figure">
+        <img src="../Mosaic-hero.png" alt="Mosaic project cover with vertical farming and packaged food concept" />
+        <figcaption class="case-figcaption">
+          <b>Figure 1.</b> Mosaic frames vertical farming as a visible part of everyday housing instead of a hidden supply-chain technology.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Overview</p>
+        <h2 class="case-h2">From green roofs to a food system people can use.</h2>
+        <p class="case-p">
+          Mosaic began with a question about urban land use. Many city buildings have roofs, balconies, and shared exterior walls that are treated as dead space. At the same time, residents buy food that has traveled through a chain they rarely see.
+        </p>
+        <p class="case-p">
+          Our project proposes a vertical farming system for dense neighborhoods. The farm is placed where people already live, then the harvest is translated into two consumer touchpoints: direct farm-to-table access and organic packaged food with clear origin information.
+        </p>
+        <p class="case-p">
+          The goal was not to make a futuristic farm. It was to design a service that makes local food easier to notice, buy, and understand inside an urban routine.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Problem</p>
+        <h2 class="case-h2">Urban consumers are close to food retailers, but far from food production.</h2>
+        <p class="case-p">
+          City residents can buy meals quickly, yet the origin of daily produce often stays abstract. Organic food is marketed as a premium choice, but the package usually says little about the place, harvest date, or production method behind it.
+        </p>
+        <p class="case-p">
+          The same disconnect appears in building design. Green roofs are often discussed as environmental infrastructure, but they are rarely connected to the food habits of residents. Mosaic treats the building as both a growing site and a public communication surface.
+        </p>
+        <div class="case-callout">
+          <p class="case-callout-label">Design question</p>
+          <p class="case-callout-text">
+            How might vertical farming help urban residents understand where food comes from, while making packaged organic products feel tied to a real nearby place?
+          </p>
+        </div>
+      </section>
+
+      <figure class="case-figure">
+        <img src="../mosaic-urban-farming-system.png" alt="Diagram showing vertical farming modules on housing and food distribution touchpoints" />
+        <figcaption class="case-figcaption">
+          <b>Figure 2.</b> System direction. Housing surfaces support vertical farm modules, while harvests move into resident pickup, prepared food, and packaged retail.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Concept</p>
+        <h2 class="case-h2">Grow nearby, package with proof, return value to the neighborhood.</h2>
+        <p class="case-p">
+          Mosaic combines a farming layer with a product layer. The farming layer uses modular vertical beds that can be installed on rooftops or shared building edges. The product layer turns harvested greens, herbs, and edible flowers into packaged food that carries the farm location and harvest window on the label.
+        </p>
+        <p class="case-p">
+          This structure makes the package part of the experience. It does not only protect the food. It explains the route from building to table, so the buyer can connect the product to a specific place rather than a broad claim about being organic.
+        </p>
+
+        <div class="mosaic-card-grid">
+          <div class="mosaic-card">
+            <p class="mosaic-card-title">Vertical farming layer</p>
+            <p class="mosaic-card-text">
+              Modular growing units placed on rooftops, shared terraces, or building edges. The system turns unused surfaces into small production sites.
+            </p>
+          </div>
+          <div class="mosaic-card">
+            <p class="mosaic-card-title">Packaged food layer</p>
+            <p class="mosaic-card-text">
+              Organic food packs labeled with farm location, harvest date, and suggested use. Packaging becomes a trust interface for city buyers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Service flow</p>
+        <h2 class="case-h2">A loop from building surface to dinner table.</h2>
+        <p class="case-p">
+          We mapped Mosaic as a service loop rather than a standalone installation. Each step has a different user: building managers approve space, growers maintain production, residents encounter the farm, and buyers meet the brand through packaged food.
+        </p>
+
+        <div class="flow-list">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div>
+              <p class="flow-title">Identify the building surface</p>
+              <p class="flow-text">Rooftops, terraces, and exterior edges are evaluated for light, access, and maintenance safety.</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div>
+              <p class="flow-title">Install vertical farm modules</p>
+              <p class="flow-text">Crops are selected for short growth cycles and packaging value, such as leafy greens, herbs, and garnish plants.</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div>
+              <p class="flow-title">Harvest and prepare products</p>
+              <p class="flow-text">Produce is sorted into direct-use ingredients and packaged items for nearby residents or local stores.</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">04</div>
+            <div>
+              <p class="flow-title">Package with location context</p>
+              <p class="flow-text">Labels show where the food was grown, when it was harvested, and how it can be used in a simple meal.</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">05</div>
+            <div>
+              <p class="flow-title">Return scraps to the system</p>
+              <p class="flow-text">Food waste can become compost input where the building has suitable maintenance support.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <figure class="case-figure">
+        <img src="../mosaic-service-flow.png" alt="Mosaic service flow from vertical farm to packaged food and compost return" />
+        <figcaption class="case-figcaption">
+          <b>Figure 3.</b> Service loop. The concept connects growing, harvesting, packaging, buying, and waste return instead of treating vertical farming as a display object.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Packaging strategy</p>
+        <h2 class="case-h2">The package teaches the food story at the moment of purchase.</h2>
+        <p class="case-p">
+          The packaged-food direction focuses on products that make sense for short-distance distribution. Instead of treating organic as a broad marketing word, the packaging gives practical proof: the farm site, harvest date, crop type, and a meal suggestion.
+        </p>
+        <p class="case-p">
+          This is where the name Mosaic becomes useful. Each food pack represents one tile in a neighborhood food system. The full picture is not one large farm outside the city. It is many small growing sites connected through consistent packaging and service rules.
+        </p>
+
+        <div class="mosaic-stats">
+          <div>
+            <div class="mosaic-stat-num">Site</div>
+            <div class="mosaic-stat-label">The label shows the building or district where the crop was grown.</div>
+          </div>
+          <div>
+            <div class="mosaic-stat-num">Date</div>
+            <div class="mosaic-stat-label">The harvest window helps buyers judge freshness without guessing.</div>
+          </div>
+          <div>
+            <div class="mosaic-stat-num">Use</div>
+            <div class="mosaic-stat-label">A simple serving idea connects the product to home cooking.</div>
+          </div>
+        </div>
+      </section>
+
+      <figure class="case-figure">
+        <div class="case-video-wrap">
+          <video class="case-video" controls playsinline preload="metadata">
+            <source src="../mosaic-video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <figcaption class="case-figcaption">
+          <b>Figure 4.</b> Video walkthrough. Replace <code>mosaic-video.mp4</code> with your uploaded Mosaic video file.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Design process</p>
+        <h2 class="case-h2">Translating an environmental idea into user-facing decisions.</h2>
+        <p class="case-p">
+          The design process moved from food-system framing to touchpoint design. We first defined the gap between urban residents and food production. Then we mapped where residents would actually encounter the system: the building facade, the pickup point, the package, and the recipe cue.
+        </p>
+        <p class="case-p">
+          My work focused on making the concept understandable from a user and marketing perspective. The key task was to explain why someone should care about vertical farming when they are simply buying lunch or picking up groceries after school or work.
+        </p>
+        <p class="case-p">
+          The final direction uses the farm as evidence, the package as communication, and the meal as the point where the system becomes useful.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Outcome</p>
+        <h2 class="case-h2">A food concept that connects building design to everyday eating.</h2>
+        <p class="case-p">
+          Mosaic presents vertical farming as a neighborhood service, not a standalone sustainability symbol. The project links infrastructure, brand, and consumption so that residents can see how urban farming affects what they buy.
+        </p>
+        <p class="case-p">
+          The strongest part of the proposal is the connection between farm visibility and packaged food trust. A rooftop garden may attract attention once, but a labeled product can carry that story into repeated purchase decisions.
+        </p>
+      </section>
+
+      <figure class="case-figure">
+        <img src="../mosaic-final-display.png" alt="Mosaic final school project display with farming system and packaged food touchpoints" />
+        <figcaption class="case-figcaption">
+          <b>Figure 5.</b> Final presentation direction. The project shows the urban farm, product package, and user journey as one connected system.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Reflection</p>
+        <h2 class="case-h2">Food design needs operations, not only imagery.</h2>
+        <p class="case-p">
+          Mosaic helped me understand that food-system design becomes convincing when the service details are clear. A vertical farm can look appealing, but the concept becomes usable only when maintenance, packaging, purchase, and trust are designed together.
+        </p>
+        <p class="case-p">
+          If I continued this project, I would prototype one product label and one pickup flow, then test whether people understand the farm-to-table connection without a verbal explanation.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Built with</p>
+        <div class="case-stack">
+          <span class="tag-pill">UX Research</span>
+          <span class="tag-pill">Service Design</span>
+          <span class="tag-pill">Food System Mapping</span>
+          <span class="tag-pill">Packaging Strategy</span>
+          <span class="tag-pill">Web Design</span>
+          <span class="tag-pill">Marketing Framing</span>
+        </div>
+      </section>
+
+      <section class="case-credits">
+        <dl>
+          <dt>Project</dt>
+          <dd>Mosaic, a school project about vertical farming, farm-to-table access, and organic packaged food.</dd>
+
+          <dt>My contribution</dt>
+          <dd>UX research framing, web page structure, food-system narrative, and marketing interpretation.</dd>
+
+        </dl>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    document.addEventListener('click', e => {
+      const sb = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+      if (window.innerWidth <= 860 &&
+          !sb.contains(e.target) &&
+          !btn.contains(e.target)) {
+        sb.classList.remove('open');
+      }
+    });
+
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('mailto') &&
+          !href.startsWith('http') && href !== '') {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          document.body.classList.add('page-out');
+          setTimeout(() => { window.location.href = href; }, 220);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

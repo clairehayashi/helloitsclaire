@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pebble · Claire Lin</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    .main { padding: 4rem 2rem 6rem; }
+    .case { max-width: 680px; margin: 0 auto; }
+
+    .case-back {
+      font-family: var(--font-caption);
+      font-size: 0.66rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); display: inline-block;
+      margin-bottom: 2.8rem; transition: color 0.2s;
+    }
+    .case-back:hover { color: var(--text); }
+
+    .case-hero { margin-bottom: 0; }
+    .case-title {
+      font-family: var(--font);
+      font-size: 2.8rem; font-weight: 300;
+      letter-spacing: -0.025em; color: var(--text);
+      line-height: 1; margin-bottom: 1rem;
+    }
+    .case-subtitle {
+      font-size: 1.08rem; font-weight: 300;
+      line-height: 1.55; color: var(--muted-strong);
+      letter-spacing: -0.005em; max-width: 38rem; margin-bottom: 1.2rem;
+    }
+    .case-meta-inline {
+      font-family: var(--font-caption);
+      font-size: 0.75rem; color: var(--muted);
+      letter-spacing: 0.06em;
+      padding-bottom: 1.6rem; border-bottom: 0.5px solid var(--line);
+      margin-bottom: 2.4rem;
+    }
+
+    .case-punctuation-img { width: 100%; margin-bottom: 0.9rem; }
+    .case-punctuation-img img { width: 100%; border-radius: 4px; display: block; }
+    .case-punctuation-cap {
+      font-family: var(--font-caption);
+      font-size: 0.78rem; color: var(--muted-strong);
+      line-height: 1.5; margin-bottom: 2.8rem;
+    }
+
+    .case-figure { margin: 2.6rem 0; }
+    .case-figure img {
+      width: 100%; display: block;
+      border-radius: 3px;
+    }
+    .case-figcaption {
+      font-family: var(--font-caption);
+      font-size: 0.8rem; color: var(--muted-strong);
+      line-height: 1.5; margin-top: 0.8rem;
+    }
+
+    .case-section { margin: 3.4rem 0; }
+    .case-section-label {
+      font-family: var(--font-caption);
+      font-size: 0.66rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.2rem;
+    }
+    .case-h2 {
+      font-size: 1.4rem; font-weight: 400;
+      letter-spacing: -0.01em; color: var(--text);
+      margin-bottom: 1.2rem; line-height: 1.3;
+    }
+    .case-p {
+      font-size: 1rem; line-height: 1.75;
+      color: var(--text); margin-bottom: 1.2rem;
+    }
+    .case-p:last-child { margin-bottom: 0; }
+    .case-p em { font-style: italic; color: var(--muted-strong); }
+
+    .case-callout {
+      border-left: 2px solid var(--wood);
+      padding: 0.25rem 0 0.25rem 1.4rem; margin: 2rem 0;
+    }
+    .case-callout-label {
+      font-family: var(--font-caption);
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--wood); margin-bottom: 0.55rem;
+    }
+    .case-callout-text {
+      font-size: 1.05rem; line-height: 1.55;
+      color: var(--text); font-weight: 300;
+    }
+
+    .case-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem; padding: 1.8rem 0;
+      border-top: 0.5px solid var(--line);
+      border-bottom: 0.5px solid var(--line); margin: 2.2rem 0;
+    }
+    .case-stat-num {
+      font-size: 2.2rem; font-weight: 300;
+      letter-spacing: -0.02em; color: var(--text);
+      line-height: 1; margin-bottom: 0.4rem;
+    }
+    .case-stat-label {
+      font-family: var(--font-caption);
+      font-size: 0.72rem; color: var(--muted-strong); line-height: 1.45;
+    }
+
+    .case-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+
+    .case-credits { margin-top: 4rem; padding-top: 1.8rem; border-top: 0.5px solid var(--line); }
+    .case-credits dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.6rem 2rem; }
+    .case-credits dt {
+      font-family: var(--font-caption);
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); align-self: baseline; padding-top: 0.15rem;
+    }
+    .case-credits dd { font-size: 0.94rem; color: var(--text); margin: 0; line-height: 1.5; }
+
+    body { animation: page-in 0.35s ease both; }
+    @keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+    .page-out { animation: page-fade-out 0.22s ease forwards; }
+    @keyframes page-fade-out { to { opacity: 0; } }
+
+    @media (max-width: 640px) {
+      .case-title { font-size: 2rem; }
+      .case-stats { grid-template-columns: 1fr; }
+      .main { padding: 3rem 1.2rem 4rem; }
+    }
+
+    /* ── LOGO (matched to index.html) ───────────────────────── */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* ── SIDEBAR PERSONALITY LINE (matched to index.html) ───── */
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SIDEBAR LINKS, arrows removed (matched to index.html) ─ */
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+
+  </style>
+</head>
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="../index.html" aria-label="Claire Lin — Home">
+        <img class="sidebar-logo" src="../logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#gallery" class="active">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../resume.pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <main class="main">
+    <article class="case">
+
+      <a href="../index.html#gallery" class="case-back">&larr; Selected Work</a>
+
+      <header class="case-hero">
+        <h1 class="case-title">Pebble</h1>
+        <p class="case-subtitle">
+          A long-distance relationship app built around tiny daily commitments, small enough to keep and steady enough to feel like company.
+        </p>
+        <p class="case-meta-inline">
+          Product Design &nbsp;&middot;&nbsp; Personal Project &nbsp;&middot;&nbsp; UX, App Design &amp; Interaction Concept &nbsp;&middot;&nbsp; 2026 &ndash; present
+        </p>
+      </header>
+
+      <div class="case-punctuation-img">
+        <img src="../Pebble-hero.png" alt="Pebble app hero image with two puzzle-like rooms connected across distance" />
+      </div>
+      <p class="case-punctuation-cap">
+        Pebble's visual metaphor: two separate rooms, two small companion stones, and a shared space built from a distance.
+      </p>
+
+      <section class="case-section">
+        <p class="case-section-label">01 / Context</p>
+        <h2 class="case-h2">Long-distance care often fails when it becomes another task to manage</h2>
+        <p class="case-p">
+          Pebble started from a simple observation. People in long-distance relationships do not always need another serious check-in. Sometimes they need a small signal that says, <em>I am still here today.</em> Most relationship apps lean on calendars, tracking, or heavy sentimentality, turning connection into a chore instead of a place to return to.
+        </p>
+        <p class="case-p">
+          The name reflects that intent. A pebble is ordinary and easy to carry. It makes no grand promise, only a small, repeated commitment.
+        </p>
+        <div class="case-callout">
+          <p class="case-callout-label">Tagline</p>
+          <p class="case-callout-text">
+            Drop a pebble today, send a ripple their way.
+          </p>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">02 / Concept</p>
+        <h2 class="case-h2">A shared room built through small rituals</h2>
+        <p class="case-p">
+          The core experience is a shared virtual room. Each person checks in, leaves small traces, unlocks missions, and slowly decorates a space that belongs to both of them. Connection becomes a series of light daily actions instead of ongoing emotional labor.
+        </p>
+        <p class="case-p">
+          Sending a pebble is a small daily gesture. It can unlock a question, a mission, or a new detail in the shared room. The goal is continuity, not urgency.
+        </p>
+        <figure class="case-figure">
+          <img src="../Pebble-room-concept.png" alt="Pebble puzzle-like shared room concept" />
+          <figcaption class="case-figcaption">
+            Puzzle-like room concept. Two separate spaces become one shared space through small repeated actions.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">03 / Product Direction</p>
+        <h2 class="case-h2">Designed for daily use, not daily pressure</h2>
+        <p class="case-p">
+          Pebble is built for low-friction participation. A user opens the app, completes one small action, and feels present without writing a long message. The product avoids streak mechanics built on guilt and relies on gentle unlocks, room changes, and playful prompts instead.
+        </p>
+        <p class="case-p">
+          The app runs on four loops: daily check-ins, shared room building, unlockable missions, and lightweight traces. Each loop is small on its own. Together they create a rhythm that makes distance feel less empty.
+        </p>
+        <div class="case-stats">
+          <div>
+            <div class="case-stat-num">01</div>
+            <div class="case-stat-label">Daily pebble as a small commitment</div>
+          </div>
+          <div>
+            <div class="case-stat-num">02</div>
+            <div class="case-stat-label">Shared room as a growing bond</div>
+          </div>
+          <div>
+            <div class="case-stat-num">03</div>
+            <div class="case-stat-label">Missions as light, playful prompts</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">04 / Experience</p>
+        <h2 class="case-h2">From check-in to ripple</h2>
+        <p class="case-p">
+          The flow starts with a check-in. After choosing a mood or sending a pebble, the action creates a ripple in the shared room. That ripple can trigger a question, a mini mission, or a room object to unlock.
+        </p>
+        <p class="case-p">
+          The interface stays quiet by design. The app works less like a dashboard and more like a small window into the relationship, where both people can see what the other has been doing without needing to sync perfectly.
+        </p>
+        
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">05 / Visual System</p>
+        <h2 class="case-h2">Soft, tactile, and built for touch</h2>
+        <p class="case-p">
+          The visual language favors touch over technology. The pebbles are translucent, rounded, and slightly imperfect, like something kept in a pocket. The room imagery uses warm light, soft textiles, and rounded openings to communicate separation and connection at once.
+        </p>
+        <p class="case-p">
+          Typography is rounded and playful without becoming childish. The final direction pairs a rounded sans with a soft serif for warmth and legibility.
+        </p>
+        <figure class="case-figure">
+          <img src="../Pebble-final-screens.png" alt="Pebble final app screens" />
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">06 / Reflection</p>
+        <h2 class="case-h2">A relationship product does not need to be loud to matter</h2>
+        <p class="case-p">
+          Pebble pushed me to think about emotional interaction design at a small scale. The real design question was not how to increase engagement, but how to make a tiny action worth returning to.
+        </p>
+        <p class="case-p">
+          The puzzle-room metaphor became the strongest direction because it explains the product without over-explaining the interface. Distance does not disappear, but two people can still build something shared across it.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Built with</p>
+        <div class="case-stack">
+          <span class="tag-pill">Product Design</span>
+          <span class="tag-pill">UX Research</span>
+          <span class="tag-pill">Visual Design</span>
+          <span class="tag-pill">Interaction Design</span>
+          <span class="tag-pill">Figma</span>
+          <span class="tag-pill">Brand Direction</span>
+        </div>
+      </section>
+
+      <section class="case-credits">
+        <dl>
+          <dt>Design</dt><dd>Claire Lin</dd>
+          <dt>Research</dt><dd>Claire Lin</dd>
+          <dt>Branding</dt><dd>Claire Lin</dd>
+          <dt>Status</dt><dd>Personal project, in progress</dd>
+        </dl>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    document.addEventListener('click', e => {
+      const sb  = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+      if (window.innerWidth <= 860 &&
+          !sb.contains(e.target) &&
+          !btn.contains(e.target)) {
+        sb.classList.remove('open');
+      }
+    });
+
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('mailto') &&
+          !href.startsWith('http') && href !== '') {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          document.body.classList.add('page-out');
+          setTimeout(() => { window.location.href = href; }, 220);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

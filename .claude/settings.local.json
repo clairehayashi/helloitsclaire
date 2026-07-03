@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(start \"\" \"c:/Users/clair/OneDrive/桌面/Portfolio_Website/index.html\")",
+      "Bash(start \"\" \"c:/Users/clair/OneDrive/桌面/Portfolio_Website/projects/hibana.html\")",
+      "Bash(start \"\" \"c:/Users/clair/OneDrive/桌面/Portfolio_Website/projects/designmate.html\")",
+      "Bash(start projects/subtrack.html)"
+    ]
+  }
+}

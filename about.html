@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About · Claire Lin</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       ABOUT PAGE
+    ═══════════════════════════════════════════════════════════ */
+
+    .main {
+      padding: 4rem 2rem 6rem;
+    }
+
+    .about {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* ── Title row ────────────────────────────────────────── */
+    .about-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 3.2rem;
+    }
+
+    .about-title {
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .about-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--line);
+      flex-shrink: 0;
+      border: 0.5px solid var(--line);
+      box-shadow: 0 12px 32px rgba(20, 20, 18, 0.08);
+    }
+
+    /* ── Bio ───────────────────────────────────────────────── */
+    .about-bio {
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 0;
+      letter-spacing: -0.005em;
+    }
+
+    .about-bio em {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .about-divider {
+      height: 0.5px;
+      background: var(--line);
+      margin: 3rem 0;
+    }
+
+    /* ── Fact rows ─────────────────────────────────────────── */
+    .about-facts {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .about-fact {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 0.5px solid var(--line);
+      align-items: baseline;
+    }
+
+    .about-fact:first-child {
+      border-top: 0.5px solid var(--line);
+    }
+
+    .about-fact-label {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .about-fact-value {
+      font-size: 0.94rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .about-fact-value em {
+      font-style: normal;
+      color: var(--muted-strong);
+    }
+
+    .about-fact-value a {
+      color: var(--text);
+      border-bottom: 0.5px solid var(--line);
+    }
+
+    .about-fact-value a:hover {
+      border-color: var(--text);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       CENTER-SNAP SCROLL CAROUSEL
+    ═══════════════════════════════════════════════════════════ */
+
+    .about-outside {
+      margin-top: 3.4rem;
+    }
+
+    .about-outside-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1.4rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 0.5px solid var(--line);
+    }
+
+    .about-outside-label {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .about-outside-count {
+      font-size: 0.84rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin: 0;
+    }
+
+    .about-carousel {
+      --about-card-width: min(330px, 62vw);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-carousel-window {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 1.8rem calc((100% - var(--about-card-width)) / 2) 2.2rem;
+    }
+
+    .about-carousel-window::-webkit-scrollbar {
+      display: none;
+    }
+
+    .about-carousel-track {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: max-content;
+    }
+
+    .about-card {
+      position: relative;
+      flex: 0 0 var(--about-card-width);
+      aspect-ratio: 4 / 4.6;
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--line);
+      border: 0.5px solid color-mix(in srgb, var(--line) 75%, transparent);
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      opacity: 0.52;
+      transform: scale(0.84);
+      transition:
+        transform 0.35s ease,
+        opacity 0.35s ease,
+        box-shadow 0.35s ease,
+        filter 0.35s ease;
+    }
+
+    .about-card.is-active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    .about-card:hover {
+      transform: scale(1.03) translateY(-8px);
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.16),
+        0 0 42px rgba(255, 255, 255, 0.42);
+      filter: brightness(1.04);
+      z-index: 3;
+    }
+
+    .about-card.is-active:hover {
+      transform: scale(1.04) translateY(-8px);
+    }
+
+    .about-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .about-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .about-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02) 40%,
+          rgba(0, 0, 0, 0.24)
+        );
+      pointer-events: none;
+    }
+
+    .about-card-content {
+      position: absolute;
+      left: 1.1rem;
+      right: 1.1rem;
+      bottom: 1rem;
+      z-index: 1;
+      color: #fff;
+      text-shadow: 0 1px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    .about-card-title {
+      font-size: clamp(1.7rem, 4vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 0.95;
+      margin: 0 0 0.5rem;
+    }
+
+    .about-card-desc {
+      font-size: 0.76rem;
+      line-height: 1.45;
+      max-width: 88%;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      margin: 0;
+    }
+
+    .about-card:hover .about-card-desc,
+    .about-card.is-active .about-card-desc {
+      opacity: 0.9;
+      transform: translateY(0);
+    }
+
+    .about-carousel-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.38rem;
+      margin-top: 0.4rem;
+    }
+
+    .about-carousel-dot {
+      width: 16px;
+      height: 4px;
+      border: 0;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--muted) 35%, transparent);
+      cursor: pointer;
+      padding: 0;
+      transition: width 0.25s ease, background 0.25s ease;
+    }
+
+    .about-carousel-dot.is-active {
+      width: 32px;
+      background: var(--text);
+    }
+
+    /* ── Folder tiles ─────────────────────────────────────── */
+    .about-folders {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 0.5px solid var(--line);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .about-folder {
+      background: var(--bg);
+      padding: 1.4rem 1.6rem;
+      display: block;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .about-folder:hover {
+      background: color-mix(in srgb, var(--line) 35%, var(--bg));
+    }
+
+    .about-folder-icon {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .about-folder-name {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .about-folder-desc {
+      font-size: 0.78rem;
+      color: var(--muted-strong);
+      line-height: 1.5;
+    }
+
+    /* ── Sign-off ──────────────────────────────────────────── */
+    .about-signoff {
+      margin-top: 3.6rem;
+      padding-top: 2rem;
+      border-top: 0.5px solid var(--line);
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+
+    .about-signoff em {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .about-contact {
+      margin-top: 1.6rem;
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .about-contact a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted-strong);
+      border-bottom: 0.5px solid var(--line);
+      padding-bottom: 0.1rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .about-contact a:hover {
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    .about-signoff p {
+      margin-bottom: 0;
+    }
+
+    /* ── SIDEBAR (matched to index.html) ─────────────────── */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+
+    @media (max-width: 700px) {
+      .main {
+        padding: 3rem 1.2rem 4rem;
+      }
+
+      .about-title {
+        font-size: 1.6rem;
+      }
+
+      .about-title-row {
+        flex-wrap: wrap;
+      }
+
+      .about-photo {
+        width: 120px;
+        height: 120px;
+      }
+
+      .about-fact {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+      }
+
+      .about-carousel {
+        --about-card-width: min(290px, 74vw);
+      }
+
+      .about-card {
+        border-radius: 22px;
+      }
+
+      .about-folders {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <!-- ══ SIDEBAR ═════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="index.html" aria-label="Claire Lin — Home">
+        <img class="sidebar-logo" src="logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#gallery">Work</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="Resume_ClaireLin(LiangYingLin).pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <!-- ══ MAIN ════════════════════════════════════════════════ -->
+  <main class="main">
+    <article class="about">
+
+      <div class="about-title-row">
+        <h1 class="about-title">About</h1>
+        <img class="about-photo" src="profile.jpg" alt="Claire Lin" />
+      </div>
+
+      <p class="about-bio">
+        I'm Claire, a UX designer and HCI researcher who genuinely loves the moment a hard thing starts to make sense. I care deeply about <em>human connection</em> and <em>education</em>: the way people learn, the way they reach each other, and the quiet design decisions that make both easier or harder. My background crosses social sciences, interaction research, and engineering, which means I tend to approach new fields the same way I approach everything else, with the conviction that it's all <em>figure-out-able</em>.
+      </p>
+
+      <div class="about-divider"></div>
+
+      <div class="about-facts">
+
+        <div class="about-fact">
+          <span class="about-fact-label">Currently</span>
+          <span class="about-fact-value">
+            Tokyo, Japan — finishing my master's at KMD, Keio University.
+            <em>Open to roles internationally once I graduate.</em>
+          </span>
+        </div>
+
+        <div class="about-fact">
+          <span class="about-fact-label">Looking for</span>
+          <span class="about-fact-value">
+            UX and product design roles, with a longer arc toward full-stack.
+            I want to build the things I design.
+          </span>
+        </div>
+
+        <div class="about-fact">
+          <span class="about-fact-label">Education</span>
+          <span class="about-fact-value">
+            M.S. Media Design — Keio University KMD, Tokyo<br/>
+            B.S. — National Tsing Hua University, Taiwan (NTHU)<br/>
+            Social Sciences exchange — Waseda University, Tokyo<br/>
+            <em>Grew up partly in the United States, ages 4 to 9.</em>
+          </span>
+        </div>
+
+        <div class="about-fact">
+          <span class="about-fact-label">Languages</span>
+          <span class="about-fact-value">
+            English — native &nbsp;·&nbsp;
+            Mandarin Chinese — native &nbsp;·&nbsp;
+            Japanese — business level (N2) &nbsp;·&nbsp;
+            French — beginner (B1) &nbsp;·&nbsp;
+            Taiwanese — conversational
+          </span>
+        </div>
+
+        <div class="about-fact">
+          <span class="about-fact-label">Research &amp; practice</span>
+          <span class="about-fact-value">
+            Contextual inquiry, moderated usability testing, think-aloud protocols.
+            Ran 5 usability sessions on SubTrack that directly reshaped its onboarding flow —
+            <a href="projects/subtrack.html">see the case study</a>.
+          </span>
+        </div>
+
+      </div>
+
+      <!-- ══ OUTSIDE OF WORK CAROUSEL ════════════════════════ -->
+      <section class="about-outside" aria-label="Outside of work">
+
+        <div class="about-outside-head">
+          <p class="about-outside-label">Outside of work</p>
+          <p class="about-outside-count"><span id="carouselCurrent">01</span> / 05</p>
+        </div>
+
+        <div class="about-carousel">
+
+          <div class="about-carousel-window" id="aboutCarouselWindow">
+            <div class="about-carousel-track" id="aboutCarouselTrack">
+
+              <article class="about-card" data-real-index="0">
+                <img src="about-marathon.jpg" alt="Marathon running" />
+                <div class="about-card-content">
+                  <h2 class="about-card-title">run</h2>
+                  <p class="about-card-desc">Training for distance taught me that most limits are negotiated, not fixed.</p>
+                </div>
+              </article>
+
+              <article class="about-card" data-real-index="1">
+                <img src="about-badminton.jpg" alt="Badminton court" />
+                <div class="about-card-content">
+                  <h2 class="about-card-title">rally</h2>
+                  <p class="about-card-desc">Playing since fifth grade. The sport that has followed me through every country.</p>
+                </div>
+              </article>
+
+              <article class="about-card" data-real-index="2">
+                <img src="about-hiking.jpg" alt="Hiking and travel" />
+                <div class="about-card-content">
+                  <h2 class="about-card-title">wander</h2>
+                  <p class="about-card-desc">Happiest when I am somewhere unfamiliar, moving through it slowly on foot.</p>
+                </div>
+              </article>
+
+              <article class="about-card" data-real-index="3">
+                <img src="about-coffee.jpg" alt="Coffee" />
+                <div class="about-card-content">
+                  <h2 class="about-card-title">pouring</h2>
+                  <p class="about-card-desc">Coffee lover — tasting the nuances of each brew.</p>
+                </div>
+              </article>
+
+              <article class="about-card" data-real-index="4">
+                <img src="about-dogs.jpg" alt="Dogs" />
+                <div class="about-card-content">
+                  <h2 class="about-card-title">dogs</h2>
+                  <p class="about-card-desc">I don't have one. I am working on this problem.</p>
+                </div>
+              </article>
+
+             
+
+            </div>
+          </div>
+
+          <div class="about-carousel-dots" id="aboutCarouselDots" aria-label="Carousel pagination"></div>
+
+        </div>
+      </section>
+
+      <!-- ── Folder tiles ───────────────────────────────────── -->
+      <div class="about-folders">
+        <a class="about-folder" href="photography.html">
+          <span class="about-folder-icon">Folder</span>
+          <div class="about-folder-name">Photography</div>
+          <div class="about-folder-desc">A running collection from wherever I happen to be walking.</div>
+        </a>
+
+        <a class="about-folder" href="certificates.html">
+          <span class="about-folder-icon">Folder</span>
+          <div class="about-folder-name">Certificates &amp; Awards</div>
+          <div class="about-folder-desc">Coursework, competitions, and recognitions along the way.</div>
+        </a>
+      </div>
+
+      <!-- ── Sign-off ──────────────────────────────────────── -->
+      <div class="about-signoff">
+        <p>If something I've built or written resonates, feel free to reach out! I am also looking for opportunities for HCI-related collaborations. Drop me an email and let's get some ice cream or coffee.</p>
+
+        <div class="about-contact">
+          <a href="mailto:clairelinpeach@gmail.com">Email ↗</a>
+          <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="Resume_ClaireLin(LiangYingLin).pdf" target="_blank">Resume ↗</a>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    document.addEventListener('click', e => {
+      const sb = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+
+      if (
+        window.innerWidth <= 860 &&
+        !sb.contains(e.target) &&
+        !btn.contains(e.target)
+      ) {
+        sb.classList.remove('open');
+      }
+    });
+
+    const carouselWindow = document.getElementById('aboutCarouselWindow');
+    const carouselTrack = document.getElementById('aboutCarouselTrack');
+    const carouselCurrent = document.getElementById('carouselCurrent');
+    const carouselDots = document.getElementById('aboutCarouselDots');
+
+    const originalCards = Array.from(carouselTrack.children);
+    const realCardCount = originalCards.length;
+
+    let allCards = [];
+    let scrollTimer = null;
+    let isResettingLoop = false;
+
+    function cloneCard(card) {
+      const clone = card.cloneNode(true);
+      clone.classList.add('is-clone');
+      clone.setAttribute('aria-hidden', 'true');
+      return clone;
+    }
+
+    function setupScrollCarousel() {
+      const beforeClones = originalCards.map(cloneCard);
+      const afterClones = originalCards.map(cloneCard);
+
+      beforeClones.forEach(clone => {
+        carouselTrack.insertBefore(clone, originalCards[0]);
+      });
+
+      afterClones.forEach(clone => {
+        carouselTrack.appendChild(clone);
+      });
+
+      allCards = Array.from(carouselTrack.children);
+
+      originalCards.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'about-carousel-dot';
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Go to topic ${index + 1}`);
+
+        dot.addEventListener('click', () => {
+          const targetIndex = realCardCount + index;
+          scrollCardToCenter(targetIndex, true);
+        });
+
+        carouselDots.appendChild(dot);
+      });
+
+      requestAnimationFrame(() => {
+        scrollCardToCenter(realCardCount, false);
+        updateActiveCard();
+      });
+    }
+
+    function scrollCardToCenter(cardIndex, smooth = true) {
+      const targetCard = allCards[cardIndex];
+      if (!targetCard) return;
+
+      targetCard.scrollIntoView({
+        behavior: smooth ? 'smooth' : 'auto',
+        block: 'nearest',
+        inline: 'center'
+      });
+    }
+
+    function getClosestCardIndex() {
+      const windowRect = carouselWindow.getBoundingClientRect();
+      const windowCenter = windowRect.left + windowRect.width / 2;
+
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+
+      allCards.forEach((card, index) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const distance = Math.abs(cardCenter - windowCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      return closestIndex;
+    }
+
+    function updateActiveCard() {
+      const closestIndex = getClosestCardIndex();
+      const activeCard = allCards[closestIndex];
+
+      if (!activeCard) return;
+
+      const realIndex = Number(activeCard.dataset.realIndex);
+
+      allCards.forEach((card, index) => {
+        card.classList.toggle('is-active', index === closestIndex);
+      });
+
+      carouselCurrent.textContent = String(realIndex + 1).padStart(2, '0');
+
+      Array.from(carouselDots.children).forEach((dot, index) => {
+        dot.classList.toggle('is-active', index === realIndex);
+      });
+    }
+
+    function resetLoopPositionIfNeeded() {
+      if (isResettingLoop) return;
+
+      const closestIndex = getClosestCardIndex();
+
+      if (closestIndex < realCardCount) {
+        isResettingLoop = true;
+        scrollCardToCenter(closestIndex + realCardCount, false);
+
+        requestAnimationFrame(() => {
+          isResettingLoop = false;
+          updateActiveCard();
+        });
+      }
+
+      if (closestIndex >= realCardCount * 2) {
+        isResettingLoop = true;
+        scrollCardToCenter(closestIndex - realCardCount, false);
+
+        requestAnimationFrame(() => {
+          isResettingLoop = false;
+          updateActiveCard();
+        });
+      }
+    }
+
+    carouselWindow.addEventListener('scroll', () => {
+      if (isResettingLoop) return;
+
+      updateActiveCard();
+
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        resetLoopPositionIfNeeded();
+        updateActiveCard();
+      }, 120);
+    });
+
+    carouselWindow.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        carouselWindow.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
+
+    window.addEventListener('resize', () => {
+      const closestIndex = getClosestCardIndex();
+      scrollCardToCenter(closestIndex, false);
+      updateActiveCard();
+    });
+
+    setupScrollCarousel();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temporal Embodiment Thresholds · Liang Ying Lin</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    
+    .main {
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── The centered article column ───────────────────────── */
+    .case {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Back link */
+    .case-back {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: inline-block;
+      margin-bottom: 3rem;
+      transition: color 0.2s;
+    }
+    .case-back:hover { color: var(--text); }
+
+    /* Hero title block */
+    .case-hero { margin-bottom: 3.4rem; }
+    .case-title {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+      white-space: nowrap;
+    }
+    .case-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #76746E;
+      letter-spacing: -0.005em;
+    }
+    .case-meta {
+      margin-top: 2rem;
+      padding-top: 1.4rem;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 2.2rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .case-meta b {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+    .case-meta span { color: var(--text); font-weight: 400; }
+
+    /* Section blocks */
+    .case-section { margin: 3.6rem 0; }
+    .case-section-label {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+    .case-h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+    }
+    .case-p {
+      font-size: 1.02rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.3rem;
+    }
+    .case-p em { font-style: italic; color: var(--muted-strong); }
+
+    /* Callout — the research question */
+    .case-callout {
+      background: var(--surface);
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--wood);
+      margin: 2.4rem 0 2.6rem;
+    }
+    .case-callout-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wood);
+      margin-bottom: 0.8rem;
+    }
+    .case-callout-text {
+      font-size: 1.14rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+
+    /* Figures */
+    .case-figure { margin: 2.8rem 0; }
+    .figure-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--thumb-bg);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 1.2rem;
+    }
+    .figure-placeholder small {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--muted-strong);
+    }
+    .case-figcaption {
+      font-size: 0.82rem;
+      color: var(--muted-strong);
+      letter-spacing: 0.01em;
+      line-height: 1.55;
+      margin-top: 0.9rem;
+    }
+    .case-figcaption b { font-weight: 600; color: var(--text); margin-right: 0.3rem; }
+
+    /* Key findings — large stat blocks */
+    .case-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+      margin: 2.2rem 0 1.8rem;
+    }
+    .case-stat {
+      padding-top: 1.1rem;
+      border-top: 0.5px solid var(--line);
+    }
+    .case-stat-num {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .case-stat-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted-strong);
+      line-height: 1.5;
+    }
+
+    /* Tech stack chips */
+    .case-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    /* Credits block */
+    .case-credits {
+      margin-top: 4.4rem;
+      padding-top: 1.8rem;
+      border-top: 0.5px solid var(--line);
+      font-size: 0.84rem;
+      color: var(--muted-strong);
+      line-height: 1.9;
+    }
+    .case-credits dt {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .case-credits dt:first-child { margin-top: 0; }
+    .case-credits dd { color: var(--text); }
+    .case-credits dd em { font-style: normal; color: var(--muted-strong); }
+
+
+
+    /* ── LOGO (matched to index.html) ───────────────────────── */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* ── SIDEBAR PERSONALITY LINE (matched to index.html) ──── */
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SIDEBAR LINKS, arrows removed (matched to index.html) ─ */
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+
+    @media (max-width: 700px) {
+      .case-title { font-size: 1.6rem; white-space: normal; }
+      .case-stats { grid-template-columns: 1fr; }
+      .main { padding: 3rem 1.2rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="../index.html" aria-label="Claire Lin — Home">
+        <img class="sidebar-logo" src="../logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#gallery" class="active">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../resume.pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <!-- ══ MAIN — centered article column ═════════════════════ -->
+  <main class="main">
+    <article class="case">
+
+      <a href="../index.html#gallery" class="case-back">← Selected Work</a>
+
+      <header class="case-hero">
+        <h1 class="case-title">Temporal Embodiment Thresholds</h1>
+        <p class="case-subtitle">
+          Investigating the temporal boundaries of self-identification through point-cloud re-embodiment.
+        </p>
+        <div class="case-meta">
+          <div><b>Year</b><span>2024–2026</span></div>
+          <div><b>Type</b><span>Master's Thesis</span></div>
+          <div><b>Institution</b><span>KMD, Keio University</span></div>
+          <div><b>Role</b><span>Sole researcher</span></div>
+        </div>
+      </header>
+
+      <section class="case-section">
+        <p class="case-section-label">Overview</p>
+        <p class="case-p">
+          When you watch a recording of yourself moving from a few minutes ago, viewed from outside your own body, when does it stop feeling like <em>you</em>? This thesis investigates whether that moment can be measured.
+        </p>
+        <p class="case-p">
+          Thirty participants were recorded as point clouds, then immediately watched their own movement replayed in third-person while continuously rating how strongly they identified with the figure on screen. The work asks an old phenomenological question with empirical methods, and arrives at a finding that complicates the question itself.
+        </p>
+      </section>
+
+      <figure class="case-figure">
+        <img src="../temporal-embodiment-rating.jpg" alt="Playback interface" />
+        <figcaption class="case-figcaption">
+          <b>Figure 1.</b> Participants navigated their own recorded movement freely along a timeline. The figure on screen was rendered as a point cloud, stripped of facial features, voice, and clothing, leaving only movement pattern as a basis for self-identification.
+        </figcaption>
+      </figure>
+          
+      <section class="case-section">
+        <p class="case-section-label">The question</p>
+        <div class="case-callout">
+          <p class="case-callout-label">Research question</p>
+          <p class="case-callout-text">
+            Does a measurable temporal embodiment threshold exist, a point in the recent past beyond which one's own movement, viewed in third-person and reduced to a point cloud, ceases to feel self-attributed?
+          </p>
+        </div>
+        <p class="case-p">
+          The analysis sought to determine whether such a threshold could be identified at all. The phenomenon, a felt loss of self-identification when re-encountering one's own movement, was the primary object of study. The threshold itself, if it existed, was a secondary measurement.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <h2 class="case-h2">Why point clouds, third-person, and the proximate past.</h2>
+        <p class="case-p">
+          Each of the three conditions is doing specific phenomenological work.
+        </p>
+        <p class="case-p">
+          <em>Point cloud rendering</em> removes facial features, voice, clothing, and skin tone. What remains is movement pattern, the most direct kinematic signature of a body. Self-identification, if it occurs, is grounded in how one moves rather than how one appears.
+        </p>
+        <p class="case-p">
+          <em>Third-person perspective</em> displaces the visual frame. The participant sees their body as another body, from outside.
+        </p>
+        <p class="case-p">
+          <em>Temporal displacement of approximately five to twenty minutes</em> places the recording in the proximate past, recent enough to remain in working memory, distant enough that the body has moved on. This is the zone in which memory and present experience compete.
+        </p>
+        <p class="case-p">
+          These three conditions compound. Together they create a phenomenological pressure that no single condition produces alone.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Method</p>
+        <h2 class="case-h2">Two sessions per participant, separated by a short break.</h2>
+        <p class="case-p">
+          <em>Session 1.</em> A three-minute movement recording was captured using an Intel RealSense D455 depth camera. The capture was processed offline into a point cloud sequence using a custom HLSL shader in Unity 6.
+        </p>
+        <p class="case-p">
+          <em>Session 2.</em> Within approximately ten minutes of recording, the participant watched their own point cloud sequence on screen. They were free to scrub along the timeline, replay segments, and inspect their movement from a third-person viewpoint. While doing so, they reported how strongly they identified with the figure on screen on a 1 to 7 unipolar intensity scale, in continuous ratings tagged to the playback timestamp.
+        </p>
+        <p class="case-p">
+          Episodes of identification, or its loss, were classified as either <em>instantaneous</em> (a single rating at a single moment) or <em>sustained</em> (multiple rating rows across a contiguous span of playback). For sustained episodes, both an onset intensity and a peak intensity were recorded.
+        </p>
+        <p class="case-p">
+          A second condition asked each participant to identify whether a separate, unfamiliar recording showed themselves or another person. A forced-choice recognition task followed, with confidence ratings.
+        </p>
+
+           <figure class="case-figure">
+            <img src="../system-diagram.jpg" alt="Playback interface" />
+            <figcaption class="case-figcaption">
+              <b>Figure 2.</b> Two sessions per participant. The teal stage between them is offline processing, in which raw depth data was converted into a navigable point cloud sequence.
+            </figcaption>
+          </figure>
+
+
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Findings</p>
+        <h2 class="case-h2">A consistent phenomenon, a deeply individual threshold.</h2>
+        <p class="case-p">
+          Across 30 participants, 205 episodes of identification or its loss were captured, 127 sustained and 78 instantaneous, distributed across 28 of the 30 participants. Of those, 19 participants yielded a valid temporal embodiment threshold estimate after one episode was excluded as a procedural artefact.
+        </p>
+
+        <div class="case-stats">
+          <div class="case-stat">
+            <div class="case-stat-num">46.23<span style="font-size:1rem;font-weight:400;color:var(--muted-strong);">&nbsp;s</span></div>
+            <div class="case-stat-label">Group median TET<br/><span style="color:var(--muted);">IQR 30.98–63.21s</span></div>
+          </div>
+          <div class="case-stat">
+            <div class="case-stat-num">26<span style="font-size:1rem;font-weight:400;color:var(--muted-strong);">&nbsp;/&nbsp;30</span></div>
+            <div class="case-stat-label">Correctly identified own recording in the other-viewing condition</div>
+          </div>
+          <div class="case-stat">
+            <div class="case-stat-num">81<span style="font-size:1rem;font-weight:400;color:var(--muted-strong);">%</span></div>
+            <div class="case-stat-label">Mean confidence on the forced-choice recognition task</div>
+          </div>
+        </div>
+
+        <br/>
+        <br/>
+
+            <img src="../tet-distribution.png" alt="TET distribution"></img>
+          <figcaption class="case-figcaption">
+            <b>Figure 3.</b> Distribution of valid temporal embodiment thresholds across the 19 participants who produced qualifying sustained episodes. Range 7.50 to 125.27s. Logistic regression placed a group crossover at 164s, but the 95% bootstrap confidence interval was so wide it spanned nearly two thousand seconds, confirming that no group-level threshold exists.
+          </figcaption>
+
+        <p class="case-p">
+          The loss of self-identification was consistent and pervasive within this sample. Almost every participant experienced it. The point at which it occurred, however, was individual. The correlation between a participant's threshold and their recognition confidence was near zero (r = +0.17, p = .497). Some participants disidentified within seconds. Others held on for two minutes. No threshold generalised.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Context</p>
+        <h2 class="case-h2">Why this question matters now.</h2>
+        <p class="case-p">
+          Third-person self-replay has become a routine tool. Athletes review their own footage within minutes of competing. Physical therapists show patients recordings of their own gait. Surgical trainees replay their own procedures. Motor learning researchers use delayed replay to study how observation of oneself drives skill acquisition.
+        </p>
+        <p class="case-p">
+          All of these applications share an implicit assumption: that watching yourself is a stable and reliable input channel, and that the self you see on screen is continuous with the self doing the watching. This thesis asks whether that assumption holds, and if so, for how long.
+        </p>
+        <p class="case-p">
+          The proximate past, the window between a few seconds and a few minutes ago, is a perceptual category that interaction design has largely ignored. It is too recent to be treated as history and too distant to be treated as the present. This work begins to map its edges.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">What it means</p>
+        <h2 class="case-h2">The phenomenon is universal. The boundary is yours alone.</h2>
+        <p class="case-p">
+          The loss of self-identification when re-encountering one's own movement is not rare or pathological. It is something almost every participant in this study experienced, often without prompting, and often with some surprise. The question is not whether the boundary exists but where it sits for any given person.
+        </p>
+        <p class="case-p">
+          For phenomenology, the finding provides empirical traction on a question that has long been discussed and rarely measured. The rubber hand illusion and related paradigms have shown that self-attribution is malleable in space. This work suggests it is equally malleable in time.
+        </p>
+        <p class="case-p">
+          For interaction design, the takeaway is calibration. A sports analysis tool that replays footage at the two-minute mark will land inside the window for some athletes and outside it for others. A rehabilitation system that times its feedback to an assumed average will mistime it for most patients. The right moment to ask someone to watch themselves is not a constant. It is a parameter the system needs to learn, individually, before it can be useful.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Design implications</p>
+        <h2 class="case-h2">Three directions for systems that ask people to watch themselves.</h2>
+        <p class="case-p">
+          <em>Calibration before instruction.</em> Any system that uses self-replay as a feedback channel should probe for the user's threshold before deploying content at a fixed delay. A short calibration session, similar in structure to the one used here, could establish an individual baseline and let the system adapt its replay timing accordingly.
+        </p>
+        <p class="case-p">
+          <em>Continuous rather than snapshot rating.</em> The protocol in this study used a continuous 1 to 7 unipolar intensity scale rather than a single end-of-session rating. The continuous measure revealed dynamics, onset points, and within-session variation, that a snapshot would have flattened. Future systems collecting self-identification data should prefer continuous or high-frequency sampling.
+        </p>
+        <p class="case-p">
+          <em>Movement as identity signal, not appearance.</em> The point cloud condition removed all appearance cues and left only kinematics. The fact that 26 of 30 participants still correctly identified their own recording under this condition, at 81% mean confidence, suggests that movement pattern alone is a robust self-identity cue. Systems that anonymise or abstract self-footage for privacy reasons need not sacrifice recognisability if they preserve movement quality.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Limitations</p>
+        <h2 class="case-h2">What this study cannot claim.</h2>
+        <p class="case-p">
+          The sample is small and homogeneous. Thirty participants drawn from undergraduate and graduate programs within the Tokyo area could share similar demographic and educational characteristics that may not generalise. The threshold distribution observed here could look different in a population with different relationships to body image, movement, or screen-mediated self-representation.
+        </p>
+        <p class="case-p">
+          Movement type was not controlled. Participants were free to move as they chose during the recording session, which produced a wide range of movement repertoires. This ecological validity is intentional but makes it impossible to isolate whether the threshold is sensitive to movement complexity, familiarity, or expressiveness.
+        </p>
+        <p class="case-p">
+          The delay between recording and playback was approximately ten minutes for all participants, held approximately constant to isolate the temporal variable within the playback scrubbing task. How the threshold behaves across longer delays, hours or days, remains an open question.
+        </p>
+        <p class="case-p">
+          Finally, the lack of a group-level threshold is itself a finding, but it also limits the generalisability of the median estimate. The 46.23 second figure describes the middle of a very wide distribution. It should not be used as a design constant without individual calibration.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Built with</p>
+        <div class="case-stack">
+          <span class="tag-pill">Unity 6</span>
+          <span class="tag-pill">URP 17.2.0</span>
+          <span class="tag-pill">Custom HLSL shader</span>
+          <span class="tag-pill">Intel RealSense D455</span>
+          <span class="tag-pill">Python · pandas · scipy</span>
+          <span class="tag-pill">matplotlib</span>
+          <span class="tag-pill">LaTeX · Overleaf</span>
+        </div>
+      </section>
+
+      <section class="case-credits">
+        <dl>
+          <dt>Primary supervisor</dt>
+          <dd>Prof. Kai Kunze</dd>
+
+          <dt>Sub-supervisor / thesis reader</dt>
+          <dd>Prof. Akira Kato</dd>
+
+          <dt>Ethics representation</dt>
+          <dd>Prof. Matthew Waldman</dd>
+
+          <dt>Conceptual input</dt>
+          <dd>Dr. Matthias Hoppe</dd>
+
+          <dt>Ethics protocol</dt>
+          <dd>KMD-2026_E021, approved 19 May 2026. Chair Ryuma Shineha. <em>Data retained until 30 June 2029.</em></dd>
+
+        </dl>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      const sb  = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+      if (window.innerWidth <= 860 &&
+          !sb.contains(e.target) &&
+          !btn.contains(e.target)) {
+        sb.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>

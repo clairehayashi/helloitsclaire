@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hibana: From Whispers to Bloom · Claire Lin</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       PROJECT PAGE — case study layout
+       Universal rule: NO dog house in sidebar on project pages.
+       Article column is centered like a Medium article.
+    ═══════════════════════════════════════════════════════════ */
+
+    .main { padding: 4rem 2rem 6rem; }
+    .case { max-width: 680px; margin: 0 auto; }
+
+    .case-back {
+      font-family: var(--font-caption);
+      font-size: 0.66rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); display: inline-block;
+      margin-bottom: 2.8rem; transition: color 0.2s;
+    }
+    .case-back:hover { color: var(--text); }
+
+    .case-hero { margin-bottom: 3.4rem; }
+    .case-title {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+      white-space: nowrap;
+    }
+    .case-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #76746E;
+      letter-spacing: -0.005em;
+    }
+    .case-meta {
+      margin-top: 2rem;
+      padding-top: 1.4rem;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 2.2rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .case-meta b {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+    .case-meta span { color: var(--text); font-weight: 400; }
+
+    .case-section { margin: 3.6rem 0; }
+    .case-section-label {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+    .case-h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+    }
+    .case-p {
+      font-size: 1.02rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.3rem;
+    }
+    .case-p em { font-style: italic; color: var(--muted-strong); }
+
+    .case-callout {
+      background: var(--surface);
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--wood);
+      margin: 2.4rem 0 2.6rem;
+    }
+    .case-callout-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wood);
+      margin-bottom: 0.8rem;
+    }
+    .case-callout-text {
+      font-size: 1.14rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+
+    .case-figure { margin: 2.8rem 0; }
+    .figure-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--thumb-bg);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 1.2rem;
+    }
+    .figure-placeholder small {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--muted-strong);
+    }
+    .case-figcaption {
+      font-size: 0.82rem;
+      color: var(--muted-strong);
+      letter-spacing: 0.01em;
+      line-height: 1.55;
+      margin-top: 0.9rem;
+    }
+    .case-figcaption b { font-weight: 600; color: var(--text); margin-right: 0.3rem; }
+
+    .case-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+      margin: 2.2rem 0 1.8rem;
+    }
+    .case-stat {
+      padding-top: 1.1rem;
+      border-top: 0.5px solid var(--line);
+    }
+    .case-stat-num {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .case-stat-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted-strong);
+      line-height: 1.5;
+    }
+
+    .case-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .case-credits {
+      margin-top: 4.4rem;
+      padding-top: 1.8rem;
+      border-top: 0.5px solid var(--line);
+      font-size: 0.84rem;
+      color: var(--muted-strong);
+      line-height: 1.9;
+    }
+    .case-credits dt {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .case-credits dt:first-child { margin-top: 0; }
+    .case-credits dd { color: var(--text); }
+    .case-credits dd em { font-style: normal; color: var(--muted-strong); }
+
+    /* ── LOGO (matched to index.html) ───────────────────────── */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* ── SIDEBAR PERSONALITY LINE (matched to index.html) ───── */
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SIDEBAR LINKS, arrows removed (matched to index.html) ─ */
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+
+    @media (max-width: 700px) {
+      .case-title { font-size: 1.5rem; white-space: normal; }
+      .case-stats { grid-template-columns: 1fr; }
+      .main { padding: 3rem 1.2rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="../index.html" aria-label="Claire Lin — Home">
+        <img class="sidebar-logo" src="../logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#gallery" class="active">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../resume.pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <!-- ══ MAIN — centered article column ═════════════════════ -->
+  <main class="main">
+    <article class="case">
+
+      <a href="../index.html#gallery" class="case-back">← Selected Work</a>
+
+      <header class="case-hero">
+        <h1 class="case-title">Hibana: From Whispers to Bloom</h1>
+        <p class="case-subtitle">
+          An AI-driven collective secret-sharing installation. Speech becomes emotion becomes light, and no one secret is ever exposed.
+        </p>
+        <div class="case-meta">
+          <div><b>Year</b><span>2024</span></div>
+          <div><b>Type</b><span>Installation · Coursework</span></div>
+          <div><b>Context</b><span>KMD, Keio · Embodied Interactions</span></div>
+          <div><b>My role</b><span>UI/UX Design · Hardware Interaction</span></div>
+        </div>
+      </header>
+
+      <section class="case-section">
+        <p class="case-section-label">Overview</p>
+        <p class="case-p">
+          Secrets are universal burdens. Some are small embarrassments, others are weights people carry for years. Living in Japan, the team became drawn to the cultural sense of <em>Ma (間)</em>, the interval, and to the delicate balance between holding emotion in and letting it out.
+        </p>
+        <p class="case-p">
+          Hibana (秘花), literally <em>hidden flower</em>, asks whether a system can let secrets be shared in a way that lightens the soul without revealing them to the world. Participants speak into vases. The system detects the emotional shape of what they say, then discards the words. The room responds.
+        </p>
+      </section>
+
+     <figure class="case-figure">
+      <img src="../hibana-installation.jpg"
+        alt="Three 3D-printed vases arranged around a central podium, room lit by the projected bloom through fog"
+        style="width: 100%; display: block; border-radius: 2px;"
+      />
+      <figcaption class="case-figcaption">
+        <b>Figure 1.</b> The shared installation space. Three 3D-printed vases hold the participants' voices; the central podium holds their collective weight.
+      </figcaption>
+    </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">The question</p>
+
+        <div class="case-callout">
+          <p class="case-callout-label">Design question</p>
+          <p class="case-callout-text">
+            Can a system let secrets be shared to lighten the soul, while keeping them entirely unknown to the world?
+          </p>
+        </div>
+
+        <p class="case-p">
+          The conventional answer to disclosure is exposure. Most platforms that invite emotional content turn it into something legible: a category, a tag, a feed item, a thread. Hibana refuses that translation. Speech is treated as a signal, not a record. The room learns the shape of feeling without ever knowing the words.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <h2 class="case-h2">Three design moves.</h2>
+
+        <p class="case-p">
+          <em>Language as trigger, not content.</em> Speech is never stored, displayed, or transcribed back to the user. It exists only long enough for an emotion classifier to read it, then is discarded. What is heard cannot be reconstructed.
+        </p>
+        <p class="case-p">
+          <em>Collective rather than individual.</em> No single participant produces a result. Each contribution accumulates. Only when three voices have entered the system does the installation respond, so emotional weight is something the group carries together rather than something one person performs alone.
+        </p>
+        <p class="case-p">
+          <em>Abstract transformation rather than representation.</em> The system does not show what anyone said or felt. Instead, it produces a bloom, an ephemeral visual form that cannot be decoded back into individual meaning. The output is beautiful precisely because it is illegible.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Method</p>
+        <h2 class="case-h2">Speech becomes weight becomes light.</h2>
+
+        <p class="case-p">
+          <em>Input.</em> Three 3D-printed vases sit around the installation. A hidden microphone beneath each one captures speech without being physically attached or visible. A participant approaches a vase, speaks into it, then carries it to the central podium.
+        </p>
+        <p class="case-p">
+          <em>Interpretation.</em> OpenAI's Whisper transcribes the audio for just long enough for a Transformer-based classifier to map it onto one of eight underlying emotional states. The transcription is then deleted. The eight states are <em>love, anger, embarrassment, surprise, sadness, shyness, joy, and fear</em>, used as internal parameters only and never shown to the user.
+        </p>
+        <p class="case-p">
+          <em>Accumulation.</em> The podium is instrumented with load cells read by an ESP32 microcontroller. As each vase is placed, the combined weight grows. Individual placements produce no immediate feedback. When the threshold is reached, the system commits.
+        </p>
+        <p class="case-p">
+          <em>Manifestation.</em> A fog machine fires. The projector wakes. A single Hibana, drawn from one of fifty-four pre-designed visual states, fades in over the fog and then fades out, leaving the room as it was before.
+        </p>
+
+        
+Hibana additions · HTML
+<!-- ═══════════════════════════════════════════════════
+     FIGURE 2 — rebuilt system diagram (drop-in replacement)
+     Replace the existing <figure class="case-figure"> block
+     that contains "Figure 2 — System pipeline"
+════════════════════════════════════════════════════ -->
+ 
+        <figure class="case-figure" id="figure-2">
+          <div style="background:#0e0c14;border-radius:3px;padding:2.4rem 2rem 2rem;overflow:hidden;">
+        
+            <link href="https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+        
+            <!-- Step labels row -->
+            <div style="display:flex;align-items:flex-start;justify-content:center;gap:0;position:relative;">
+        
+              <!-- WHISPER -->
+              <div style="display:flex;flex-direction:column;align-items:center;flex:1;position:relative;">
+                <!-- vase illustration: single disc -->
+                <div style="width:72px;height:72px;position:relative;margin-bottom:1.2rem;">
+                  <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:64px;height:14px;background:none;border:1.5px solid rgba(255,255,255,0.55);border-radius:50%;"></div>
+                  <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:38px;height:10px;background:none;border:1.5px solid rgba(255,255,255,0.55);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <div style="display:flex;gap:2px;">
+                      <div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.45);"></div>
+                      <div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.45);"></div>
+                      <div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.45);"></div>
+                    </div>
+                  </div>
+                  <!-- sound waves -->
+                  <div style="position:absolute;top:2px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0.5;">
+                    <div style="width:6px;height:6px;border:1px solid rgba(244,146,240,0.8);border-radius:50%;"></div>
+                    <div style="width:12px;height:6px;border:1px solid rgba(244,146,240,0.6);border-radius:50%;border-bottom:none;"></div>
+                    <div style="width:20px;height:8px;border:1px solid rgba(244,146,240,0.4);border-radius:50%;border-bottom:none;"></div>
+                  </div>
+                </div>
+                <p style="font-size:0.58rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin:0 0 0.4rem;">01</p>
+                <p style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.9);margin:0 0 0.35rem;letter-spacing:0.02em;">Whisper</p>
+                <p style="font-size:0.7rem;color:rgba(255,255,255,0.45);line-height:1.5;margin:0;text-align:center;max-width:90px;">participant speaks into a vase; mic hidden inside</p>
+              </div>
+        
+              <!-- arrow -->
+              <div style="flex:0 0 28px;display:flex;align-items:flex-start;padding-top:40px;">
+                <svg width="28" height="12" viewBox="0 0 28 12" fill="none"><line x1="0" y1="6" x2="22" y2="6" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><path d="M19 2l5 4-5 4" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none"/></svg>
+              </div>
+        
+              <!-- MERGE -->
+              <div style="display:flex;flex-direction:column;align-items:center;flex:1;position:relative;">
+                <!-- stacked vase illustration -->
+                <div style="width:72px;height:72px;position:relative;margin-bottom:1.2rem;">
+                  <!-- base disc -->
+                  <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:12px;background:none;border:1.5px solid rgba(255,255,255,0.55);border-radius:50%;"></div>
+                  <!-- ring 1 -->
+                  <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:48px;height:18px;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.45);border-radius:3px;"></div>
+                  <!-- ring 2 -->
+                  <div style="position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:42px;height:18px;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.45);border-radius:3px;"></div>
+                  <!-- ring 3 -->
+                  <div style="position:absolute;bottom:36px;left:50%;transform:translateX(-50%);width:36px;height:16px;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.45);border-radius:3px;"></div>
+                  <!-- load cell arrow -->
+                  <div style="position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:1px;height:8px;background:rgba(94,66,156,0.9);"></div>
+                  <div style="position:absolute;bottom:-10px;left:50%;transform:translateX(-50%) translateX(-20px);font-size:0.48rem;color:#a084d8;white-space:nowrap;letter-spacing:0.06em;">load cell</div>
+                </div>
+                <p style="font-size:0.58rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin:0 0 0.4rem;">02</p>
+                <p style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.9);margin:0 0 0.35rem;letter-spacing:0.02em;">Merge</p>
+                <p style="font-size:0.7rem;color:rgba(255,255,255,0.45);line-height:1.5;margin:0;text-align:center;max-width:90px;">three vases stacked; ESP32 reads combined weight</p>
+              </div>
+        
+              <!-- arrow -->
+              <div style="flex:0 0 28px;display:flex;align-items:flex-start;padding-top:40px;">
+                <svg width="28" height="12" viewBox="0 0 28 12" fill="none"><line x1="0" y1="6" x2="22" y2="6" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><path d="M19 2l5 4-5 4" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none"/></svg>
+              </div>
+        
+              <!-- CLASSIFY -->
+              <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+                <div style="width:72px;height:72px;position:relative;margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;">
+                  <!-- 8 emotion dots in a circle -->
+                  <div style="width:52px;height:52px;position:relative;">
+                    <!-- center dot -->
+                    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;border-radius:50%;background:#a084d8;"></div>
+                    <!-- 8 outer dots -->
+                    <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:rgba(244,146,240,0.7);"></div>
+                    <div style="position:absolute;top:7px;right:2px;width:5px;height:5px;border-radius:50%;background:rgba(244,146,240,0.55);"></div>
+                    <div style="position:absolute;top:50%;right:0;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:rgba(244,146,240,0.7);"></div>
+                    <div style="position:absolute;bottom:7px;right:2px;width:5px;height:5px;border-radius:50%;background:rgba(244,146,240,0.55);"></div>
+                    <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:rgba(244,146,240,0.7);"></div>
+                    <div style="position:absolute;bottom:7px;left:2px;width:5px;height:5px;border-radius:50%;background:rgba(244,146,240,0.55);"></div>
+                    <div style="position:absolute;top:50%;left:0;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:rgba(244,146,240,0.7);"></div>
+                    <div style="position:absolute;top:7px;left:2px;width:5px;height:5px;border-radius:50%;background:rgba(244,146,240,0.55);"></div>
+                    <!-- connecting lines -->
+                    <svg style="position:absolute;inset:0;" width="52" height="52" viewBox="0 0 52 52" fill="none">
+                      <line x1="26" y1="26" x2="26" y2="3" stroke="rgba(160,132,216,0.25)" stroke-width="0.8"/>
+                      <line x1="26" y1="26" x2="49" y2="26" stroke="rgba(160,132,216,0.25)" stroke-width="0.8"/>
+                      <line x1="26" y1="26" x2="26" y2="49" stroke="rgba(160,132,216,0.25)" stroke-width="0.8"/>
+                      <line x1="26" y1="26" x2="3" y2="26" stroke="rgba(160,132,216,0.25)" stroke-width="0.8"/>
+                    </svg>
+                  </div>
+                </div>
+                <p style="font-size:0.58rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin:0 0 0.4rem;">03</p>
+                <p style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.9);margin:0 0 0.35rem;letter-spacing:0.02em;">Classify</p>
+                <p style="font-size:0.7rem;color:rgba(255,255,255,0.45);line-height:1.5;margin:0;text-align:center;max-width:96px;">Whisper + Transformer maps audio to 1 of 8 states; words deleted</p>
+              </div>
+        
+              <!-- arrow -->
+              <div style="flex:0 0 28px;display:flex;align-items:flex-start;padding-top:40px;">
+                <svg width="28" height="12" viewBox="0 0 28 12" fill="none"><line x1="0" y1="6" x2="22" y2="6" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><path d="M19 2l5 4-5 4" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none"/></svg>
+              </div>
+        
+              <!-- BLOOM -->
+              <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+                <div style="width:72px;height:72px;position:relative;margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;">
+                  <!-- fog + flower suggestion -->
+                  <div style="position:relative;width:60px;height:60px;">
+                    <!-- fog wisps -->
+                    <div style="position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:54px;height:18px;border-radius:50%;background:rgba(255,255,255,0.06);filter:blur(2px);"></div>
+                    <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:36px;height:12px;border-radius:50%;background:rgba(255,255,255,0.08);filter:blur(1px);"></div>
+                    <!-- flower petals suggestion -->
+                    <div style="position:absolute;top:4px;left:50%;transform:translateX(-50%);width:28px;height:28px;">
+                      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:10px;height:16px;background:rgba(244,146,240,0.35);border-radius:50% 50% 40% 40%;"></div>
+                      <div style="position:absolute;top:3px;left:0;width:10px;height:14px;background:rgba(244,146,240,0.25);border-radius:50% 50% 40% 40%;transform:rotate(-50deg);transform-origin:bottom center;"></div>
+                      <div style="position:absolute;top:3px;right:0;width:10px;height:14px;background:rgba(244,146,240,0.25);border-radius:50% 50% 40% 40%;transform:rotate(50deg);transform-origin:bottom center;"></div>
+                      <div style="position:absolute;top:10px;left:2px;width:10px;height:12px;background:rgba(244,146,240,0.18);border-radius:50% 50% 40% 40%;transform:rotate(-120deg);transform-origin:bottom center;"></div>
+                      <div style="position:absolute;top:10px;right:2px;width:10px;height:12px;background:rgba(244,146,240,0.18);border-radius:50% 50% 40% 40%;transform:rotate(120deg);transform-origin:bottom center;"></div>
+                      <!-- center -->
+                      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-42%);width:8px;height:8px;border-radius:50%;background:rgba(244,146,240,0.6);"></div>
+                    </div>
+                  </div>
+                </div>
+                <p style="font-size:0.58rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin:0 0 0.4rem;">04</p>
+                <p style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.9);margin:0 0 0.35rem;letter-spacing:0.02em;">Bloom</p>
+                <p style="font-size:0.7rem;color:rgba(255,255,255,0.45);line-height:1.5;margin:0;text-align:center;max-width:90px;">fog fires; 1-of-54 Hibana projected; fades and disappears</p>
+              </div>
+        
+            </div>
+        
+            <!-- combination key note -->
+            <div style="margin-top:2rem;padding-top:1.2rem;border-top:0.5px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;gap:0.6rem;flex-wrap:wrap;">
+              <span style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);">combination key</span>
+              <span style="font-size:0.7rem;color:#a084d8;">emotion₁ + emotion₂ + emotion₃ (sorted)</span>
+              <svg width="20" height="10" viewBox="0 0 20 10" fill="none"><line x1="0" y1="5" x2="14" y2="5" stroke="rgba(160,132,216,0.4)" stroke-width="1"/><path d="M11 2l4 3-4 3" stroke="rgba(160,132,216,0.4)" stroke-width="1" fill="none"/></svg>
+              <span style="font-size:0.7rem;color:rgba(244,146,240,0.8);">selects 1 of 54 visual states</span>
+            </div>
+        
+          </div>
+          <figcaption class="case-figcaption">
+            <b>Figure 2.</b> The full pipeline. Each participant whispers into an individual vase; the three vases are stacked on the podium. The ESP32 reads combined weight while Whisper transcribes and the classifier assigns an emotion state. Once threshold is reached, fog fires and Pygame renders the Hibana.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">At a glance</p>
+        <h2 class="case-h2">Three voices, eight states, fifty-four blooms.</h2>
+
+        <div class="case-stats">
+          <div class="case-stat">
+            <div class="case-stat-num">3</div>
+            <div class="case-stat-label">Participants per session, carrying weight together</div>
+          </div>
+          <div class="case-stat">
+            <div class="case-stat-num">8</div>
+            <div class="case-stat-label">Emotional states detected as internal parameters only</div>
+          </div>
+          <div class="case-stat">
+            <div class="case-stat-num">54</div>
+            <div class="case-stat-label">Unique Hibana variations called by a combination key</div>
+          </div>
+        </div>
+
+        <p class="case-p">
+          The combination key is generated by sorting the three detected emotions, so the order in which people enter the room does not change the outcome, only the combination does. Pure AI generation was considered and rejected; fifty-four hand-designed base states gave a stronger aesthetic floor than letting the model paint freely.
+        </p>
+
+        <!-- ═══════════════════════════════════════════════════════════
+     FIGURE 3 — Hanakotoba flower gallery (local assets)
+════════════════════════════════════════════════════════════ -->
+
+        <figure class="case-figure" id="figure-3">
+
+          <link href="https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+
+          <style>
+            .hk-grid {
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: 0;
+              background: #5e429c;
+              border-radius: 3px;
+              overflow: hidden;
+            }
+
+            .hk-card {
+              position: relative;
+              overflow: hidden;
+              cursor: pointer;
+              aspect-ratio: 3 / 4;
+              background: #5e429c;
+            }
+
+            /* flower image — inactive: slightly cropped/dimmer */
+            .hk-img {
+              position: absolute;
+              inset: 0;
+              overflow: hidden;
+            }
+            .hk-img img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              object-position: center top;
+              display: block;
+              transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94),
+                          filter 0.45s ease,
+                          opacity 0.45s ease;
+              opacity: 0.72;
+              filter: drop-shadow(0 0 0 transparent);
+            }
+
+            /* active / hover: zooms, glows, brightens — matching Figma active state */
+            .hk-card:hover .hk-img img,
+            .hk-card.active .hk-img img {
+              transform: scale(1.18);
+              opacity: 0.92;
+              filter: drop-shadow(4px 3px 10px rgba(255,255,255,0.55));
+            }
+
+            /* thin separator lines between cards */
+            .hk-card:not(:nth-child(4n)) {
+              border-right: 0.5px solid rgba(255,255,255,0.12);
+            }
+            .hk-card:nth-child(n+5):not(.hk-detail) {
+              border-top: 0.5px solid rgba(255,255,255,0.12);
+            }
+
+            /* label at bottom of each card */
+            .hk-label {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              padding: 2.4rem 0.75rem 0.75rem;
+              background: linear-gradient(to top, rgba(30,16,68,0.92) 0%, transparent 100%);
+              pointer-events: none;
+              transition: opacity 0.3s;
+            }
+            .hk-card:hover .hk-label,
+            .hk-card.active .hk-label { opacity: 0; }
+
+            .hk-emotion {
+              font-family: 'Nothing You Could Do', cursive;
+              font-size: 0.92rem;
+              color: #f492f0;
+              display: block;
+              line-height: 1.2;
+            }
+            .hk-botanical {
+              font-size: 0.54rem;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              color: rgba(255,255,255,0.38);
+              display: block;
+              margin-top: 0.15rem;
+            }
+
+            /* hover overlay — emotion name + desc fades in */
+            .hk-hover {
+              position: absolute;
+              inset: 0;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+              padding: 1rem 0.85rem;
+              background: rgba(35,18,80,0.72);
+              opacity: 0;
+              transition: opacity 0.35s ease;
+              pointer-events: none;
+            }
+            .hk-card:hover .hk-hover,
+            .hk-card.active .hk-hover { opacity: 1; }
+
+            .hk-hover-name {
+              font-family: 'Nothing You Could Do', cursive;
+              font-size: 1.25rem;
+              color: #f492f0;
+              line-height: 1.15;
+              margin-bottom: 0.45rem;
+            }
+            .hk-hover-flower {
+              font-size: 0.55rem;
+              letter-spacing: 0.16em;
+              text-transform: uppercase;
+              color: rgba(255,255,255,0.45);
+              margin-bottom: 0.65rem;
+            }
+            .hk-hover-desc {
+              font-size: 0.68rem;
+              color: rgba(255,255,255,0.72);
+              line-height: 1.6;
+            }
+
+            /* caption below grid */
+            @media (max-width: 600px) {
+              .hk-grid { grid-template-columns: repeat(2, 1fr); }
+            }
+          </style>
+
+          <div class="hk-grid">
+
+            <div class="hk-card">
+              <div class="hk-img">
+                <img src="hibana-assets/joy-gerbera.png" alt="Joy — Gerbera">
+              </div>
+              <div class="hk-hover">
+                <span class="hk-hover-name">Joy</span>
+                <span class="hk-hover-flower">Gerbera</span>
+                <span class="hk-hover-desc">Radiant happiness; bright, hopeful warmth; cheer that spreads outward.</span>
+              </div>
+              <div class="hk-label">
+                <span class="hk-emotion">Joy</span>
+                <span class="hk-botanical">Gerbera</span>
+              </div>
+            </div>
+
+            <div class="hk-card">
+              <div class="hk-img">
+                <img src="hibana-assets/fear-anemone.png" alt="Fear — Anemone">
+              </div>
+              <div class="hk-hover">
+                <span class="hk-hover-name">Fear</span>
+                <span class="hk-hover-flower">Anemone</span>
+                <span class="hk-hover-desc">A trembling heart; fragility; vulnerability in the face of uncertainty.</span>
+              </div>
+              <div class="hk-label">
+                <span class="hk-emotion">Fear</span>
+                <span class="hk-botanical">Anemone</span>
+              </div>
+            </div>
+
+            <div class="hk-card">
+              <div class="hk-img">
+                <img src="hibana-assets/surprise-bird-of-paradise.png" alt="Surprise — Bird of Paradise">
+              </div>
+              <div class="hk-hover">
+                <span class="hk-hover-name">Surprise</span>
+                <span class="hk-hover-flower">Bird of Paradise</span>
+                <span class="hk-hover-desc">A sudden brilliance; unexpected joy; beauty that appears in an instant.</span>
+              </div>
+              <div class="hk-label">
+                <span class="hk-emotion">Surprise</span>
+                <span class="hk-botanical">Bird of Paradise</span>
+              </div>
+            </div>
+
+            <div class="hk-card">
+              <div class="hk-img">
+                <img src="hibana-assets/embarrassment-peony.png" alt="Embarrassment — Peony">
+              </div>
+              <div class="hk-hover">
+                <span class="hk-hover-name">Embarrassment</span>
+                <span class="hk-hover-flower">Peony</span>
+                <span class="hk-hover-desc">Shy beauty; modest feelings; emotions too delicate to fully reveal.</span>
+              </div>
+              <div class="hk-label">
+                <span class="hk-emotion">Embarrassment</span>
+                <span class="hk-botanical">Peony</span>
+              </div>
+            </div>
+
+            <div class="hk-card" style="border-top:0.5px solid rgba(255,255,255,0.12);">
+              <div class="hk-img">
+                <img src="hibana-assets/love-agapanthus.png" alt="Love — Agapanthus">
+              </div>
+              <div class="hk-hover">
+                <span class="hk-hover-name">Love</span>
+                <span class="hk-hover-flower">Agapanthus</span>
+                <span class="hk-hover-desc">A quiet, hidden affection; a heart opening softly toward another.</span>
+              </div>
+              <div class="hk-label">
+                <span class="hk-emotion">Love</span>
+                <span class="hk-botanical">Agapanthus</span>
+              </div>
+            </div>
+
+            <div class="hk-card" style="border-top:0.5px solid rgba(255,255,255,0.12);">
+              <div class="hk-img">
+                <img src="hibana-assets/curiosity-hydrangea.png" alt="Curiosity — Hydrangea">
+              </div>
+              <div class="hk-hover">
+                <span class="hk-hover-name">Curiosity</span>
+                <span class="hk-hover-flower">Hydrangea</span>
+                <span class="hk-hover-desc">A shifting mystery; fascination with the unknown; emotions that change with perspective.</span>
+              </div>
+              <div class="hk-label">
+                <span class="hk-emotion">Curiosity</span>
+                <span class="hk-botanical">Hydrangea</span>
+              </div>
+            </div>
+
+            <div class="hk-card" style="border-top:0.5px solid rgba(255,255,255,0.12);">
+              <div class="hk-img">
+                <img src="hibana-assets/anger-celosia.png" alt="Anger — Celosia">
+              </div>
+              <div class="hk-hover">
+                <span class="hk-hover-name">Anger</span>
+                <span class="hk-hover-flower">Celosia</span>
+                <span class="hk-hover-desc">A rising flame; fierce passion; energy that cannot be contained.</span>
+              </div>
+              <div class="hk-label">
+                <span class="hk-emotion">Anger</span>
+                <span class="hk-botanical">Celosia</span>
+              </div>
+            </div>
+
+            <div class="hk-card" style="border-top:0.5px solid rgba(255,255,255,0.12);">
+              <div class="hk-img">
+                <img src="hibana-assets/sadness-gentian.png" alt="Sadness — Gentian">
+              </div>
+              <div class="hk-hover">
+                <span class="hk-hover-name">Sadness</span>
+                <span class="hk-hover-flower">Gentian</span>
+                <span class="hk-hover-desc">Unspoken sorrow; sincerity; quiet resilience; deep inner emotion.</span>
+              </div>
+              <div class="hk-label">
+                <span class="hk-emotion">Sadness</span>
+                <span class="hk-botanical">Gentian</span>
+              </div>
+            </div>
+
+          </div>
+
+          <figcaption class="case-figcaption">
+            <b>Figure 3.</b> Eight emotional states, each mapped to a flower through Hanakotoba — the Japanese language of flowers. These states are internal parameters only; participants never see which emotion was detected from their secret.
+          </figcaption>
+
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">What it means</p>
+        <h2 class="case-h2">AI as a medium for empathy, not extraction.</h2>
+
+        <p class="case-p">
+          Most emotion-aware systems are built to surface and categorise affect. They want the user to be legible. Hibana works the other way around. It uses the same classifier technology, but for the opposite goal: to acknowledge that someone has felt something, without ever needing to name it back to them.
+        </p>
+        <p class="case-p">
+          The piece also argues that emotional weight is easier to carry when it is collective. Three people, three vases, one podium. The threshold is reached by the group, not the individual. The release belongs to all of them, and to none of them in particular.
+        </p>
+        <p class="case-p">
+          The system does not ask anyone to define themselves. It listens, transforms, and lets the feeling bloom for a moment before disappearing.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Built with</p>
+        <div class="case-stack">
+          <span class="tag-pill">Python</span>
+          <span class="tag-pill">OpenAI Whisper</span>
+          <span class="tag-pill">Transformer classifier</span>
+          <span class="tag-pill">Pygame</span>
+          <span class="tag-pill">ESP32 · load cells</span>
+          <span class="tag-pill">3D printing</span>
+          <span class="tag-pill">Fog machine · projector</span>
+        </div>
+      </section>
+
+      <section class="case-credits">
+        <dl>
+          <dt>My role</dt>
+          <dd>UI/UX design and hardware interaction build. Vase form, podium electronics, Python integration on the hardware side.</dd>
+
+          <dt>Team</dt>
+          <dd>Catherine Liu, Meril Pullisaar, Rosie Gibson, Bella Yu, Jiatong Jin.</dd>
+
+          <dt>Course</dt>
+          <dd>Embodied Interactions, Keio University Graduate School of Media Design, Dec 2025.</dd>
+        </dl>
+      </section>
+
+    </article>
+    
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      const sb  = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+      if (window.innerWidth <= 860 &&
+          !sb.contains(e.target) &&
+          !btn.contains(e.target)) {
+        sb.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>

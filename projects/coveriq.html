@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoverIQ · Claire Lin</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       PROJECT PAGE — case study layout
+       CoverIQ case study, following the centered article format.
+    ═══════════════════════════════════════════════════════════ */
+
+    .main {
+      padding: 4rem 2rem 6rem;
+    }
+
+    .case {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .case-back {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: inline-block;
+      margin-bottom: 3rem;
+      transition: color 0.2s;
+    }
+
+    .case-back:hover {
+      color: var(--text);
+    }
+
+    .case-hero {
+      margin-bottom: 3.4rem;
+    }
+
+    .case-title {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+      white-space: nowrap;
+    }
+
+    .case-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #76746E;
+      letter-spacing: -0.005em;
+    }
+
+    .case-meta {
+      margin-top: 2rem;
+      padding-top: 1.4rem;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 2.2rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .case-meta b {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .case-meta span {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .case-section {
+      margin: 3.6rem 0;
+    }
+
+    .case-section-label {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .case-h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+    }
+
+    .case-p {
+      font-size: 1.02rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.3rem;
+    }
+
+    .case-p em {
+      font-style: italic;
+      color: var(--muted-strong);
+    }
+
+    .case-callout {
+      background: var(--surface);
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--wood);
+      margin: 2.4rem 0 2.6rem;
+    }
+
+    .case-callout-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wood);
+      margin-bottom: 0.8rem;
+    }
+
+    .case-callout-text {
+      font-size: 1.14rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       FIGURES
+    ═══════════════════════════════════════════════════════════ */
+
+    .case-figure {
+      margin: 2.8rem 0;
+    }
+
+    .case-figure img,
+    .case-img {
+      width: 100%;
+      display: block;
+      border-radius: 3px;
+      background: var(--thumb-bg);
+      object-fit: cover;
+    }
+
+    /* Main hero image:
+   Same width as article, centered, resized without cropping. */
+    .case-figure-hero {
+      width: 100%;
+      margin: 2.8rem 0 3.2rem;
+    }
+
+    .case-hero-frame {
+      width: 100%;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--thumb-bg);
+    }
+
+    .case-hero-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      object-position: center center;
+    }
+
+    .case-figure-hero .case-figcaption {
+      width: 100%;
+      margin-top: 0.9rem;
+    }
+
+    .case-img-wide {
+      aspect-ratio: 16 / 9;
+    }
+
+    .case-img-tall {
+      aspect-ratio: 4 / 3;
+    }
+
+    .case-figcaption {
+      font-size: 0.82rem;
+      color: var(--muted-strong);
+      letter-spacing: 0.01em;
+      line-height: 1.55;
+      margin-top: 0.9rem;
+    }
+
+    .case-figcaption b {
+      font-weight: 600;
+      color: var(--text);
+      margin-right: 0.3rem;
+    }
+
+    .case-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+      margin: 2.2rem 0 1.8rem;
+    }
+
+    .case-stat {
+      padding-top: 1.1rem;
+      border-top: 0.5px solid var(--line);
+    }
+
+    .case-stat-num {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .case-stat-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted-strong);
+      line-height: 1.5;
+    }
+
+    .case-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem;
+      margin: 2rem 0;
+    }
+
+    .case-card {
+      background: var(--surface);
+      padding: 1.4rem 1.5rem;
+      border-radius: 3px;
+      border-top: 0.5px solid var(--line);
+    }
+
+    .case-card-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+
+    .case-card-p {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+    }
+
+    .case-process {
+      counter-reset: step;
+      margin: 2rem 0 0;
+    }
+
+    .case-process-item {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: 1rem;
+      padding: 1.2rem 0;
+      border-top: 0.5px solid var(--line);
+    }
+
+    .case-process-item::before {
+      content: counter(step, decimal-leading-zero);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      padding-top: 0.2rem;
+    }
+
+    .case-process-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .case-process-p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+    }
+
+    .case-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .case-links {
+      margin-top: 1.4rem;
+      padding-top: 1.2rem;
+      border-top: 0.5px solid var(--line);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .case-links a {
+      color: var(--text);
+      border-bottom: 0.5px solid var(--line);
+    }
+
+    .case-credits {
+      margin-top: 4.4rem;
+      padding-top: 1.8rem;
+      border-top: 0.5px solid var(--line);
+      font-size: 0.84rem;
+      color: var(--muted-strong);
+      line-height: 1.9;
+    }
+
+    .case-credits dt {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .case-credits dt:first-child {
+      margin-top: 0;
+    }
+
+    .case-credits dd {
+      color: var(--text);
+    }
+
+    .case-credits dd em {
+      font-style: normal;
+      color: var(--muted-strong);
+    }
+
+    @media (max-width: 860px) {
+      .case-figure-hero {
+        width: 100%;
+        margin-left: 0;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .case-title {
+        font-size: 1.6rem;
+        white-space: normal;
+      }
+
+      .case-stats,
+      .case-two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .case-hero-frame {
+        aspect-ratio: 16 / 10;
+      }
+
+      .main {
+        padding: 3rem 1.2rem 4rem;
+      }
+    }
+
+
+    /* ── LOGO ────────────────────────────────────────────────── */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* ── SIDEBAR PERSONALITY LINE ───────────────────────────── */
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SIDEBAR LINKS (arrows removed) ─────────────────────── */
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <!-- ══ SIDEBAR ═════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="../index.html" aria-label="Claire Lin — Home">
+        <img class="sidebar-logo" src="../logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#gallery" class="active">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../resume.pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <!-- ══ MAIN — centered article column ═════════════════════ -->
+  <main class="main">
+    <article class="case">
+
+      <a href="../index.html#gallery" class="case-back">← Selected Work</a>
+
+      <header class="case-hero">
+        <h1 class="case-title">CoverIQ</h1>
+        <p class="case-subtitle">
+          An AI-powered software testing assistant that turns Figma UI flows, feature descriptions, and code changes into actionable QA plans, BDD test cases, and unit-test maintenance reports.
+        </p>
+
+        <div class="case-meta">
+          <div><b>Year</b><span>2025</span></div>
+          <div><b>Type</b><span>AI Testing Platform</span></div>
+          <div><b>Context</b><span>TCSE Software Engineering Competition</span></div>
+          <div><b>Role</b><span>Product / UI / System Flow Design</span></div>
+        </div>
+      </header>
+
+      <figure class="case-figure case-figure-hero">
+        <div class="case-hero-frame">
+          <img
+            src="../coveriq-heroo.png"
+            alt="CoverIQ project hero image"
+          />
+        </div>
+        <figcaption class="case-figcaption">
+          <b>Figure 1.</b> CoverIQ project cover. A desktop-shaped overview of the testing assistant interface and product identity.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Overview</p>
+        <p class="case-p">
+          CoverIQ is an AI-powered testing assistant designed for software development and QA teams working under increasingly compressed development cycles. While modern software teams have accelerated the SDLC through agile development, CI/CD, and rapid iteration, the testing lifecycle still often depends on manual judgment, fragmented communication, and high maintenance effort.
+        </p>
+
+        <p class="case-p">
+          The project focuses on two moments where testing work becomes especially slow: the early stage, where QA teams need to translate UI/UX designs into reliable test plans, and the later maintenance stage, where developers need to keep unit tests aligned with changing code.
+        </p>
+
+        <p class="case-p">
+          CoverIQ proposes a practical AI workflow for both. The platform includes a <em>Figma UI Test Planner</em> for generating test plans and BDD-style scenarios from design files, and a <em>Local Unit Test Support</em> module for recommending unit-test additions, updates, and removals based on code changes.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Problem</p>
+        <h2 class="case-h2">Testing has become the bottleneck between fast design changes and reliable release cycles.</h2>
+
+        <p class="case-p">
+          In fast-moving software teams, UI flows are redesigned, features are renamed, and edge cases appear before QA teams can fully document them. Test planning still relies heavily on manual interpretation: someone needs to inspect the Figma file, understand the feature logic, define acceptance criteria, and then convert the flow into readable test cases.
+        </p>
+
+        <p class="case-p">
+          At the same time, unit tests become expensive to maintain after every code change. A small refactor can require multiple test files to be checked, updated, or removed. Without structured support, teams risk stale tests, missing coverage, or unnecessary regression-test overhead.
+        </p>
+
+        <div class="case-callout">
+          <p class="case-callout-label">Design challenge</p>
+          <p class="case-callout-text">
+            How might we turn design intent and code change into structured testing decisions, without asking QA engineers and developers to manually reconstruct the whole context every time?
+          </p>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Product strategy</p>
+        <h2 class="case-h2">Two AI modules, one shared testing workflow.</h2>
+
+        <div class="case-two-col">
+          <div class="case-card">
+            <p class="case-card-title">Figma UI Test Planner</p>
+            <p class="case-card-p">
+              A web-based GUI that accepts a Figma frame URL and natural-language feature description, then generates a QA test plan, BDD-style test cases, and Gherkin .feature output.
+            </p>
+          </div>
+
+          <div class="case-card">
+            <p class="case-card-title">Local Unit Test Support</p>
+            <p class="case-card-p">
+              A local testing-support framework that analyzes git diff, AST structure, and related code context to recommend which unit tests should be added, updated, or removed.
+            </p>
+          </div>
+        </div>
+
+        <p class="case-p">
+          Instead of positioning AI as a black-box code generator, CoverIQ treats AI as a testing collaborator. The system does not replace QA judgment; it creates a structured first draft that teams can review, revise, and connect to their existing testing process.
+        </p>
+      </section>
+
+      <figure class="case-figure">
+        <img
+          class="case-img case-img-wide"
+          src="../system-overview.png"
+          alt="CoverIQ system overview diagram placeholder"
+        />
+        <figcaption class="case-figcaption">
+          <b>Figure 2.</b> Overall CoverIQ positioning across the software development and testing lifecycle. Replace with the SDLC/STLC diagram or your redesigned system overview.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Key outcomes</p>
+        <h2 class="case-h2">A prototype that connects visual design, natural language, and code-level testing decisions.</h2>
+
+        <div class="case-stats">
+          <div class="case-stat">
+            <div class="case-stat-num">2</div>
+            <div class="case-stat-label">Testing-support modules<br/><span style="color:var(--muted);">UI planning + unit-test maintenance</span></div>
+          </div>
+
+          <div class="case-stat">
+            <div class="case-stat-num">3</div>
+            <div class="case-stat-label">Industry feedback sources<br/><span style="color:var(--muted);">Appier, GoFreight, Tomofun</span></div>
+          </div>
+
+          <div class="case-stat">
+            <div class="case-stat-num">3</div>
+            <div class="case-stat-label">Unit-test actions<br/><span style="color:var(--muted);">Add, update, remove</span></div>
+          </div>
+        </div>
+
+        <p class="case-p">
+          Early prototype demonstrations were shared with senior QA engineers and SDETs from Appier, GoFreight, and Tomofun. Their feedback confirmed that test planning and test-script maintenance occupy a significant portion of current software workflows, and that there is market need for AI tools that can be integrated into real testing processes rather than remaining as generic coding assistants.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Module 1</p>
+        <h2 class="case-h2">Figma UI Test Planner: from interface design to testable behavior.</h2>
+
+        <p class="case-p">
+          The Figma UI Test Planner begins from the design side of software testing. Instead of waiting until implementation is complete, the system reads UI structure and interaction logic directly from Figma, then combines that information with a natural-language feature description.
+        </p>
+
+        <p class="case-p">
+          The result is a structured testing artifact: a high-level test plan, acceptance criteria, positive and negative BDD scenarios, and a downloadable Gherkin .feature file that can support future E2E automation.
+        </p>
+
+        <div class="case-process">
+          <div class="case-process-item">
+            <div>
+              <p class="case-process-title">Input Figma URL and feature description</p>
+              <p class="case-process-p">
+                The user provides a specific Figma frame URL and describes the intended behavior of the feature in natural language.
+              </p>
+            </div>
+          </div>
+
+          <div class="case-process-item">
+            <div>
+              <p class="case-process-title">Extract UI elements and interactions</p>
+              <p class="case-process-p">
+                The system uses the Figma API to retrieve frame data, including buttons, input fields, links, and interaction settings.
+              </p>
+            </div>
+          </div>
+
+          <div class="case-process-item">
+            <div>
+              <p class="case-process-title">Structure the design information</p>
+              <p class="case-process-p">
+                Decorative elements are filtered out, while test-relevant components are converted into structured JSON for model input.
+              </p>
+            </div>
+          </div>
+
+          <div class="case-process-item">
+            <div>
+              <p class="case-process-title">Generate the QA test plan</p>
+              <p class="case-process-p">
+                An LLM generates testing objectives, coverage scope, acceptance criteria, and edge-case considerations.
+              </p>
+            </div>
+          </div>
+
+          <div class="case-process-item">
+            <div>
+              <p class="case-process-title">Export BDD scenarios and .feature files</p>
+              <p class="case-process-p">
+                The test plan is transformed into positive and negative Gherkin scenarios that are readable for QA and reusable for automation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <figure class="case-figure">
+        <img
+          class="case-img case-img-wide"
+          src="../figma-ui-test-planner.png"
+          alt="Figma UI Test Planner interface placeholder"
+        />
+        <figcaption class="case-figcaption">
+          <b>Figure 3.</b> Figma UI Test Planner prototype.
+        </figcaption>
+      </figure>
+
+      <figure class="case-figure">
+        <img
+          class="case-img case-img-wide"
+          src="../test-plan-and-feature-output.png"
+          alt="Generated Markdown test plan and Gherkin feature output placeholder"
+        />
+        <figcaption class="case-figcaption">
+          <b>Figure 4.</b> Mock-generated outputs: Markdown test-plan report and Gherkin .feature file for BDD-style test development.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">Module 2</p>
+        <h2 class="case-h2">Local Unit Test Support: from code change to test maintenance decisions.</h2>
+
+        <p class="case-p">
+          The Local Unit Test Support module focuses on a different testing pain point: regression-test maintenance. When code changes, developers need to understand which tests are now missing, outdated, or no longer necessary. CoverIQ approaches this through a local-first workflow that combines git diff, AST static analysis, vector retrieval, and LLM reasoning.
+        </p>
+
+        <p class="case-p">
+          Rather than simply generating new test code, the module outputs a decision-support report. It identifies affected functions, retrieves relevant test context, and classifies recommendations into add, update, and remove actions.
+        </p>
+
+        <div class="case-process">
+          <div class="case-process-item">
+            <div>
+              <p class="case-process-title">Capture code changes</p>
+              <p class="case-process-p">
+                The system uses git diff to identify added, modified, and deleted functions, classes, parameters, and API calls.
+              </p>
+            </div>
+          </div>
+
+          <div class="case-process-item">
+            <div>
+              <p class="case-process-title">Parse structural dependencies</p>
+              <p class="case-process-p">
+                Python AST analysis maps affected functions, call relationships, imports, and potential testing impact.
+              </p>
+            </div>
+          </div>
+
+          <div class="case-process-item">
+            <div>
+              <p class="case-process-title">Retrieve related context</p>
+              <p class="case-process-p">
+                A vector database retrieves semantically related code and historical test snippets to enrich the model prompt.
+              </p>
+            </div>
+          </div>
+
+          <div class="case-process-item">
+            <div>
+              <p class="case-process-title">Generate structured recommendations</p>
+              <p class="case-process-p">
+                Gemini API receives the augmented prompt and returns JSON-formatted test maintenance suggestions.
+              </p>
+            </div>
+          </div>
+
+          <div class="case-process-item">
+            <div>
+              <p class="case-process-title">Output developer-readable report</p>
+              <p class="case-process-p">
+                Recommendations are converted into Markdown, including affected-function summaries, risk notes, and draft code snippets.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <figure class="case-figure">
+        <img
+          class="case-img case-img-wide"
+          src="../local-unit-test-support-flow.png"
+          alt="Local Unit Test Support flow diagram placeholder"
+        />
+        <figcaption class="case-figcaption">
+          <b>Figure 5.</b> Local Unit Test Support workflow. Replace with the flow diagram showing Git Diff Extractor, AST Parser, Vector Database, Prompt Generator, Gemini API, and Report Generator.
+        </figcaption>
+      </figure>
+
+      <figure class="case-figure">
+        <img
+          class="case-img case-img-wide"
+          src="../add-remove-update-examples.png"
+          alt="Add remove update test recommendation examples placeholder"
+        />
+        <figcaption class="case-figcaption">
+          <b>Figure 6.</b> Example recommendation outputs for adding, removing, and updating unit tests after code changes.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">System design</p>
+        <h2 class="case-h2">A structured AI pipeline, not a one-shot prompt.</h2>
+
+        <p class="case-p">
+          CoverIQ was designed around structured intermediate artifacts. Both modules convert messy inputs into stable formats before involving the LLM: Figma elements become structured UI JSON, and code changes become AST-informed change summaries with retrieved context. This makes the generated result easier to inspect, debug, and improve.
+        </p>
+
+        <p class="case-p">
+          The key design decision was to make the AI output reviewable. Test plans are exported as Markdown, BDD cases are exported as .feature files, and unit-test recommendations are exported as Markdown reports with JSON-backed reasoning. This keeps the workflow compatible with human review and existing engineering tools.
+        </p>
+
+        <div class="case-two-col">
+          <div class="case-card">
+            <p class="case-card-title">Why structured JSON?</p>
+            <p class="case-card-p">
+              JSON creates a stable bridge between UI extraction, model generation, and report formatting. It prevents the workflow from depending only on free-form text.
+            </p>
+          </div>
+
+          <div class="case-card">
+            <p class="case-card-title">Why Markdown and .feature output?</p>
+            <p class="case-card-p">
+              Markdown supports readable team review, while Gherkin .feature files allow generated scenarios to move closer to automated E2E testing.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Prototype workflow</p>
+        <h2 class="case-h2">From setup to testing output.</h2>
+
+        <p class="case-p">
+          In the prototype, the user begins by configuring API keys, then provides the Figma URL and feature information. The system generates a test plan first, allowing the user to review coverage and intent before generating BDD-style cases.
+        </p>
+
+        <p class="case-p">
+          This staged workflow was intentional. Instead of producing final test scripts immediately, the interface lets users move from design context to test plan, then from test plan to executable testing artifacts. This mirrors the way QA work is often reviewed in teams.
+        </p>
+
+        <figure class="case-figure">
+          <img
+            class="case-img case-img-wide"
+            src="../prototype-workflow.png"
+            alt="CoverIQ prototype workflow screenshot placeholder"
+          />
+          <figcaption class="case-figcaption">
+            <b>Figure 7.</b> Prototype workflow: configure keys, input Figma URL and feature description, generate test plan, then generate BDD-style test cases.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Market position</p>
+        <h2 class="case-h2">CoverIQ sits between testing coverage tools, AI coding assistants, and QA planning workflows.</h2>
+
+        <p class="case-p">
+          Existing tools often focus on one side of the testing problem. Codecov emphasizes coverage reporting. Diffblue Cover focuses on automated Java unit-test generation. Launchable supports test prioritization and flaky-test prediction. Codium AI supports AI-assisted unit-test generation across languages and IDEs.
+        </p>
+
+        <p class="case-p">
+          CoverIQ differentiates itself by connecting two under-supported areas: design-stage UI test planning and change-aware unit-test maintenance. The project does not only ask, “Can AI generate tests?” It asks, “Can AI help teams understand what should be tested, why it matters, and how the testing artifact should change as the product changes?”
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Reflection</p>
+        <h2 class="case-h2">The most important design problem was trust.</h2>
+
+        <p class="case-p">
+          AI testing tools can easily feel impressive but unreliable. For CoverIQ, the interface needed to show enough reasoning structure for QA engineers and developers to evaluate the result. That meant designing around traceable inputs, readable intermediate reports, and output formats that fit into existing workflows.
+        </p>
+
+        <p class="case-p">
+          The project also clarified a broader product-design lesson: in technical AI tools, usability is not only about making the interface simple. It is about making the system’s reasoning legible enough that expert users can decide whether to trust it.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Next steps</p>
+        <h2 class="case-h2">Moving from assistant to integrated testing workflow.</h2>
+
+        <p class="case-p">
+          The next step for the Figma UI Test Planner is to move from BDD .feature generation toward automated E2E test-code generation. The next step for Local Unit Test Support is to package the workflow into an IDE extension, such as a VS Code extension, so developers can receive test-maintenance recommendations closer to where code changes happen.
+        </p>
+
+        <p class="case-p">
+          Future development could also expand the RAG system to support coverage analysis, unit-test result analysis, and richer debugging workflows, turning CoverIQ from a testing-output generator into a broader QA decision-support platform.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Built with</p>
+        <div class="case-stack">
+          <span class="tag-pill">React</span>
+          <span class="tag-pill">TypeScript</span>
+          <span class="tag-pill">ReactFlow</span>
+          <span class="tag-pill">Tailwind CSS</span>
+          <span class="tag-pill">Vite</span>
+          <span class="tag-pill">FastAPI</span>
+          <span class="tag-pill">Python</span>
+          <span class="tag-pill">Figma API</span>
+          <span class="tag-pill">Gemini API</span>
+          <span class="tag-pill">Python AST</span>
+          <span class="tag-pill">Git Diff</span>
+          <span class="tag-pill">FAISS</span>
+          <span class="tag-pill">Pydantic</span>
+          <span class="tag-pill">Markdown</span>
+          <span class="tag-pill">Gherkin</span>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Links</p>
+        <div class="case-links">
+          <p>
+            Demo video:
+            <a href="#" target="_blank" rel="noopener">CoverIQ Demo ↗</a>
+          </p>
+          <p>
+            GitHub — Figma UI Test Planner:
+            <a href="https://github.com/CoverIQ/CoverIQ-Test-Assistant/tree/Figma-UI-Test-Planner-Demo" target="_blank" rel="noopener">View branch ↗</a>
+          </p>
+          <p>
+            GitHub — Local Unit Test Support:
+            <a href="https://github.com/CoverIQ/CoverIQ-Test-Assistant/tree/Local-Unit-Test-Support-Demo" target="_blank" rel="noopener">View branch ↗</a>
+          </p>
+        </div>
+      </section>
+
+      <section class="case-credits">
+        <dl>
+          <dt>Project</dt>
+          <dd>CoverIQ — AI Powered Software Testing Solutions</dd>
+
+          <dt>Competition context</dt>
+          <dd>3rd place in 2025 TCSE Software Engineering Competition</dd>
+
+          <dt>Core modules</dt>
+          <dd>Figma UI Test Planner; Local Unit Test Support</dd>
+
+          <dt>Output formats</dt>
+          <dd>Markdown test plans, BDD-style test-case reports, Gherkin .feature files, JSON-backed unit-test maintenance reports</dd>
+
+       </dl>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    document.addEventListener('click', e => {
+      const sb  = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+
+      if (window.innerWidth <= 860 &&
+          !sb.contains(e.target) &&
+          !btn.contains(e.target)) {
+        sb.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>

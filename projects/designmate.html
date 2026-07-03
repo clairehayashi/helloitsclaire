@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Mate · Claire Lin</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    .main { padding: 4rem 2rem 6rem; }
+    .case { max-width: 680px; margin: 0 auto; }
+
+    .case-back {
+      font-family: var(--font-caption);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: inline-block;
+      margin-bottom: 2.8rem;
+      transition: color 0.2s;
+    }
+    .case-back:hover { color: var(--text); }
+
+    .case-hero { margin-bottom: 3.4rem; }
+    .case-title {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+      white-space: nowrap;
+    }
+    .case-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #76746E;
+      letter-spacing: -0.005em;
+    }
+    .case-meta {
+      margin-top: 2rem;
+      padding-top: 1.4rem;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 2.2rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .case-meta b {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+    .case-meta span { color: var(--text); font-weight: 400; }
+
+    .case-section { margin: 3.6rem 0; }
+    .case-section-label {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+    .case-h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 1.4rem;
+    }
+    .case-h3 {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      margin: 1.8rem 0 0.55rem;
+    }
+    .case-p {
+      font-size: 1.02rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.3rem;
+    }
+    .case-p em { font-style: italic; color: var(--muted-strong); }
+    .case-p strong { color: var(--text); font-weight: 600; }
+
+    .case-callout {
+      background: var(--surface);
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--wood);
+      margin: 2.4rem 0 2.6rem;
+    }
+    .case-callout-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wood);
+      margin-bottom: 0.8rem;
+    }
+    .case-callout-text {
+      font-size: 1.14rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+
+    .case-figure { margin: 2.8rem 0; }
+    .case-figure img,
+    .case-figure video,
+    .case-figure iframe {
+      width: 100%;
+      display: block;
+      border-radius: 2px;
+    }
+    .case-figure img,
+    .case-figure video {
+      object-fit: cover;
+      background: var(--surface);
+    }
+    .case-figure iframe {
+      border: 0;
+      background: var(--surface);
+    }
+    .case-figcaption {
+      font-size: 0.82rem;
+      color: var(--muted-strong);
+      letter-spacing: 0.01em;
+      line-height: 1.55;
+      margin-top: 0.9rem;
+    }
+    .case-figcaption b { font-weight: 600; color: var(--text); margin-right: 0.3rem; }
+
+    .figure-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--thumb-bg);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 1.2rem;
+    }
+    .figure-placeholder small {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--muted-strong);
+    }
+
+    .case-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.4rem;
+    }
+    .case-tag {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-strong);
+      border: 0.5px solid var(--line);
+      border-radius: 999px;
+      padding: 0.38rem 0.62rem;
+    }
+
+    .case-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2.4rem 0 0.8rem;
+    }
+    .case-grid-2 .case-figure { margin: 0; }
+    .case-grid-2 img,
+    .case-grid-2 video,
+    .case-grid-2 .figure-placeholder { aspect-ratio: 4 / 3; }
+
+    .case-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.6rem 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .case-list li {
+      background: var(--surface);
+      border-left: 2px solid var(--wood);
+      padding: 1.2rem 1.35rem;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .case-list li strong { font-weight: 600; color: var(--text); }
+
+    .workflow-card {
+      background: var(--surface);
+      padding: 2rem 1.6rem;
+      margin: 2rem 0;
+      border-radius: 2px;
+    }
+    .workflow-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.8rem;
+      position: relative;
+    }
+    .workflow-step {
+      position: relative;
+      padding-top: 1.1rem;
+      border-top: 0.5px solid var(--line);
+    }
+    .workflow-num {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--wood);
+      margin-bottom: 0.55rem;
+    }
+    .workflow-title {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+    }
+    .workflow-desc {
+      font-size: 0.7rem;
+      line-height: 1.55;
+      color: var(--muted-strong);
+    }
+
+    .flow-table {
+      background: var(--surface);
+      padding: 1.6rem 1.7rem;
+      margin: 2rem 0;
+      border-radius: 2px;
+    }
+    .flow-row {
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 1.4rem;
+      padding: 1rem 0;
+      border-top: 0.5px solid var(--line);
+    }
+    .flow-row:first-child { border-top: 0; padding-top: 0; }
+    .flow-row:last-child { padding-bottom: 0; }
+    .flow-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--wood);
+    }
+    .flow-text {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .tech-card {
+      background: var(--surface);
+      padding: 1.25rem 1.35rem;
+      border-radius: 2px;
+      border-top: 0.5px solid var(--line);
+    }
+    .tech-card-label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+    .tech-card-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+    }
+    .tech-card p {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+      margin: 0;
+    }
+
+    .pipeline {
+      background: var(--surface);
+      padding: 1.7rem 1.8rem;
+      border-left: 2px solid var(--wood);
+      margin: 2rem 0;
+    }
+    .pipeline span {
+      display: block;
+      font-size: 0.9rem;
+      line-height: 1.9;
+      color: var(--text);
+      padding-left: 1rem;
+      border-left: 0.5px solid var(--line);
+      margin-left: 0.3rem;
+    }
+    .pipeline .pipeline-label {
+      display: inline-block;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--wood);
+      border-left: none;
+      padding-left: 0;
+      margin: 0.7rem 0 0.25rem;
+    }
+    .pipeline .pipeline-label:first-child { margin-top: 0; }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .roadmap-item {
+      background: var(--surface);
+      padding: 1.25rem 1.35rem;
+      border-radius: 2px;
+      border-top: 0.5px solid var(--line);
+    }
+    .roadmap-item strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+    }
+    .roadmap-item p {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: var(--muted-strong);
+      margin: 0;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: minmax(180px, 0.72fr) minmax(260px, 1.28fr);
+      gap: 1.2rem;
+      align-items: start;
+      margin: 2.4rem 0 0.8rem;
+    }
+    .video-grid .case-figure { margin: 0; }
+    .video-short video,
+    .video-short iframe {
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: var(--surface);
+    }
+    .video-wide video,
+    .video-wide iframe {
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: var(--surface);
+    }
+    .video-note {
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: var(--muted-strong);
+      margin-top: 1rem;
+    }
+    .code-inline {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.78em;
+      background: var(--surface);
+      padding: 0.12rem 0.28rem;
+      border-radius: 2px;
+    }
+
+    .award-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      object-position: center 82%;
+      display: block;
+      border-radius: 2px;
+    }
+
+    .case-credits {
+      margin-top: 4.4rem;
+      padding-top: 1.8rem;
+      border-top: 0.5px solid var(--line);
+      font-size: 0.84rem;
+      color: var(--muted-strong);
+      line-height: 1.9;
+    }
+    .case-credits dt {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .case-credits dt:first-child { margin-top: 0; }
+    .case-credits dd { color: var(--text); }
+    .case-credits dd em { font-style: normal; color: var(--muted-strong); }
+
+    .case-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4.4rem;
+      padding-top: 1.8rem;
+      border-top: 0.5px solid var(--line);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .case-nav a {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .case-nav a:hover { color: var(--text); }
+
+    @media (max-width: 700px) {
+      .case-title { font-size: 1.5rem; white-space: normal; }
+      .tech-grid,
+      .roadmap-grid,
+      .case-grid-2,
+      .workflow-steps,
+      .flow-row,
+      .video-grid { grid-template-columns: 1fr; }
+      .main { padding: 3rem 1.2rem 4rem; }
+      .video-short video,
+      .video-short iframe { max-height: none; }
+    }
+
+    /* ── LOGO (matched to index.html) ───────────────────────── */
+    .sidebar-name a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .sidebar-logo {
+      width: 84px;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .sidebar-name a:hover .sidebar-logo {
+      transform: scale(1.04);
+      opacity: 0.88;
+    }
+    .sidebar-name {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* ── SIDEBAR PERSONALITY LINE (matched to index.html) ───── */
+    .sidebar-tagline {
+      font-family: var(--font-caption);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SIDEBAR LINKS, arrows removed (matched to index.html) ─ */
+    .sidebar-footer a {
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    .sidebar-footer a:hover {
+      transform: translateX(2px);
+    }
+
+  </style>
+</head>
+<body>
+
+  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">Menu</button>
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      <a href="../index.html" aria-label="Claire Lin — Home">
+        <img class="sidebar-logo" src="../logo-cl.png" alt="Claire Lin" />
+      </a>
+    </div>
+
+    <p class="sidebar-tagline">
+      Open to everywhere!<br/>
+      Everything is figure-out-able.
+    </p>
+
+    <nav style="margin-top: 0.9rem;">
+      <ul class="sidebar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#gallery" class="active">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="mailto:clairelinpeach@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/clairehayashi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../resume.pdf" target="_blank">Resume</a>
+    </div>
+
+  </aside>
+
+  <!-- ══ MAIN — centered article column ═════════════════════ -->
+  <main class="main">
+    <article class="case">
+
+      <a href="../index.html#gallery" class="case-back">← Selected Work</a>
+
+      <header class="case-hero">
+        <h1 class="case-title">Design Mate</h1>
+        <p class="case-subtitle">
+          A mixed reality interior design assistant that lets users sketch furniture in space, generate design variations, and preview them directly inside their room using Meta Quest and Logitech MX Ink.
+        </p>
+        <div class="case-meta">
+          <div><b>Year</b><span>2025</span></div>
+          <div><b>Type</b><span>MR Prototype · Hackathon</span></div>
+          <div><b>Context</b><span>Logitech MR Hackathon</span></div>
+          <div><b>My role</b><span>UI/UX Design · UX Strategy · Assistant PM</span></div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">Mixed Reality</span>
+          <span class="case-tag">AI Generation</span>
+          <span class="case-tag">Spatial Computing</span>
+          <span class="case-tag">Meta Quest</span>
+          <span class="case-tag">MX Ink</span>
+        </div>
+      </header>
+
+      <section class="case-section">
+        <p class="case-section-label">Overview</p>
+        <p class="case-p">
+          In Taiwan, many people live in small rented apartments where renovation is off the table. Furniture becomes the primary and often the only way to personalize a space. Yet for most people, planning an interior layout is far from intuitive.
+        </p>
+        <p class="case-p">
+          Flat 2D floor-planning tools demand specialized knowledge, and even the best product photography rarely answers the question that matters most: <em>Will this actually look right inside my room?</em>
+        </p>
+        <p class="case-p">
+          Design Mate addresses this gap by exploring how <strong>mixed reality can transform interior planning from a technical exercise into a creative, spatial one</strong>, giving everyday renters the confidence to design on their own terms.
+        </p>
+      </section>
+
+      <figure class="case-figure">
+        <img src="../designmateperson.jpg" alt="A person wearing a mixed reality headset sketches furniture in a warm apartment interior" style="aspect-ratio: 4 / 3;" />
+        <figcaption class="case-figcaption">
+          <b>Figure 1.</b> Design Mate in action. Users sketch furniture directly in mixed reality space, then preview the result inside their physical room.
+        </figcaption>
+      </figure>
+
+      <section class="case-section">
+        <p class="case-section-label">The question</p>
+
+        <div class="case-callout">
+          <p class="case-callout-label">Design question</p>
+          <p class="case-callout-text">
+            How might mixed reality let renters design furniture from their own spatial imagination instead of forcing them to browse fixed catalogs or flat planning tools?
+          </p>
+        </div>
+
+        <p class="case-p">
+          Most AR furniture tools are built around selection: browse a catalog, point a device at a corner, and place a pre-existing product. Design Mate takes the opposite approach. Creation comes first. Users define the furniture concept through drawing, then the system helps resolve that sketch into a usable spatial object.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Concept</p>
+        <h2 class="case-h2">Sketch first, generate second, place at real scale.</h2>
+
+        <p class="case-p">
+          Design Mate is a <strong>mixed reality interior design assistant</strong> that collapses the gap between imagination and reality. Instead of browsing fixed product catalogs, users draw rough furniture shapes in space, and the system turns those sketches into AI-generated design options, instantly previewable inside their physical room.
+        </p>
+        <p class="case-p">
+          The concept is built around a single repeatable loop that keeps creative momentum high and decision friction low.
+        </p>
+
+        <div class="workflow-card">
+          <div class="workflow-steps">
+            <div class="workflow-step">
+              <div class="workflow-num">01</div>
+              <div class="workflow-title">Draw</div>
+              <div class="workflow-desc">Sketch shapes in space with MX Ink.</div>
+            </div>
+            <div class="workflow-step">
+              <div class="workflow-num">02</div>
+              <div class="workflow-title">Generate</div>
+              <div class="workflow-desc">AI produces furniture design variations.</div>
+            </div>
+            <div class="workflow-step">
+              <div class="workflow-num">03</div>
+              <div class="workflow-title">Select</div>
+              <div class="workflow-desc">Choose the design closest to the user’s intent.</div>
+            </div>
+            <div class="workflow-step">
+              <div class="workflow-num">04</div>
+              <div class="workflow-title">Place</div>
+              <div class="workflow-desc">Convert it into a 3D model and position it in the room.</div>
+            </div>
+            <div class="workflow-step">
+              <div class="workflow-num">05</div>
+              <div class="workflow-title">Capture</div>
+              <div class="workflow-desc">Save the scene for reference or sharing.</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="case-p">
+          This loop transforms interior planning from a static, tool-dependent task into an <strong>iterative creative exploration:</strong> something anyone can do, regardless of design background.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Interaction model</p>
+        <h2 class="case-h2">From a rough gesture to a placed object.</h2>
+
+        <p class="case-p">
+          The interaction begins with the Logitech MX Ink stylus. Users sketch the outline of a furniture idea directly in mixed reality space. For example, the height of a table, the curve of a chair, or the rough footprint of a shelf. Precision is not required. The goal is to capture proportion, intention, and spatial context rather than produce a polished drawing.
+        </p>
+
+        <p class="case-p">
+          After the sketch is confirmed, the system captures it as an image, sends it into the generation pipeline, and returns several 2D furniture candidates. The user then selects the option that best matches what they imagined. Once selected, the image is converted into a 3D mesh and loaded back into the MR scene.
+        </p>
+
+        <div class="case-callout">
+          <p class="case-callout-label">Core interaction</p>
+          <p class="case-callout-text">
+            Sketch in space → generate furniture options → select one design → convert it into a 3D model → place it in the room.
+          </p>
+        </div>
+
+        <figure class="case-figure">
+          <img src="../designmate-user-flow.jpg" alt="Design Mate user flow showing sketch input, AI image generation, and 3D furniture output" style="aspect-ratio: 16 / 9;" />
+          <figcaption class="case-figcaption">
+            <b>Figure 2.</b> User-facing flow. A rough furniture sketch is captured through MX Ink, converted into AI-generated 2D design options, then transformed into a 3D object that can be placed back into the room.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Multimodality in use</p>
+        <h2 class="case-h2">The interface depends on movement, not menus.</h2>
+
+        <p class="case-p">
+          Design Mate combines several forms of input in one continuous interaction. The MX Ink stylus handles sketching because it feels closer to drawing than operating software. Spatial movement lets users judge scale and proportion by walking around the room. Simple hand or controller actions are reserved for confirmation, resizing, switching options, and viewpoint capture.
+        </p>
+
+        <div class="flow-table">
+          <div class="flow-row">
+            <div class="flow-label">MX Ink stylus</div>
+            <div class="flow-text">Sketch furniture outlines in 3D space. The drawing does not need to be precise; it only needs to communicate shape, scale, and intent.</div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-label">Spatial movement</div>
+            <div class="flow-text">Walk naturally around the room to evaluate designs from multiple angles, instead of rotating a model on a flat screen.</div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-label">Simple controls</div>
+            <div class="flow-text">Use hand or controller input to confirm sketches, resize objects, switch options, and keep the main creative loop lightweight.</div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-label">Viewpoint capture</div>
+            <div class="flow-text">Move to the best angle, take a screenshot, and send the scene to the backend for saving or sharing.</div>
+          </div>
+        </div>
+
+        <figure class="case-figure">
+          <img src="../designmate-multimodality.jpg" alt="Slide explaining multimodal interaction with MX Ink stylus, spatial movement, simple controls, and viewpoint capture" style="aspect-ratio: 16 / 9;" />
+          <figcaption class="case-figcaption">
+            <b>Figure 3.</b> Multimodality in use. The interaction is distributed across stylus input, bodily movement, simple confirmation controls, and final viewpoint capture.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">System flow</p>
+        <h2 class="case-h2">A bridge between sketch, image, and mesh.</h2>
+
+        <p class="case-p">
+          Behind the interaction is a three-stage pipeline. First, the spatial sketch is simplified into a clean line mask. Second, the mask is used to generate a furniture image that preserves the user’s rough proportions. Third, the selected image is converted into a 3D mesh that Unity can load into the mixed reality scene.
+        </p>
+
+        <p class="case-p">
+          This structure helped us separate the creative and technical responsibilities of the system. The sketch captures user intention. The image generation stage explores visual form. The mesh conversion stage turns the chosen design into a spatial asset. Each stage has a clear role, which made the prototype easier to build, debug, and explain during the hackathon.
+        </p>
+
+        <figure class="case-figure">
+          <img src="../designmate-high-level-flow.jpg" alt="High-level flow from sketch line to line mask, generated image, mesh, and 3D object" style="aspect-ratio: 16 / 9;" />
+          <figcaption class="case-figcaption">
+            <b>Figure 4.</b> High-level pipeline. The user’s sketch becomes a mask, the mask becomes a generated furniture image, and the selected image becomes a 3D object for mixed reality placement.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Technical flow</p>
+        <h2 class="case-h2">Converting a selected image into a usable 3D asset.</h2>
+
+        <p class="case-p">
+          The most technically fragile part of the prototype was the image-to-mesh conversion. Once the user selected a generated furniture image, the system converted that image into a base64 string and sent it to the Meshy API. Meshy returned a task ID rather than an immediate model, so the prototype needed to repeatedly check whether the conversion had finished.
+        </p>
+
+        <p class="case-p">
+          When the task status returned as complete, the generated 3D file was downloaded and loaded into Unity. If the task was not ready, the system continued polling until the mesh became available. This asynchronous structure allowed us to keep the user flow simple while handling the longer processing time required for 3D generation in the background.
+        </p>
+
+        <p class="case-p">
+          For a hackathon prototype, this pipeline was enough to demonstrate the full concept: a user could draw an idea, generate furniture options, select one, and see a 3D version appear in their room. The result was not only a technical proof of concept, but a working interaction loop that made spatial furniture design feel approachable.
+        </p>
+
+        <figure class="case-figure">
+          <img src="../designmate-technical-flow.jpg" alt="Technical flow showing image conversion to base64, Meshy API task ID, polling status, and loading the 3D object" style="aspect-ratio: 16 / 9;" />
+          <figcaption class="case-figcaption">
+            <b>Figure 5.</b> Image-to-mesh flow. The selected image is encoded, sent to Meshy, processed asynchronously through a task ID, then downloaded and loaded as a 3D object in Unity.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Prototype development</p>
+        <h2 class="case-h2">A working MR prototype, not only a concept video.</h2>
+
+        <p class="case-p">
+          A functional prototype was built in <strong>Unity for Meta Quest</strong>, integrating spatial sketch input, AI generation, and real-time 3D model placement into a single MR environment. The goal was not just to prove the concept technically, but to produce something testable enough to reveal where the experience holds and where it breaks.
+        </p>
+
+        <ul class="case-list">
+          <li><strong>Sketch-based design input</strong> via the Logitech MX Ink stylus in 3D space.</li>
+          <li><strong>AI-generated furniture variations</strong> produced from the captured sketch or mask.</li>
+          <li><strong>Automatic 3D model conversion</strong> from selected 2D output via Meshy API.</li>
+          <li><strong>Spatial placement</strong> of the generated model within the user’s physical environment.</li>
+        </ul>
+
+        <div class="case-grid-2">
+          <figure class="case-figure">
+            <img src="../designmate-prototype.jpg" alt="Unity mixed reality prototype build for Design Mate" />
+          </figure>
+          <figure class="case-figure">
+            <img src="../designmate-testing.jpg" alt="In-headset user testing for the Design Mate prototype" />
+          </figure>
+        </div>
+        <p class="case-figcaption">
+          <b>Figure 6.</b> Unity MR prototype build and in-headset testing.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Key innovation</p>
+        <h2 class="case-h2">Creation comes before selection.</h2>
+
+        <p class="case-p">
+          Design Mate inverts the usual AR furniture pattern. Instead of selecting from pre-existing products first, users define the furniture concept through their own sketch. The system then generates what that intent might look like as a real object.
+        </p>
+
+        <ul class="case-list">
+          <li><strong>User-driven creation.</strong> Users sketch their own furniture shapes rather than selecting from pre-existing products. The design space is open from the first interaction.</li>
+          <li><strong>AI-generated design variations.</strong> Sketches are converted into coherent design options through generative AI, turning rough spatial input into visually resolved proposals.</li>
+          <li><strong>Mixed reality placement.</strong> Selected furniture is placed at full scale inside the user’s actual room, allowing spatial inspection that no flat image or floor plan can replicate.</li>
+        </ul>
+
+        <p class="case-p">
+          Together, these shifts reframe MR from a <em>visualization tool</em> into a <em>creative design environment</em>; one that meets users at the level of intent, not catalog literacy.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Technology & system architecture</p>
+        <h2 class="case-h2">MR hardware, generative output, and 3D conversion in one loop.</h2>
+
+        <p class="case-p">
+          The prototype integrates MR hardware, a generative AI pipeline, and a 3D mesh conversion service into a unified real-time environment.
+        </p>
+
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-card-label">Hardware</div>
+            <div class="tech-card-name">Meta Quest</div>
+            <p>Provides the spatial computing environment. Furniture models are rendered and placed within the user’s room at scale.</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-card-label">Input device</div>
+            <div class="tech-card-name">Logitech MX Ink</div>
+            <p>Primary sketch input in MR space. Enables precise spatial drawing that captures furniture outline and proportion.</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-card-label">Development</div>
+            <div class="tech-card-name">Unity</div>
+            <p>Manages rendering, spatial object placement, and coordination between sketch input, AI generation, and asset integration.</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-card-label">AI generation</div>
+            <div class="tech-card-name">Nano Banana</div>
+            <p>Generates furniture design variations from sketch input and converts rough outlines into visually resolved candidates.</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-card-label">3D conversion</div>
+            <div class="tech-card-name">Meshy API</div>
+            <p>Image-to-mesh pipeline that converts the selected AI-generated design into a 3D model ready for placement in Unity.</p>
+          </div>
+        </div>
+
+        <h3 class="case-h3">Full pipeline</h3>
+        <div class="pipeline">
+          <span class="pipeline-label">Input</span>
+          <span>User sketches furniture in MR space using MX Ink</span>
+          <span>↓ Sketch captured as 2D image or mask data</span>
+          <span class="pipeline-label">AI generation</span>
+          <span>↓ Nano Banana generates design variations</span>
+          <span>↓ User selects preferred option</span>
+          <span class="pipeline-label">3D conversion</span>
+          <span>↓ Meshy API converts selected image → 3D mesh</span>
+          <span>↓ Mesh imported into Unity</span>
+          <span class="pipeline-label">Spatial output</span>
+          <span>↓ Furniture placed inside user’s physical room via MR</span>
+          <span>↓ Scene captured / saved to backend</span>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">My contribution</p>
+        <h2 class="case-h2">Design direction, interaction structure, and team alignment.</h2>
+
+        <p class="case-p">
+          Working across design and coordination, I held the dual responsibility of shaping the user experience and keeping the team’s moving parts aligned throughout the hackathon. In a compressed timeline, that combination matters: a well-designed experience falls apart if the components are not integrated, and integration without design direction produces something technically functional but experientially incoherent.
+        </p>
+
+        <h3 class="case-h3">UX strategy & interface design</h3>
+        <p class="case-p">
+          I led the definition of the interaction model, establishing how the five-step workflow should feel at each transition and which friction points mattered most to eliminate. The guiding principle was that the interface should never ask users to think in design terms; it should <strong>translate intent into spatial outcome</strong> without requiring background knowledge.
+        </p>
+        <p class="case-p">
+          Interface components were designed to guide users through a process that is unfamiliar by nature, in this case sketching furniture in 3D space, while keeping the experience exploratory rather than procedural. Visual hierarchy, spatial cues, and progressive disclosure were used to reduce cognitive load at each stage.
+        </p>
+
+        <h3 class="case-h3">MR interaction flow design</h3>
+        <p class="case-p">
+          I translated the project concept into a structured interaction map, defining how spatial sketching, AI generation, and MR placement connect as a continuous experience rather than disconnected steps. This included identifying where handoffs between the user and the system needed to feel seamless, and where deliberate pauses should be implemented through thorough UX, allowing the user to observe before acting — was part of the design.
+        </p>
+
+        <h3 class="case-h3">Project coordination</h3>
+        <p class="case-p">
+          Alongside design work, I helped maintain coherence across the team’s parallel workstreams: design, technical development, and presentation. This meant tracking dependencies, surfacing integration issues early, and ensuring that the prototype demonstration was structured to communicate the concept clearly, not just show that it ran.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Future development</p>
+        <h2 class="case-h2">The next version would make the room feel more editable.</h2>
+
+        <p class="case-p">
+          Several directions are currently under consideration for the next iteration of Design Mate.
+        </p>
+
+        <div class="roadmap-grid">
+          <div class="roadmap-item">
+            <strong>Rendering optimization</strong>
+            <p>Bridge visual quality gaps between Unity development environments and Meta Quest deployment.</p>
+          </div>
+          <div class="roadmap-item">
+            <strong>Expanded UI system</strong>
+            <p>Style preferences, object naming, and furniture category customization surfaced progressively.</p>
+          </div>
+          <div class="roadmap-item">
+            <strong>Object manipulation tools</strong>
+            <p>Resize, rotate, and reposition generated models within MR space after placement.</p>
+          </div>
+          <div class="roadmap-item">
+            <strong>Reference image input</strong>
+            <p>Generate furniture concepts from inspiration photos, not only spatial sketches.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <p class="case-section-label">Demo</p>
+        <h2 class="case-h2">Prototype walkthroughs.</h2>
+        <p class="case-p">
+          The short-form demo is useful for showing the interaction quickly on mobile. The full walkthrough is better for explaining the complete pipeline from sketch input to generated 3D placement.
+        </p>
+
+        <div class="video-grid">
+          <figure class="case-figure video-short">
+            <video src="../designmate-short-demo.mp4" controls playsinline preload="metadata" poster="../designmate-short-poster.jpg"></video>
+            <figcaption class="case-figcaption">
+              <b>Figure 7.</b> Short demo of drawing.</figcaption>
+          </figure>
+
+          <figure class="case-figure video-wide">
+            <video src="../designmate-full-demo.mp4" controls playsinline preload="metadata" poster="../designmate-full-poster.jpg"></video>
+            <figcaption class="case-figcaption">
+              <b>Figure 8.</b> Render walkthrough.</figcaption>
+          </figure>
+        </div>
+
+        <figure class="case-figure">
+        <img
+          src="../designmate-group-photo.jpg"
+          alt="Design Mate team receiving 3rd place at the Meichu Hackathon Logitech internal competition"
+          class="award-photo"
+        />
+        <figcaption class="case-figcaption">
+          Design Mate team receiving <em>3rd place</em> at the Meichu Hackathon, Logitech internal competition. Sep 2025.
+        </figcaption>
+      </figure>
+      
+      </section>
+
+      <dl class="case-credits">
+        <dt>Team</dt>
+        <dd>林揚森 (Yangsen Lin), 黃昱傑 (Yujie Huang) , 游昕浩 (Xinhao You) , 林穎沛 (Yingpei Lin)</dd>
+        <dt>Tools</dt>
+        <dd>Meta Quest · Logitech MX Ink · Unity · Nano Banana · Meshy API</dd>
+        <dt>My role</dt>
+        <dd>UI/UX Design · UX Strategy · MR Interaction Flow Design · Assistant Project Management · Presentation Narrative</dd>
+      </dl>
+     
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    document.addEventListener('click', e => {
+      const sb  = document.getElementById('sidebar');
+      const btn = document.querySelector('.mobile-toggle');
+      if (window.innerWidth <= 860 &&
+          !sb.contains(e.target) &&
+          !btn.contains(e.target)) {
+        sb.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>
